@@ -71,6 +71,7 @@ public class graphGui extends JFrame {
 		DefaultGraphCell cell = jGraphModelAdapter.getVertexCell(vertex);
 		Map attr = cell.getAttributes();
 		Rectangle2D b = GraphConstants.getBounds(attr);
+		
 
 		GraphConstants.setBounds(attr, new Rectangle(x, y, (int) b.getWidth(),
 				(int) b.getHeight()));
