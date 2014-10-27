@@ -7,25 +7,23 @@ import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JApplet;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.jgraph.JGraph;
 import org.jgraph.graph.DefaultEdge;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphConstants;
-import org.jgraph.graph.GraphModel;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.ListenableDirectedGraph;
 
 public class graphGui extends JFrame {
-	private GraphModel graphModel;
 	private JGraphModelAdapter jGraphModelAdapter;
+	private JGraph jGraph;
 
-
-	private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
-	private static final Dimension DEFAULT_SIZE = new Dimension(600, 400);
+	private static final Color DEFAULT_BG_COLOR = Color.decode("#c7d2ff");
+	private static final Dimension DEFAULT_SIZE = new Dimension(400, 400);
 
 	public graphGui() {
 		createGraph();
@@ -36,18 +34,22 @@ public class graphGui extends JFrame {
 		mainWindow.setSize(750, 500);
 		mainWindow.setVisible(true);
 		mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
-		
+
+		JPanel graphWindow = new JPanel();
+		graphWindow.setSize(150, 150);
+		graphWindow.setVisible(true);
+		mainWindow.getContentPane().add(graphWindow);
+
 		// create a JGraphT graph
 		ListenableGraph g = new ListenableDirectedGraph(DefaultEdge.class);
 
 		// create a visualization using JGraph, via an adapter
 		jGraphModelAdapter = new JGraphModelAdapter(g);
-		
 
-		JGraph jgraph = new JGraph(jGraphModelAdapter);
+		jGraph = new JGraph(jGraphModelAdapter);
 
-		adjustDisplaySettings(jgraph);
-		mainWindow.getContentPane().add(jgraph);
+		graphColorChanges(jGraph);
+		graphWindow.add(jGraph);
 		resize(DEFAULT_SIZE);
 
 		// add some sample data (graph manipulated via JGraphT)
@@ -83,14 +85,14 @@ public class graphGui extends JFrame {
 		jGraphModelAdapter.edit(cellAttr, null, null, null);
 	}
 
-	private void adjustDisplaySettings(JGraph jg) {
-		jg.setPreferredSize(DEFAULT_SIZE);
+	private void graphColorChanges(JGraph jGraph) {
+		jGraph.setPreferredSize(DEFAULT_SIZE);
 
 		Color c = DEFAULT_BG_COLOR;
 		String colorStr = null;
 
 		try {
-//			colorStr = getParameter( "bgcolor" );
+			// colorStr = getParameter( "bgcolor" );
 		} catch (Exception e) {
 		}
 
@@ -98,7 +100,7 @@ public class graphGui extends JFrame {
 			c = Color.decode(colorStr);
 		}
 
-		jg.setBackground(c);
+		jGraph.setBackground(c);
 	}
 
 }

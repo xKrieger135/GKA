@@ -1,5 +1,7 @@
 package Gui;
 
+import org.jgrapht.Graph;
+
 public class MyParser {
 	public MyParser(Graph graph) {
 		
