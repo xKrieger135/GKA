@@ -20,9 +20,10 @@ import org.jgrapht.graph.ListenableDirectedGraph;
 public class graphGui extends JFrame {
 	private JGraphModelAdapter<String, DefaultEdge> jGraphModelAdapter;
 	private JGraph jGraph;
+	private Controller controller;
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#c7d2ff");
-	private static final Dimension DEFAULT_SIZE = new Dimension(750, 500);
+	private static final Dimension DEFAULT_SIZE = new Dimension(400, 400);
 
 	public graphGui() {
 		createGraph();
@@ -71,10 +72,11 @@ public class graphGui extends JFrame {
 		DefaultGraphCell cell = jGraphModelAdapter.getVertexCell(vertex);
 		Map attr = cell.getAttributes();
 		Rectangle2D nodeForm = GraphConstants.getBounds(attr);
-		
 
-		GraphConstants.setBounds(attr, new Rectangle(x, y, (int) nodeForm.getWidth(),
-				(int) nodeForm.getHeight()));
+		GraphConstants.setBounds(
+				attr,
+				new Rectangle(x, y, (int) nodeForm.getWidth(), (int) nodeForm
+						.getHeight()));
 
 		Map cellAttr = new HashMap();
 		cellAttr.put(cell, attr);
