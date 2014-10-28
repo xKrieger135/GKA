@@ -8,21 +8,21 @@ public class GewichteteKanten extends DefaultEdge{
 	private boolean directed;
 	
 
-//	private int gewicht;
-//
-//	public int getGewicht() {
-//		return gewicht;
-//	}
-//
-//	public void setGewicht(int gewicht) {
-//		this.gewicht = gewicht;
-//	}
+	private int gewicht;
+
+	public int getGewicht() {
+		return gewicht;
+	}
+
+	public void setGewicht(int gewicht) {
+		this.gewicht = gewicht;
+	}
 	
 	public String toString() {
-		if(directed && getWeight() == null) {
-			return "gerichtet" + getWeight();
+		if(directed) {
+			return "gerichtet" + getGewicht();
 		} else {
-			return "ungerichtet" + getWeight();
+			return "ungerichtet" + getGewicht();
 		}
 	}
 	

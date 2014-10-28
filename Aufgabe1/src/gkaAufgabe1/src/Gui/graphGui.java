@@ -17,6 +17,8 @@ import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.ListenableDirectedGraph;
 
+import com.mxgraph.view.mxGraph;
+
 public class graphGui extends JFrame {
 	private JGraphModelAdapter<String, DefaultEdge> jGraphModelAdapter;
 	private JGraph jGraph;
@@ -36,11 +38,11 @@ public class graphGui extends JFrame {
 		mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
 
 		// create a JGraphT graph
-		ListenableGraph<String, DefaultEdge> g = new ListenableDirectedGraph<String, DefaultEdge>(
+		ListenableGraph<String, DefaultEdge> graph = new ListenableDirectedGraph<String, DefaultEdge>(
 				DefaultEdge.class);
 
 		// create a visualization using JGraph, via an adapter
-		jGraphModelAdapter = new JGraphModelAdapter<String, DefaultEdge>(g);
+		jGraphModelAdapter = new JGraphModelAdapter<String, DefaultEdge>(graph);
 
 		jGraph = new JGraph(jGraphModelAdapter);
 
@@ -48,18 +50,19 @@ public class graphGui extends JFrame {
 		mainWindow.getContentPane().add(jGraph);
 		setSize(DEFAULT_SIZE);
 
-		// add some sample data (graph manipulated via JGraphT)
-		g.addVertex("v1");
-		g.addVertex("v2");
-		g.addVertex("v3");
-		g.addVertex("v4");
+//Hier werden die Knoten V1-V4 hinzugefügt
+		graph.addVertex("v1");
+		graph.addVertex("v2");
+		graph.addVertex("v3");
+		graph.addVertex("v4");
 
-		g.addEdge("v1", "v2");
-		g.addEdge("v2", "v3");
-		g.addEdge("v1", "v4");
-		g.addEdge("v4", "v3");
+//		Hier werden die Kanten zwischen den verschiedenen Knoten eingefügt
+		graph.addEdge("v1", "v2");
+		graph.addEdge("v2", "v3");
+		graph.addEdge("v1", "v4");
+		graph.addEdge("v4", "v3");
 
-		// position vertices nicely within JGraph component
+//Position der Knoten
 		positionVertexAt("v1", 130, 40);
 		positionVertexAt("v2", 60, 200);
 		positionVertexAt("v3", 310, 230);

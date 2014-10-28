@@ -2,4 +2,7 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="Gui.graphGui"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
+<fullyQualifiedTypeName name="org.jgrapht.ext.JGraphXAdapter"/>
+<fullyQualifiedTypeName name="com.mxgraph.view.mxGraph"/>
+<fullyQualifiedTypeName name="org.jgraph.JGraph"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;g&apos; in &apos;Gui.graphGui.createGraph()&apos; to &apos;graph&apos;&#x0D;&#x0A;- Original project: &apos;gkaAufgabe1&apos;&#x0D;&#x0A;- Original element: &apos;Gui.graphGui.createGraph().g&apos;&#x0D;&#x0A;- Renamed element: &apos;g&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;g&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;Gui{graphGui.java[graphGui~createGraph@g!1109!1223!1146!1146!QListenableGraph\&lt;QString;QDefaultEdge;&gt;;!0!false" name="graph" references="true" stamp="1414516113154" version="1.0"/>
+</session>
