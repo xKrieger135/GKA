@@ -5,4 +5,8 @@
 <fullyQualifiedTypeName name="org.jgrapht.ext.JGraphXAdapter"/>
 <fullyQualifiedTypeName name="com.mxgraph.view.mxGraph"/>
 <fullyQualifiedTypeName name="org.jgraph.JGraph"/>
+<fullyQualifiedTypeName name="com.jgraph.layout.tree.JGraphTreeLayout"/>
+<fullyQualifiedTypeName name="java.io.FileReader"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.util.regex.Pattern"/>
 </qualifiedTypeNameHistroy>

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,18 +18,18 @@ import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.ListenableDirectedGraph;
 
-import com.mxgraph.view.mxGraph;
-
 public class graphGui extends JFrame {
 	private JGraphModelAdapter<String, DefaultEdge> jGraphModelAdapter;
 	private JGraph jGraph;
 	private Controller controller;
+	
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#c7d2ff");
 	private static final Dimension DEFAULT_SIZE = new Dimension(400, 400);
 
 	public graphGui() {
 		createGraph();
+		
 	}
 
 	private void createGraph() {
@@ -37,11 +38,11 @@ public class graphGui extends JFrame {
 		mainWindow.setVisible(true);
 		mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
 
-		// create a JGraphT graph
+// Hier wird ein gerichteter graph erstellt
 		ListenableGraph<String, DefaultEdge> graph = new ListenableDirectedGraph<String, DefaultEdge>(
 				DefaultEdge.class);
 
-		// create a visualization using JGraph, via an adapter
+// mit dem JgraphmodelAdapter werden die JGraphT Graphen dargestellt
 		jGraphModelAdapter = new JGraphModelAdapter<String, DefaultEdge>(graph);
 
 		jGraph = new JGraph(jGraphModelAdapter);
