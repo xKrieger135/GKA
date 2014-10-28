@@ -22,7 +22,7 @@ public class graphGui extends JFrame {
 	private JGraph jGraph;
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#c7d2ff");
-	private static final Dimension DEFAULT_SIZE = new Dimension(400, 400);
+	private static final Dimension DEFAULT_SIZE = new Dimension(750, 500);
 
 	public graphGui() {
 		createGraph();
@@ -70,11 +70,11 @@ public class graphGui extends JFrame {
 	private void positionVertexAt(Object vertex, int x, int y) {
 		DefaultGraphCell cell = jGraphModelAdapter.getVertexCell(vertex);
 		Map attr = cell.getAttributes();
-		Rectangle2D b = GraphConstants.getBounds(attr);
+		Rectangle2D nodeForm = GraphConstants.getBounds(attr);
 		
 
-		GraphConstants.setBounds(attr, new Rectangle(x, y, (int) b.getWidth(),
-				(int) b.getHeight()));
+		GraphConstants.setBounds(attr, new Rectangle(x, y, (int) nodeForm.getWidth(),
+				(int) nodeForm.getHeight()));
 
 		Map cellAttr = new HashMap();
 		cellAttr.put(cell, attr);
