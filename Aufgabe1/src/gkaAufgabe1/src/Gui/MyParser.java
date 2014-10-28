@@ -41,7 +41,7 @@ public class MyParser {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(readGraphFromFile(graph1.txt));
+		//System.out.println(readGraphFromFile(graph1.txt));
 	}
 //	renderedge methode
 //	bekommt eine dateizeile -> Kanten
