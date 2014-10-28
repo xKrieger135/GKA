@@ -14,8 +14,8 @@ import org.jgrapht.graph.ListenableUndirectedGraph;
 
 public class MyParser {
 	
-	public MyParser() {
-		
+	public MyParser(File file) {
+		matcherVariable = readGraphFromFile(file);
 	}
 
 	public static final Pattern JAVAREGEX = Pattern
@@ -54,9 +54,9 @@ public class MyParser {
 		}
 
 		while (matcher.find()) {
-			String nodeStart = matcher.group(1);
-			String nodeEnd = matcher.group(3);
-			String edge = matcher.group(2);
+			String nodeStart = matcher.group(0);
+			String nodeEnd = matcher.group(2);
+			String edge = matcher.group(1);
 
 			graph.addVertex(nodeStart);
 
@@ -69,7 +69,7 @@ public class MyParser {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(parseTextFromTextFileToGraph());
+		par
 	}
 
 	// renderedge methode

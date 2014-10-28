@@ -13,14 +13,13 @@ import org.jgrapht.graph.ListenableDirectedGraph;
 import org.jgrapht.graph.ListenableUndirectedGraph;
 
 public class MyParser {
-	
 	public MyParser() {
-		
+
 	}
 
 	public static final Pattern JAVAREGEX = Pattern
 			.compile("([a-z_A-Z_0-9]+) ?(-(>|-)) ?([a-z_A-Z_0-9]+);");
-	private  static String matcherVariable = "";
+	private String matcherVariable = "";
 
 	private static String readGraphFromFile(File file) {
 		BufferedReader reader = null;
@@ -41,35 +40,29 @@ public class MyParser {
 		return "";
 	}
 
-	public static Graph<String, DefaultEdge> parseTextFromTextFileToGraph() {
+	private Graph<String, DefaultEdge> parseTextFromTextFileToGraph() {
 		Matcher matcher = JAVAREGEX.matcher(matcherVariable);
 		Graph<String, DefaultEdge> graph;
-
-		if (matcherVariable.contains("--")) {
-			graph = new ListenableDirectedGraph<String, DefaultEdge>(
-					DefaultEdge.class);
+		
+		if(matcherVariable.contains("--")) {
+			graph = new ListenableDirectedGraph<String, DefaultEdge>(DefaultEdge.class);
 		} else {
-			graph = new ListenableUndirectedGraph<String, DefaultEdge>(
-					DefaultEdge.class);
+			graph = new ListenableUndirectedGraph<String, DefaultEdge>(DefaultEdge.class);
 		}
-
-		while (matcher.find()) {
-			String nodeStart = matcher.group(1);
-			String nodeEnd = matcher.group(3);
-			String edge = matcher.group(2);
-
+		
+		while(matcher.find()) {
+			String nodeStart = matcher.group(0);
+			String nodeEnd = matcher.group(2);
+			String edge = matcher.group(1);
+			
 			graph.addVertex(nodeStart);
-
-			if (nodeEnd != null) {
+			
+			if(nodeEnd != null) {
 				graph.addVertex(nodeEnd);
 				graph.addEdge(nodeStart, nodeEnd);
 			}
 		}
 		return graph;
-	}
-	
-	public static void main(String[] args) {
-		System.out.println(parseTextFromTextFileToGraph());
 	}
 
 	// renderedge methode

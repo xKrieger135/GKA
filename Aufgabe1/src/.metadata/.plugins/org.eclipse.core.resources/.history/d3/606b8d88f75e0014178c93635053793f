@@ -14,19 +14,19 @@ import org.jgrapht.graph.ListenableUndirectedGraph;
 
 public class MyParser {
 	
-	public MyParser() {
-		
+	public MyParser(File file) {
+		matcherVariable = readGraphFromFile();
 	}
 
 	public static final Pattern JAVAREGEX = Pattern
 			.compile("([a-z_A-Z_0-9]+) ?(-(>|-)) ?([a-z_A-Z_0-9]+);");
 	private  static String matcherVariable = "";
 
-	private static String readGraphFromFile(File file) {
+	private static String readGraphFromFile() {
 		BufferedReader reader = null;
 
 		try {
-			reader = new BufferedReader(new FileReader(file));
+			reader = new BufferedReader(new FileReader("C:/Users/Paddy-Gaming/Downloads/graph1.gka"));
 			String fileLines = "";
 			String actualLine;
 			while ((actualLine = reader.readLine()) != null) {

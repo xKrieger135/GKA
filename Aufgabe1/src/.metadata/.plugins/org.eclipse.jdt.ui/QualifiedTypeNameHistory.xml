@@ -9,4 +9,10 @@
 <fullyQualifiedTypeName name="java.io.FileReader"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="java.util.regex.Pattern"/>
+<fullyQualifiedTypeName name="org.jgrapht.Graph"/>
+<fullyQualifiedTypeName name="org.jgrapht.graph.ListenableDirectedGraph"/>
+<fullyQualifiedTypeName name="org.jgrapht.UndirectedGraph"/>
+<fullyQualifiedTypeName name="org.jgrapht.graph.ListenableUndirectedGraph"/>
+<fullyQualifiedTypeName name="org.jgraph.graph.DefaultEdge"/>
+<fullyQualifiedTypeName name="Gui.MyParser"/>
 </qualifiedTypeNameHistroy>
