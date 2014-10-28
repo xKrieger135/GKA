@@ -54,13 +54,6 @@ public class MyParser {
 			String nodeStart = matcher.group(0);
 			String nodeEnd = matcher.group(2);
 			String edge = matcher.group(1);
-			
-			graph.addVertex(nodeStart);
-			
-			if(nodeEnd != null) {
-				graph.addVertex(nodeEnd);
-				graph.addEdge(nodeStart, nodeEnd);
-			}
 		}
 		return graph;
 	}
