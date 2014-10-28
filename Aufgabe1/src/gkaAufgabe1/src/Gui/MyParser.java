@@ -37,7 +37,13 @@ public class MyParser {
 		return "";
 	}
 	
+<<<<<<< HEAD
 
+=======
+	public static void main(String[] args) {
+		//System.out.println(readGraphFromFile(graph1.txt));
+	}
+>>>>>>> origin/master
 //	renderedge methode
 //	bekommt eine dateizeile -> Kanten
 //	http://openbook.galileocomputing.de/javainsel/javainsel_15_004.html#dodtpac233475-9da3-4cec-9eab-d68a36830773 file reader

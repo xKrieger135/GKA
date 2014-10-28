@@ -12,7 +12,7 @@ public class BreadthFirstSearchAlgorithmus {
 	
 //	private ListenableGraph<String, DefaultEdge> myGraph = graphGui.saveCreatedGraph();
 	
-	public int superSearch(ListenableGraph<String, DefaultEdge> graph, String start, String end) {
+	public void superSearch(ListenableGraph<String, DefaultEdge> graph, String start, String end) {
 		start = "V1";
 		end = "V3";
 		int nachbarCounter = 0;
