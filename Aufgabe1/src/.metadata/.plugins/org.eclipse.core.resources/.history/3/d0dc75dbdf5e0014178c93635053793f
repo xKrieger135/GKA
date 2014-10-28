@@ -18,26 +18,30 @@ public class MyParser {
 	
 //	loadGraphFromFile methode
 //	Filename übergeben alsd parameter
-	private static String readGraphFromFile(File file) {
+	private static String readGraphFromFile() {
 		BufferedReader reader = null;
 		
 		try {
-			reader = new BufferedReader(new FileReader(file));
+			reader = new BufferedReader(new FileReader("D:/Dropbox/Dropbox/HAW-Semester/HAW/Semester3/Graphentheorie und Algorithmen/Praktikum/Aufgabe 1/GKA/Aufgabe1/Beispielgraphen/graph1.gka"));
 			String fileLines = "";
 			String actualLine;
 			while((actualLine = reader.readLine()) != null) {
 				fileLines = actualLine + "\n";
+				System.out.println(fileLines);
 			}
 			
 			return fileLines;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+//			e.printStackTrace();
 			System.out.println("Datei wurde nicht gefunden!");
 		} 
 		return "";
 	}
 	
-
+	public static void main(String[] args) {
+		System.out.println(readGraphFromFile());
+	}
 //	renderedge methode
 //	bekommt eine dateizeile -> Kanten
 //	http://openbook.galileocomputing.de/javainsel/javainsel_15_004.html#dodtpac233475-9da3-4cec-9eab-d68a36830773 file reader

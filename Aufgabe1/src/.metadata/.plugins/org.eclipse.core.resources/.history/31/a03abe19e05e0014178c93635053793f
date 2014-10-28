@@ -27,6 +27,7 @@ public class MyParser {
 			String actualLine;
 			while((actualLine = reader.readLine()) != null) {
 				fileLines = actualLine + "\n";
+				System.out.println(fileLines);
 			}
 			
 			return fileLines;

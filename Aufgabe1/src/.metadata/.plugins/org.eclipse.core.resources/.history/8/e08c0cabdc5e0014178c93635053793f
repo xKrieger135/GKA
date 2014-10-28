@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import org.jgrapht.Graph;
 
 public class MyParser {
-	public MyParser() {
+	public MyParser(Graph graph) {
 		
 	}
 	
@@ -18,11 +18,11 @@ public class MyParser {
 	
 //	loadGraphFromFile methode
 //	Filename übergeben alsd parameter
-	private static String readGraphFromFile(File file) {
+	private static String readGraphFromFile() {
 		BufferedReader reader = null;
 		
 		try {
-			reader = new BufferedReader(new FileReader(file));
+			reader = new BufferedReader(new FileReader("graph1.txt"));
 			String fileLines = "";
 			String actualLine;
 			while((actualLine = reader.readLine()) != null) {
@@ -30,14 +30,20 @@ public class MyParser {
 			}
 			
 			return fileLines;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Datei wurde nicht gefunden!");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Datei wurde nicht gefunden!");
-		} 
+			e.printStackTrace();
+		}
 		return "";
 	}
 	
-
+	public static void main(String[] args) {
+		System.out.println(readGraphFromFile());
+	}
 //	renderedge methode
 //	bekommt eine dateizeile -> Kanten
 //	http://openbook.galileocomputing.de/javainsel/javainsel_15_004.html#dodtpac233475-9da3-4cec-9eab-d68a36830773 file reader

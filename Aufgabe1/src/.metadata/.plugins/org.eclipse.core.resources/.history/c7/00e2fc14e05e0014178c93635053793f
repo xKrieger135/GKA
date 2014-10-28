@@ -27,11 +27,13 @@ public class MyParser {
 			String actualLine;
 			while((actualLine = reader.readLine()) != null) {
 				fileLines = actualLine + "\n";
+				System.out.println(fileLines);
 			}
 			
 			return fileLines;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+//			e.printStackTrace();
 			System.out.println("Datei wurde nicht gefunden!");
 		} 
 		return "";

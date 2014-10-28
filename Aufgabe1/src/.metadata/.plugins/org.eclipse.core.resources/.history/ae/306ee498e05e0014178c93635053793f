@@ -28,7 +28,8 @@ public class graphGui extends JFrame {
 	private static final Dimension DEFAULT_SIZE = new Dimension(400, 400);
 
 	public graphGui() {
-		createGraph();		
+		createGraph();
+		
 	}
 
 	private void createGraph() {
