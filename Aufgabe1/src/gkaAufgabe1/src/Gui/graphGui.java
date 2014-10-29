@@ -4,22 +4,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JFrame;
 
 import org.jgraph.JGraph;
-import org.jgraph.graph.DefaultEdge;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphConstants;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.JGraphModelAdapter;
-import org.jgrapht.graph.ListenableDirectedGraph;
+import org.jgrapht.graph.Pseudograph;
 
 public class graphGui extends JFrame {
-	private JGraphModelAdapter<String, DefaultEdge> jGraphModelAdapter;
+	private JGraphModelAdapter<String, GewichteteKante> jGraphModelAdapter;
 	private JGraph jGraph;
 	private Controller controller;
 	private MyParser myParser;
@@ -38,15 +36,15 @@ public class graphGui extends JFrame {
 		mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
 
 		// Hier wird ein gerichteter graph erstellt
-		// ListenableGraph<String, DefaultEdge> graph = new
-		// ListenableDirectedGraph<String, DefaultEdge>(
-		// DefaultEdge.class);
+		// ListenableGraph<String, GewichteteKante> graph = new
+		// ListenableDirectedGraph<String, GewichteteKante>(
+		// GewichteteKante.class);
 		myParser.readGraphFromFile();
-		ListenableGraph<String, DefaultEdge> graph = myParser
+		Pseudograph<String, GewichteteKante> graph = myParser
 				.parseTextFromTextFileToGraph();
 
 		// mit dem JgraphmodelAdapter werden die JGraphT Graphen dargestellt
-		jGraphModelAdapter = new JGraphModelAdapter<String, DefaultEdge>(graph);
+		jGraphModelAdapter = new JGraphModelAdapter<String, GewichteteKante>(graph);
 
 		// Anordnen der Vertexe (Graphen-Nodes) in Kreisform.
 		double length = graph.vertexSet().size();

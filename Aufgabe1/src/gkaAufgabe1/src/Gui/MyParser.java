@@ -1,17 +1,14 @@
 package Gui;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jgraph.graph.DefaultEdge;
-import org.jgrapht.Graph;
-import org.jgrapht.ListenableGraph;
 import org.jgrapht.graph.ListenableDirectedGraph;
 import org.jgrapht.graph.ListenableUndirectedGraph;
+import org.jgrapht.graph.Pseudograph;
 
 public class MyParser {
 	
@@ -43,19 +40,19 @@ matcherVariable = fileLines;
 		return "";
 	}
 
-	public static ListenableGraph<String, DefaultEdge> parseTextFromTextFileToGraph() {
+	public static Pseudograph<String, GewichteteKante> parseTextFromTextFileToGraph() {
 
 
 		Matcher matcher = JAVAREGEX.matcher(matcherVariable);
 		System.out.println("X="+matcherVariable);
-		ListenableGraph<String, DefaultEdge> graph;
+		Pseudograph<String, GewichteteKante> graph;
 
 		if (matcherVariable.contains("->")) {
-			graph = new ListenableDirectedGraph<String, DefaultEdge>(
-					DefaultEdge.class);
+			graph = new Pseudograph<String, GewichteteKante>(
+					GewichteteKante.class);
 		} else {
-			graph = new ListenableUndirectedGraph<String, DefaultEdge>(
-					DefaultEdge.class);
+			graph = new Pseudograph<String, GewichteteKante>(
+					GewichteteKante.class);
 		}
 
 		while (matcher.find()) {
