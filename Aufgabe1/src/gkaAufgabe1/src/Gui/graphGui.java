@@ -22,13 +22,13 @@ public class graphGui extends JFrame {
 	private JGraphModelAdapter<String, DefaultEdge> jGraphModelAdapter;
 	private JGraph jGraph;
 	private Controller controller;
-	
+	private MyParser myParser;
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#c7d2ff");
 	private static final Dimension DEFAULT_SIZE = new Dimension(400, 400);
 
 	public graphGui() {
-		createGraph();		
+		createGraph();
 	}
 
 	private void createGraph() {
@@ -37,12 +37,26 @@ public class graphGui extends JFrame {
 		mainWindow.setVisible(true);
 		mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
 
-// Hier wird ein gerichteter graph erstellt
-		ListenableGraph<String, DefaultEdge> graph = new ListenableDirectedGraph<String, DefaultEdge>(
-				DefaultEdge.class);
+		// Hier wird ein gerichteter graph erstellt
+		// ListenableGraph<String, DefaultEdge> graph = new
+		// ListenableDirectedGraph<String, DefaultEdge>(
+		// DefaultEdge.class);
+		myParser.readGraphFromFile();
+		ListenableGraph<String, DefaultEdge> graph = myParser
+				.parseTextFromTextFileToGraph();
 
-// mit dem JgraphmodelAdapter werden die JGraphT Graphen dargestellt
+		// mit dem JgraphmodelAdapter werden die JGraphT Graphen dargestellt
 		jGraphModelAdapter = new JGraphModelAdapter<String, DefaultEdge>(graph);
+
+		// Anordnen der Vertexe (Graphen-Nodes) in Kreisform.
+		double length = graph.vertexSet().size();
+		Object[] vertex = graph.vertexSet().toArray();
+		double pi2 = Math.PI * 2;
+		for (int i = 0; i < length; i++) {
+			positionVertexAt(vertex[i],
+					(int) (Math.sin(pi2 * (i / length)) * 250 + 260),
+					(int) (Math.cos(pi2 * (i / length)) * 250 + 260));
+		}
 
 		jGraph = new JGraph(jGraphModelAdapter);
 
@@ -50,23 +64,23 @@ public class graphGui extends JFrame {
 		mainWindow.getContentPane().add(jGraph);
 		setSize(DEFAULT_SIZE);
 
-//Hier werden die Knoten V1-V4 hinzugefügt
-		graph.addVertex("v1");
-		graph.addVertex("v2");
-		graph.addVertex("v3");
-		graph.addVertex("v4");
-
-//		Hier werden die Kanten zwischen den verschiedenen Knoten eingefügt
-		graph.addEdge("v1", "v2");
-		graph.addEdge("v2", "v3");
-		graph.addEdge("v1", "v4");
-		graph.addEdge("v4", "v3");
-
-//Position der Knoten
-		positionVertexAt("v1", 130, 40);
-		positionVertexAt("v2", 60, 200);
-		positionVertexAt("v3", 310, 230);
-		positionVertexAt("v4", 300, 70);
+		// // Hier werden die Knoten V1-V4 hinzugefügt
+		// graph.addVertex("v1");
+		// graph.addVertex("v2");
+		// graph.addVertex("v3");
+		// graph.addVertex("v4");
+		//
+		// // Hier werden die Kanten zwischen den verschiedenen Knoten eingefügt
+		// graph.addEdge("v1", "v2");
+		// graph.addEdge("v2", "v3");
+		// graph.addEdge("v1", "v4");
+		// graph.addEdge("v4", "v3");
+		//
+		// // Position der Knoten
+		// positionVertexAt("v1", 130, 40);
+		// positionVertexAt("v2", 60, 200);
+		// positionVertexAt("v3", 310, 230);
+		// positionVertexAt("v4", 300, 70);
 
 		// that's all there is to it!...
 	}

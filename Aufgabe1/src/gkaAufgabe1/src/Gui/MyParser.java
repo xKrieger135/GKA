@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import org.jgraph.graph.DefaultEdge;
 import org.jgrapht.Graph;
+import org.jgrapht.ListenableGraph;
 import org.jgrapht.graph.ListenableDirectedGraph;
 import org.jgrapht.graph.ListenableUndirectedGraph;
 
@@ -19,20 +20,21 @@ public class MyParser {
 	}
 
 	public static final Pattern JAVAREGEX = Pattern
-			.compile("([a-z_A-Z_0-9]+) ?(-(>|-)) ?([a-z_A-Z_0-9]+);");
+			.compile("(?<start>[a-zA-Z0-9]+) ?(-(?<verbindung>[>-])) ?(?<ende>[a-zA-Z0-9]+)?;.*");
 	private  static String matcherVariable = "";
 
-	private static String readGraphFromFile(File file) {
+	public static String readGraphFromFile() {
 		BufferedReader reader = null;
 
 		try {
-			reader = new BufferedReader(new FileReader(file));
+			reader = new BufferedReader(new FileReader("C:/Users/patrick_steinhauer/Dropbox/HAW-Semester/HAW/Semester3/Graphentheorie und Algorithmen/Praktikum/Aufgabe 1/GKA/Aufgabe1/Beispielgraphen/graph1.gka"));
 			String fileLines = "";
 			String actualLine;
 			while ((actualLine = reader.readLine()) != null) {
-				fileLines = actualLine + "\n";
+				fileLines += actualLine + "\n";
+				System.out.println(actualLine);
 			}
-
+matcherVariable = fileLines;
 			return fileLines;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -41,11 +43,14 @@ public class MyParser {
 		return "";
 	}
 
-	public static Graph<String, DefaultEdge> parseTextFromTextFileToGraph() {
-		Matcher matcher = JAVAREGEX.matcher(matcherVariable);
-		Graph<String, DefaultEdge> graph;
+	public static ListenableGraph<String, DefaultEdge> parseTextFromTextFileToGraph() {
 
-		if (matcherVariable.contains("--")) {
+
+		Matcher matcher = JAVAREGEX.matcher(matcherVariable);
+		System.out.println("X="+matcherVariable);
+		ListenableGraph<String, DefaultEdge> graph;
+
+		if (matcherVariable.contains("->")) {
 			graph = new ListenableDirectedGraph<String, DefaultEdge>(
 					DefaultEdge.class);
 		} else {
@@ -54,12 +59,14 @@ public class MyParser {
 		}
 
 		while (matcher.find()) {
-			String nodeStart = matcher.group(1);
-			String nodeEnd = matcher.group(3);
-			String edge = matcher.group(2);
+			String nodeStart = matcher.group("start");//1);
+			String nodeEnd = matcher.group("ende");
+			String edge = matcher.group("verbindung");
+			
 
 			graph.addVertex(nodeStart);
-
+			System.out.println(nodeStart);
+			
 			if (nodeEnd != null) {
 				graph.addVertex(nodeEnd);
 				graph.addEdge(nodeStart, nodeEnd);
@@ -69,7 +76,8 @@ public class MyParser {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(parseTextFromTextFileToGraph());
+		System.out.println(readGraphFromFile());
+		System.out.println(parseTextFromTextFileToGraph().edgesOf("a"));
 	}
 
 	// renderedge methode

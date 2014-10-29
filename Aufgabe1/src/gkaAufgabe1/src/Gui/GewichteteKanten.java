@@ -5,10 +5,7 @@ import org.jgraph.graph.DefaultEdge;
 public class GewichteteKanten extends DefaultEdge{
 	private String sourceNode;
 	private String targetNode;
-	private String edgeName;
 	private boolean directed;
-	
-
 	private int gewicht;
 
 	public int getGewicht() {
@@ -19,16 +16,12 @@ public class GewichteteKanten extends DefaultEdge{
 		this.gewicht = gewicht;
 	}
 	
-	public boolean hatKanteEinGewicht() {
-		if(gewicht != 0) {
-			return true;
-		} else {
-			return false;
-		}
+	public boolean istKanteGewichtet() {
+		return gewicht != 1;
 	}
 	
 	public String toString() {
-		if(directed && hatKanteEinGewicht()) {
+		if(directed) {
 			return "gerichtet" + getGewicht();
 		} else {
 			return "ungerichtet" + getGewicht();
