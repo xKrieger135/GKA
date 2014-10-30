@@ -1,6 +1,7 @@
 package Gui;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.jgraph.graph.DefaultEdge;
 import org.jgrapht.Graph;
@@ -10,13 +11,19 @@ public class BreadthFirstSearchAlgorithmus {
 	private graphGui graphGui;
 	private Controller controller;
 	
-//	private ListenableGraph<String, DefaultEdge> myGraph = graphGui.saveCreatedGraph();
+	public int superSearch(ListenableGraph<String, GewichteteKante> graph, String start, String end) {
+	Map<String, GewichteteKante> distance = new HashMap<String, GewichteteKante>();
+	boolean reached = false;
+	int shortestWay = 0;
+	String actualNode;
 	
-	public void superSearch(ListenableGraph<String, DefaultEdge> graph, String start, String end) {
-		start = "V1";
-		end = "V3";
-		int nachbarCounter = 0;
+	if(start == end) {
+		return shortestWay;
+	}
+	
+	while(reached == false && actualNode != end) {
 		
+	}
 		
 		HashMap<String, Integer> values = new HashMap<String, Integer>();
 		values.put(start, 0);
