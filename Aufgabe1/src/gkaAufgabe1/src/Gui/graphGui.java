@@ -8,11 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import org.jgraph.JGraph;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphConstants;
-import org.jgrapht.ListenableGraph;
+import org.jgrapht.Graph;
 import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.Pseudograph;
 
@@ -24,13 +25,14 @@ public class graphGui extends JFrame {
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#c7d2ff");
 	private static final Dimension DEFAULT_SIZE = new Dimension(400, 400);
-
+ 
+	public static JFrame mainWindow = new JFrame("Gui für Graphen");
 	public graphGui() {
 		createGraph();
 	}
 
 	private void createGraph() {
-		JFrame mainWindow = new JFrame("Gui für Graphen");
+		
 		mainWindow.setSize(750, 500);
 		mainWindow.setVisible(true);
 		mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
@@ -40,9 +42,8 @@ public class graphGui extends JFrame {
 		// ListenableDirectedGraph<String, GewichteteKante>(
 		// GewichteteKante.class);
 		myParser.readGraphFromFile();
-		Pseudograph<String, GewichteteKante> graph = myParser
+		Graph<String, GewichteteKante> graph = myParser
 				.parseTextFromTextFileToGraph();
-
 		// mit dem JgraphmodelAdapter werden die JGraphT Graphen dargestellt
 		jGraphModelAdapter = new JGraphModelAdapter<String, GewichteteKante>(graph);
 
@@ -61,26 +62,7 @@ public class graphGui extends JFrame {
 		graphColorChanges(jGraph);
 		mainWindow.getContentPane().add(jGraph);
 		setSize(DEFAULT_SIZE);
-
-		// // Hier werden die Knoten V1-V4 hinzugefügt
-		// graph.addVertex("v1");
-		// graph.addVertex("v2");
-		// graph.addVertex("v3");
-		// graph.addVertex("v4");
-		//
-		// // Hier werden die Kanten zwischen den verschiedenen Knoten eingefügt
-		// graph.addEdge("v1", "v2");
-		// graph.addEdge("v2", "v3");
-		// graph.addEdge("v1", "v4");
-		// graph.addEdge("v4", "v3");
-		//
-		// // Position der Knoten
-		// positionVertexAt("v1", 130, 40);
-		// positionVertexAt("v2", 60, 200);
-		// positionVertexAt("v3", 310, 230);
-		// positionVertexAt("v4", 300, 70);
-
-		// that's all there is to it!...
+		SwingUtilities.updateComponentTreeUI(mainWindow);
 	}
 
 	private void positionVertexAt(Object vertex, int x, int y) {
@@ -115,5 +97,5 @@ public class graphGui extends JFrame {
 
 		jGraph.setBackground(c);
 	}
-
+	
 }

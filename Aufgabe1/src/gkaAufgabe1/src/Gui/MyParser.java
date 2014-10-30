@@ -8,6 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jgrapht.Graph;
+import org.jgrapht.graph.AbstractBaseGraph;
+import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.jgrapht.graph.ListenableDirectedGraph;
 import org.jgrapht.graph.ListenableUndirectedGraph;
@@ -20,16 +22,16 @@ public class MyParser {
 	}
 
 	public static final Pattern JAVAREGEX = Pattern
-			.compile("(?<start>[a-zA-Z0-9]+) ?(-(?<verbindung>[>-])) ?(?<ende>[a-zA-Z0-9]+) ?(?: ([0-9]+))?;.*");
+			.compile("(?<start>[a-zA-Z0-9]+) ?(-(?<verbindung>[>-])) ?(?<ende>[a-zA-Z0-9]+) ?( ?: (?<gewicht>[0-9]+))?;.*");
 	private static String matcherVariable = "";
 
 	public static String readGraphFromFile() {
 		BufferedReader reader = null;
 		Object file = loadDialog();
-		if (file == null) return null;
+		if (file == null)
+			return null;
 		try {
-			reader = new BufferedReader(
-					new FileReader((String) file));
+			reader = new BufferedReader(new FileReader((String) file));
 			String fileLines = "";
 			String actualLine;
 			while ((actualLine = reader.readLine()) != null) {
@@ -65,30 +67,39 @@ public class MyParser {
 			String nodeEnd = matcher.group("ende");
 			String edge = matcher.group("verbindung");
 
+			// if (matcher.) {
+			String weight = matcher.group("gewicht");
+			System.out.println(">" + weight);
 			graph.addVertex(nodeStart);
-			System.out.println(nodeStart);
+			System.out.println("ns " + nodeStart);
 
 			if (nodeEnd != null) {
 				graph.addVertex(nodeEnd);
-				graph.addEdge(nodeStart, nodeEnd);
+				
+
+				if (weight != null) {
+					GewichteteKante E = graph.addEdge(nodeStart, nodeEnd);
+					((AbstractBaseGraph<String, GewichteteKante>) graph).setEdgeWeight(E,Double.parseDouble(weight));
+				}
 			}
 		}
 		return graph;
 	}
 
-	public static void main(String[] args) {
-		loadDialog();
-	}
+	// public static void main(String[] args) {
+	// loadDialog();
+	// }
 
 	public static Object loadDialog() {
-		FileDialog fd = new FileDialog(graphGui.mainWindow, "Choose a file", FileDialog.LOAD);
+		FileDialog fd = new FileDialog(graphGui.mainWindow, "Choose a file",
+				FileDialog.LOAD);
 		fd.setDirectory("C:\\");
 		fd.setFile("*.gka");
 		fd.setVisible(true);
 		String filename = fd.getFile();
-		System.out.println(fd.getDirectory()+filename);
+		System.out.println(fd.getDirectory() + filename);
 		if (filename != null) {
-			filename = fd.getDirectory().replace("\\", "/")+filename;
+			filename = fd.getDirectory().replace("\\", "/") + filename;
 		}
 		System.out.println(filename);
 		return filename;
