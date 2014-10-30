@@ -11,8 +11,8 @@ public class BreadthFirstSearchAlgorithmus {
 	private graphGui graphGui;
 	private Controller controller;
 	
-	public int superSearch(ListenableGraph<String, GewichteteKante> graph, String start, String end) {
-	Map<String, GewichteteKante> distance = new HashMap<String, GewichteteKante>();
+	public int superSearch(ListenableGraph<String, WeightedEdge> graph, String start, String end) {
+	Map<String, WeightedEdge> distance = new HashMap<String, WeightedEdge>();
 	boolean reached = false;
 	int shortestWay = 0;
 	String actualNode;

@@ -21,22 +21,27 @@ public class MyParser {
 
 	}
 
+	// Java REGEX zum auswerten, von Textzeilen, Texten
 	public static final Pattern JAVAREGEX = Pattern
 			.compile("(?<start>[a-zA-Z0-9]+) ?(-(?<verbindung>[>-])) ?(?<ende>[a-zA-Z0-9]+) ?( ?: (?<gewicht>[0-9]+))?;.*");
 	private static String matcherVariable = "";
 
+	// Hier werden Datein für Graphen eingelesen.
 	public static String readGraphFromFile() {
 		BufferedReader reader = null;
+//		Moeglichkeit, eine Datei über einen Dialog auszuwählen.
 		Object file = loadDialog();
-		if (file == null)
+		if (file == null) {
 			return null;
+		}
+
+//		Lesen der Datei, sowie Speichern in einer Variable fuer die Methode parse
 		try {
 			reader = new BufferedReader(new FileReader((String) file));
 			String fileLines = "";
 			String actualLine;
 			while ((actualLine = reader.readLine()) != null) {
 				fileLines += actualLine + "\n";
-				System.out.println(actualLine);
 			}
 			matcherVariable = fileLines;
 			return fileLines;
@@ -47,48 +52,43 @@ public class MyParser {
 		return "";
 	}
 
-	public static Graph<String, GewichteteKante> parseTextFromTextFileToGraph() {
+//	Hier wird der Graph mittels der Textdatei erstellt.
+	public static Graph<String, WeightedEdge> parseTextFromTextFileToGraph() {
 
 		Matcher matcher = JAVAREGEX.matcher(matcherVariable);
 
-		System.out.println("X=" + matcherVariable);
-		Graph<String, GewichteteKante> graph;
+		Graph<String, WeightedEdge> graph;
 
 		if (matcherVariable.contains("->")) {
-			graph = new DirectedWeightedPseudograph<String, GewichteteKante>(
-					GewichteteKante.class);
+			graph = new DirectedWeightedPseudograph<String, WeightedEdge>(
+					WeightedEdge.class);
 		} else {
-			graph = new Pseudograph<String, GewichteteKante>(
-					GewichteteKante.class);
+			graph = new Pseudograph<String, WeightedEdge>(
+					WeightedEdge.class);
 		}
 
 		while (matcher.find()) {
 			String nodeStart = matcher.group("start");
 			String nodeEnd = matcher.group("ende");
 			String edge = matcher.group("verbindung");
-
-			// if (matcher.) {
 			String weight = matcher.group("gewicht");
-			System.out.println(">" + weight);
+
 			graph.addVertex(nodeStart);
-			System.out.println("ns " + nodeStart);
 
 			if (nodeEnd != null) {
 				graph.addVertex(nodeEnd);
-				
 
 				if (weight != null) {
-					GewichteteKante E = graph.addEdge(nodeStart, nodeEnd);
-					((AbstractBaseGraph<String, GewichteteKante>) graph).setEdgeWeight(E,Double.parseDouble(weight));
+					WeightedEdge E = graph.addEdge(nodeStart, nodeEnd);
+					((AbstractBaseGraph<String, WeightedEdge>) graph)
+							.setEdgeWeight(E, Double.parseDouble(weight));
+				} else {
+					graph.addEdge(nodeStart, nodeEnd);
 				}
 			}
 		}
 		return graph;
 	}
-
-	// public static void main(String[] args) {
-	// loadDialog();
-	// }
 
 	public static Object loadDialog() {
 		FileDialog fd = new FileDialog(graphGui.mainWindow, "Choose a file",
@@ -97,17 +97,10 @@ public class MyParser {
 		fd.setFile("*.gka");
 		fd.setVisible(true);
 		String filename = fd.getFile();
-		System.out.println(fd.getDirectory() + filename);
 		if (filename != null) {
 			filename = fd.getDirectory().replace("\\", "/") + filename;
 		}
-		System.out.println(filename);
 		return filename;
 	}
-	// renderedge methode
-	// bekommt eine dateizeile -> Kanten
-	// http://openbook.galileocomputing.de/javainsel/javainsel_15_004.html#dodtpac233475-9da3-4cec-9eab-d68a36830773
-	// file reader
-	//
 
 }

@@ -18,21 +18,23 @@ import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.Pseudograph;
 
 public class graphGui extends JFrame {
-	private JGraphModelAdapter<String, GewichteteKante> jGraphModelAdapter;
+	private JGraphModelAdapter<String, WeightedEdge> jGraphModelAdapter;
 	private JGraph jGraph;
 	private Controller controller;
 	private MyParser myParser;
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#c7d2ff");
 	private static final Dimension DEFAULT_SIZE = new Dimension(400, 400);
- 
+
 	public static JFrame mainWindow = new JFrame("Gui für Graphen");
+
 	public graphGui() {
 		createGraph();
 	}
 
+	// erstellen des Graphen, sowie mainwindow zum anzeigen des graphen
 	private void createGraph() {
-		
+
 		mainWindow.setSize(750, 500);
 		mainWindow.setVisible(true);
 		mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
@@ -42,12 +44,13 @@ public class graphGui extends JFrame {
 		// ListenableDirectedGraph<String, GewichteteKante>(
 		// GewichteteKante.class);
 		myParser.readGraphFromFile();
-		Graph<String, GewichteteKante> graph = myParser
+		Graph<String, WeightedEdge> graph = myParser
 				.parseTextFromTextFileToGraph();
 		// mit dem JgraphmodelAdapter werden die JGraphT Graphen dargestellt
-		jGraphModelAdapter = new JGraphModelAdapter<String, GewichteteKante>(graph);
+		jGraphModelAdapter = new JGraphModelAdapter<String, WeightedEdge>(
+				graph);
 
-		// Anordnen der Vertexe (Graphen-Nodes) in Kreisform.
+		// Anordnen der Vertexe (Graphen-Nodes) in Kreisform Code Übernahme
 		double length = graph.vertexSet().size();
 		Object[] vertex = graph.vertexSet().toArray();
 		double pi2 = Math.PI * 2;
@@ -62,9 +65,11 @@ public class graphGui extends JFrame {
 		graphColorChanges(jGraph);
 		mainWindow.getContentPane().add(jGraph);
 		setSize(DEFAULT_SIZE);
+//		Updatet das Mainwindow
 		SwingUtilities.updateComponentTreeUI(mainWindow);
 	}
 
+	// Code Übernahme aus einem Tutorialvon JGraphT
 	private void positionVertexAt(Object vertex, int x, int y) {
 		DefaultGraphCell cell = jGraphModelAdapter.getVertexCell(vertex);
 		Map attr = cell.getAttributes();
@@ -84,18 +89,8 @@ public class graphGui extends JFrame {
 		jGraph.setPreferredSize(DEFAULT_SIZE);
 
 		Color c = DEFAULT_BG_COLOR;
-		String colorStr = null;
-
-		try {
-			// colorStr = getParameter( "bgcolor" );
-		} catch (Exception e) {
-		}
-
-		if (colorStr != null) {
-			c = Color.decode(colorStr);
-		}
 
 		jGraph.setBackground(c);
 	}
-	
+
 }
