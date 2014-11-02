@@ -29,14 +29,13 @@ public class MyParser {
 	// Hier werden Datein für Graphen eingelesen.
 	public static String readGraphFromFile() {
 		BufferedReader reader = null;
-		// Moeglichkeit, eine Datei über einen Dialog auszuwählen.
+//		Moeglichkeit, eine Datei über einen Dialog auszuwählen.
 		Object file = loadDialog();
 		if (file == null) {
 			return null;
 		}
 
-		// Lesen der Datei, sowie Speichern in einer Variable fuer die Methode
-		// parse
+//		Lesen der Datei, sowie Speichern in einer Variable fuer die Methode parse
 		try {
 			reader = new BufferedReader(new FileReader((String) file));
 			String fileLines = "";
@@ -53,7 +52,7 @@ public class MyParser {
 		return "";
 	}
 
-	// Hier wird der Graph mittels der Textdatei erstellt.
+//	Hier wird der Graph mittels der Textdatei erstellt.
 	public static Graph<String, WeightedEdge> parseTextFromTextFileToGraph() {
 
 		Matcher matcher = JAVAREGEX.matcher(matcherVariable);
@@ -64,7 +63,8 @@ public class MyParser {
 			graph = new DirectedWeightedPseudograph<String, WeightedEdge>(
 					WeightedEdge.class);
 		} else {
-			graph = new Pseudograph<String, WeightedEdge>(WeightedEdge.class);
+			graph = new Pseudograph<String, WeightedEdge>(
+					WeightedEdge.class);
 		}
 
 		while (matcher.find()) {

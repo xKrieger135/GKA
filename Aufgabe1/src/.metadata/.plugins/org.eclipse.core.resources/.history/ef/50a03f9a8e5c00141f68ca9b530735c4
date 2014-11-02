@@ -1,9 +1,0 @@
-package Gui;
-
-import javax.swing.JFrame;
-
-public class graphGui {
-	
-	JFrame mainWindow = new JFrame("Gui für Graphen");
-
-}

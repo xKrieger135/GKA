@@ -35,7 +35,7 @@ public class graphGui extends JFrame {
 	// erstellen des Graphen, sowie mainwindow zum anzeigen des graphen
 	private void createGraph() {
 
-		mainWindow.setSize(1200, 850);
+		mainWindow.setSize(750, 500);
 		mainWindow.setVisible(true);
 		mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
 
@@ -64,10 +64,6 @@ public class graphGui extends JFrame {
 		setSize(DEFAULT_SIZE);
 //		Updatet das Mainwindow
 		SwingUtilities.updateComponentTreeUI(mainWindow);
-	}
-	
-	private String setStart() {
-		
 	}
 
 	// Code Übernahme aus einem Tutorialvon JGraphT
