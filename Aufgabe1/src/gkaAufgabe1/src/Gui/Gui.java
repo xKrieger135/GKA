@@ -44,7 +44,6 @@ public class Gui extends javax.swing.JFrame {
 		initComponents();
 		this.setSize(DEFAULT_SIZE);
 		createGraph();
-		jPanelForGraph.updateUI();
 
 	}
 
@@ -204,6 +203,7 @@ public class Gui extends javax.swing.JFrame {
 		}
 
 		jGraph = new JGraph(jGraphModelAdapter);
+		jGraph.setBounds(60, 20, 930, 600);
 
 		graphColorChanges(jGraph);
 		jPanelForGraph.add(jGraph);

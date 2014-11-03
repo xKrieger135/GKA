@@ -3,11 +3,11 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/jGraphT"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="D:/Dropbox/Dropbox/HAW-Semester/HAW/Semester3/Graphentheorie und Algorithmen/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgraph-5.13.0.0.jar"/>
-	<classpathentry kind="lib" path="D:/Dropbox/Dropbox/HAW-Semester/HAW/Semester3/Graphentheorie und Algorithmen/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgrapht-core-0.9.0.jar"/>
-	<classpathentry kind="lib" path="D:/Dropbox/Dropbox/HAW-Semester/HAW/Semester3/Graphentheorie und Algorithmen/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgrapht-demo-0.9.0.jar"/>
-	<classpathentry kind="lib" path="D:/Dropbox/Dropbox/HAW-Semester/HAW/Semester3/Graphentheorie und Algorithmen/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgrapht-ext-0.9.0.jar"/>
-	<classpathentry kind="lib" path="D:/Dropbox/Dropbox/HAW-Semester/HAW/Semester3/Graphentheorie und Algorithmen/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgrapht-ext-0.9.0-uber.jar"/>
-	<classpathentry kind="lib" path="D:/Dropbox/Dropbox/HAW-Semester/HAW/Semester3/Graphentheorie und Algorithmen/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgraphx-2.0.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgraph-5.13.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgrapht-core-0.9.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgrapht-demo-0.9.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgrapht-ext-0.9.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgrapht-ext-0.9.0-uber.jar"/>
+	<classpathentry kind="lib" path="C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/src/jgrapht-0.9.0/lib/jgraphx-2.0.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
