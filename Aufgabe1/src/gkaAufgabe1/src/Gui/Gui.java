@@ -21,6 +21,7 @@ import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphConstants;
 import org.jgrapht.Graph;
 import org.jgrapht.ext.JGraphModelAdapter;
+import org.jgrapht.graph.Pseudograph;
 
 /**
  *
@@ -32,6 +33,8 @@ public class Gui extends javax.swing.JFrame {
 	private JGraph jGraph;
 	private Controller controller;
 	private MyParser myParser;
+	private String startVertex;
+	private String endVertex;
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#c7d2ff");
 	private static final Color DEFAULT_BG_COLOR2 = Color.decode("#fffff");
@@ -95,6 +98,12 @@ public class Gui extends javax.swing.JFrame {
 		jPanelForEverything.add(jButtonStartBFS);
 		jButtonStartBFS.setBounds(1010, 460, 110, 40);
 
+		jButtonStartBFS.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jButtonStartBFSActionPerformed(evt);
+			}
+		});
+
 		javax.swing.GroupLayout jPanelForGraphLayout = new javax.swing.GroupLayout(
 				jPanelForGraph);
 		jPanelForGraph.setLayout(jPanelForGraphLayout);
@@ -143,17 +152,25 @@ public class Gui extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
+	private void jButtonStartBFSActionPerformed(java.awt.event.ActionEvent evt) {
+		System.out.println(controller.breadthFirstSearch(startVertex, endVertex));
+	}
+
 	private void jTextFieldForBFSOutputActionPerformed(
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextFieldForBFSOutputActionPerformed
-		// TODO add your handling code here:
+
 	}// GEN-LAST:event_jTextFieldForBFSOutputActionPerformed
 
 	private void jButtonSetStartActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonSetStartActionPerformed
-
+		startVertex = jTextFieldSetStart.getText();
+		jTextFieldSetStart.setText("");
+		System.out.println(startVertex);
 	}// GEN-LAST:event_jButtonSetStartActionPerformed
 
 	private void jButtonSetEndActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonSetEndActionPerformed
-		// TODO add your handling code here:
+		endVertex = jTextFieldSetEndKnoten.getText();
+		jTextFieldSetEndKnoten.setText("");
+		System.out.println(endVertex);
 	}// GEN-LAST:event_jButtonSetEndActionPerformed
 
 	private void jTextFieldSetEndKnotenActionPerformed(
@@ -235,4 +252,13 @@ public class Gui extends javax.swing.JFrame {
 
 		jGraph.setBackground(c);
 	}
+
+	public String getStartVertex() {
+		return startVertex;
+	}
+
+	public String getEndVertex() {
+		return endVertex;
+	}
+
 }

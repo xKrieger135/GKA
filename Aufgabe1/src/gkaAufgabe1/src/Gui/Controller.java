@@ -1,11 +1,12 @@
 package Gui;
 
+import org.jgrapht.Graph;
+
 public class Controller {
-	private graphGui graphGui;
 	private Gui gui;
+	private BreadthFirstSearchAlgorithmus bfs;
 
 	public Controller() {
-		// graphGui = new graphGui();
 		gui = new Gui();
 		setLookAndFeel();
 	}
@@ -13,7 +14,7 @@ public class Controller {
 	public static void main(String[] args) {
 		Controller controller = new Controller();
 	}
-	
+
 	public static void setLookAndFeel() {
 		/* Set the Nimbus look and feel */
 		// <editor-fold defaultstate="collapsed"
@@ -53,6 +54,19 @@ public class Controller {
 				new Gui().setVisible(true);
 			}
 		});
+	}
+
+	public String getStartVertex() {
+		return gui.getStartVertex();
+	}
+
+	public String getEndVertex() {
+		return gui.getEndVertex();
+	}
+
+	public int breadthFirstSearch(
+			String start, String end) {
+		return bfs.breadthFirstSearch( start, end);
 	}
 
 }
