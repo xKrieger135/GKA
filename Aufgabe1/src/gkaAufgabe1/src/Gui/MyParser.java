@@ -23,7 +23,7 @@ public class MyParser {
 
 	// Java REGEX zum auswerten, von Textzeilen, Texten
 	public static final Pattern JAVAREGEX = Pattern
-			.compile("(?<start>[a-zA-Z0-9]+) ?(-(?<verbindung>[>-])) ?(?<ende>[a-zA-Z0-9]+) ?( ?: (?<gewicht>[0-9]+))?;.*");
+			.compile("(?<start>[a-zA-Z0-9]+)( ?(-(?<verbindung>[>-])) ?(?<ende>[a-zA-Z0-9]+) ?( ?: (?<gewicht>[0-9]+))?)?;.*");
 	private static String matcherVariable = "";
 
 	// Hier werden Datein für Graphen eingelesen.
@@ -69,21 +69,22 @@ public class MyParser {
 
 		while (matcher.find()) {
 			String nodeStart = matcher.group("start");
-			String nodeEnd = matcher.group("ende");
-			String edge = matcher.group("verbindung");
-			String weight = matcher.group("gewicht");
-
 			graph.addVertex(nodeStart);
+			if (matcher.group("ende") != null) {
+				String nodeEnd = matcher.group("ende");
+				String edge = matcher.group("verbindung");
+				String weight = matcher.group("gewicht");
 
-			if (nodeEnd != null) {
-				graph.addVertex(nodeEnd);
+				if (nodeEnd != null) {
+					graph.addVertex(nodeEnd);
 
-				if (weight != null) {
-					WeightedEdge E = graph.addEdge(nodeStart, nodeEnd);
-					((AbstractBaseGraph<String, WeightedEdge>) graph)
-							.setEdgeWeight(E, Double.parseDouble(weight));
-				} else {
-					graph.addEdge(nodeStart, nodeEnd);
+					if (weight != null) {
+						WeightedEdge E = graph.addEdge(nodeStart, nodeEnd);
+						((AbstractBaseGraph<String, WeightedEdge>) graph)
+								.setEdgeWeight(E, Double.parseDouble(weight));
+					} else {
+						graph.addEdge(nodeStart, nodeEnd);
+					}
 				}
 			}
 		}

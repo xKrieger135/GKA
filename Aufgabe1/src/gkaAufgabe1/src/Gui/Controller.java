@@ -3,19 +3,17 @@ package Gui;
 import org.jgrapht.Graph;
 
 public class Controller {
-	private Gui gui;
-	private BreadthFirstSearchAlgorithmus bfs;
+	private BreadthFirstSearchAlgorithmus bfs = new BreadthFirstSearchAlgorithmus();
 
 	public Controller() {
-		gui = new Gui();
-		setLookAndFeel();
+		setLookAndFeel(this);
 	}
 
 	public static void main(String[] args) {
 		Controller controller = new Controller();
 	}
 
-	public static void setLookAndFeel() {
+	public static void setLookAndFeel(final Controller controller) {
 		/* Set the Nimbus look and feel */
 		// <editor-fold defaultstate="collapsed"
 		// desc=" Look and feel setting code (optional) ">
@@ -51,22 +49,13 @@ public class Controller {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new Gui().setVisible(true);
+				new Gui(controller).setVisible(true);
 			}
 		});
 	}
 
-	public String getStartVertex() {
-		return gui.getStartVertex();
-	}
-
-	public String getEndVertex() {
-		return gui.getEndVertex();
-	}
-
-	public int breadthFirstSearch(
-			String start, String end) {
-		return bfs.breadthFirstSearch( start, end);
+	public int breadthFirstSearch(String start, String end) {
+		return bfs.breadthFirstSearch(start, end);
 	}
 
 }

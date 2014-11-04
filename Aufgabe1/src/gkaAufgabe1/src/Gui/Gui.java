@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +26,7 @@ import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.Pseudograph;
 
 /**
- *
+ * 
  * @author Paddy-Gaming
  */
 public class Gui extends javax.swing.JFrame {
@@ -43,7 +45,8 @@ public class Gui extends javax.swing.JFrame {
 	/**
 	 * Creates new form Gui
 	 */
-	public Gui() {
+	public Gui(Controller controller) {
+		this.controller = controller;
 		initComponents();
 		this.setSize(DEFAULT_SIZE);
 		createGraph();
@@ -153,7 +156,10 @@ public class Gui extends javax.swing.JFrame {
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonStartBFSActionPerformed(java.awt.event.ActionEvent evt) {
-		System.out.println(controller.breadthFirstSearch(startVertex, endVertex));
+		System.out.println(controller.breadthFirstSearch(startVertex,
+				endVertex));
+//		startVertex = jTextFieldSetStart.getText();
+//		endVertex = jTextFieldSetEndKnoten.getText();
 	}
 
 	private void jTextFieldForBFSOutputActionPerformed(
@@ -206,6 +212,8 @@ public class Gui extends javax.swing.JFrame {
 		myParser.readGraphFromFile();
 		Graph<String, WeightedEdge> graph = myParser
 				.parseTextFromTextFileToGraph();
+		System.out.println(graph.vertexSet());
+
 		// mit dem JgraphmodelAdapter werden die JGraphT Graphen dargestellt
 		jGraphModelAdapter = new JGraphModelAdapter<String, WeightedEdge>(graph);
 
