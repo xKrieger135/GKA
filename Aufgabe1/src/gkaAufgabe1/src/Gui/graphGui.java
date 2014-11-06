@@ -66,9 +66,6 @@ public class graphGui extends JFrame {
 		SwingUtilities.updateComponentTreeUI(mainWindow);
 	}
 	
-	private String setStart() {
-		
-	}
 
 	// Code Übernahme aus einem Tutorialvon JGraphT
 	private void positionVertexAt(Object vertex, int x, int y) {

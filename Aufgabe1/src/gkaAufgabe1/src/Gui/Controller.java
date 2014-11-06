@@ -54,8 +54,8 @@ public class Controller {
 		});
 	}
 
-	public int breadthFirstSearch(String start, String end) {
-		return bfs.breadthFirstSearch(start, end);
+	public int breadthFirstSearch(Graph<String, WeightedEdge> graph,String start, String end) {
+		return bfs.breadthFirstSearch(graph,start, end);
 	}
 
 }

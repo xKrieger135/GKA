@@ -2,20 +2,24 @@ package Gui;
 
 import java.awt.FileDialog;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.AbstractBaseGraph;
-import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
-import org.jgrapht.graph.ListenableDirectedGraph;
-import org.jgrapht.graph.ListenableUndirectedGraph;
 import org.jgrapht.graph.Pseudograph;
 
 public class MyParser {
+	private Gui gui;
 
 	public MyParser() {
 
@@ -102,6 +106,54 @@ public class MyParser {
 			filename = fd.getDirectory().replace("\\", "/") + filename;
 		}
 		return filename;
+	}
+
+	public static void writeGraphIntoFile() {
+		Graph<String, WeightedEdge> graph = parseTextFromTextFileToGraph();
+		// BufferedWriter writer = null;
+		PrintWriter pWriter = null;
+
+		try {
+			pWriter = new PrintWriter(
+					new BufferedWriter(
+							new FileWriter(
+									"C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/Beispielgraphen/Neue_Graphen/graphx.gka")));
+			// writer = new BufferedWriter(new FileWriter("graphx.gka"));
+			String pfeil;
+			if (graph instanceof DirectedWeightedPseudograph) {
+				pfeil = "->";
+			} else {
+				pfeil = "--";
+			}
+			Set<String> nodes = new HashSet<String>();
+			for (WeightedEdge e : graph.edgeSet()) {
+				// writer.write(e.getSource());
+				// writer.write("");
+				// writer.write(pfeil);
+				// writer.write("");
+				// writer.write(e.getTarget());
+				// writer.write("\n");
+				pWriter.println(e.getSource() + " " + pfeil + " "
+						+ e.getTarget());
+				nodes.add(e.getSource());
+				nodes.add(e.getTarget());
+			}
+			Set<String> vertexSet = new HashSet<String>(graph.vertexSet());
+			vertexSet.removeAll(nodes);
+			for (String n : vertexSet) {
+				System.out.println("xxxx" + n);
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Datei wurde nicht gefunden!");
+		} finally {
+			if (pWriter != null) {
+				pWriter.flush();
+				pWriter.close();
+			}
+		}
+
 	}
 
 }

@@ -18,10 +18,10 @@ public class BreadthFirstSearchAlgorithmus {
 	private Controller controller;
 	private MyParser myParser;
 
-	public int breadthFirstSearch(String start, String end) {
+	public int breadthFirstSearch(Graph<String, WeightedEdge> graph,String start, String end) {
 		Set<String> visitedNodes = new HashSet<>();
 		Set<String> set = new HashSet<>();
-		int result = analyseNodesQ(start, end);
+		int result = analyseNodesQ(graph,start, end);
 		return result;
 	}
 
@@ -66,13 +66,13 @@ public class BreadthFirstSearchAlgorithmus {
 		return 0;
 	}
 
-	public int analyseNodesQ(String start, String end) {
+	public int analyseNodesQ(Graph<String, WeightedEdge> graph,String start, String end) {
 
-		Graph<String, WeightedEdge> graph = myParser
-				.parseTextFromTextFileToGraph();
+//		graph = myParser
+//				.parseTextFromTextFileToGraph();
 		Map<String, List<String>> map = new HashMap<>();
 
-//		printGraph(graph);
+		printGraph(graph);
 
 		Queue<String> queue = new LinkedList<>();
 		queue.add(start);

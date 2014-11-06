@@ -8,6 +8,7 @@ package Gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.lang.reflect.Array;
@@ -156,10 +157,12 @@ public class Gui extends javax.swing.JFrame {
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonStartBFSActionPerformed(java.awt.event.ActionEvent evt) {
-		System.out.println(controller.breadthFirstSearch(startVertex,
-				endVertex));
-//		startVertex = jTextFieldSetStart.getText();
-//		endVertex = jTextFieldSetEndKnoten.getText();
+		System.out
+				.println(controller.breadthFirstSearch(
+						myParser.parseTextFromTextFileToGraph(), startVertex,
+						endVertex));
+		// startVertex = jTextFieldSetStart.getText();
+		// endVertex = jTextFieldSetEndKnoten.getText();
 	}
 
 	private void jTextFieldForBFSOutputActionPerformed(
@@ -171,6 +174,7 @@ public class Gui extends javax.swing.JFrame {
 		startVertex = jTextFieldSetStart.getText();
 		jTextFieldSetStart.setText("");
 		System.out.println(startVertex);
+		myParser.writeGraphIntoFile();
 	}// GEN-LAST:event_jButtonSetStartActionPerformed
 
 	private void jButtonSetEndActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonSetEndActionPerformed
@@ -259,14 +263,6 @@ public class Gui extends javax.swing.JFrame {
 		Color c = DEFAULT_BG_COLOR;
 
 		jGraph.setBackground(c);
-	}
-
-	public String getStartVertex() {
-		return startVertex;
-	}
-
-	public String getEndVertex() {
-		return endVertex;
 	}
 
 }
