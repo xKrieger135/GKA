@@ -8,6 +8,10 @@ public class WeightedEdge extends DefaultWeightedEdge {
 	public WeightedEdge() {
 		super();
 	}
+	
+	public WeightedEdge(int weight) {
+		
+	}
 
 	public String getSource() {
 		return (String) super.getSource();

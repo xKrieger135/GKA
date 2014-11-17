@@ -68,6 +68,7 @@ public class Gui extends javax.swing.JFrame {
 		jButtonSetStart = new javax.swing.JButton();
 		jButtonSetEnd = new javax.swing.JButton();
 		jButtonStartBFS = new javax.swing.JButton();
+		jButtonStartDijkstra = new javax.swing.JButton();
 		jPanelForGraph = new javax.swing.JPanel();
 		jTextFieldForBFSOutput = new javax.swing.JTextField();
 		jTextFieldSetStart = new javax.swing.JTextField();
@@ -99,12 +100,23 @@ public class Gui extends javax.swing.JFrame {
 		jButtonSetEnd.setBounds(1010, 260, 110, 40);
 
 		jButtonStartBFS.setText("StartBFS");
-		jPanelForEverything.add(jButtonStartBFS);
-		jButtonStartBFS.setBounds(1010, 460, 110, 40);
+//		jPanelForEverything.add(jButtonStartBFS);
+//		jButtonStartBFS.setBounds(1010, 460, 110, 40);
+		
+		jButtonStartDijkstra.setText("StartDijkstra");
+		jPanelForEverything.add(jButtonStartDijkstra);
+		jButtonStartDijkstra.setBounds(1010, 460, 110, 40);
 
 		jButtonStartBFS.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButtonStartBFSActionPerformed(evt);
+			}
+		});
+		
+		jButtonStartDijkstra.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				controller.returnDistance(myParser.parseTextFromTextFileToGraph(), startVertex,
+						endVertex);
 			}
 		});
 
@@ -164,6 +176,8 @@ public class Gui extends javax.swing.JFrame {
 		// startVertex = jTextFieldSetStart.getText();
 		// endVertex = jTextFieldSetEndKnoten.getText();
 	}
+	
+
 
 	private void jTextFieldForBFSOutputActionPerformed(
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextFieldForBFSOutputActionPerformed
@@ -197,6 +211,7 @@ public class Gui extends javax.swing.JFrame {
 	private javax.swing.JButton jButtonSetEnd;
 	private javax.swing.JButton jButtonSetStart;
 	private javax.swing.JButton jButtonStartBFS;
+	private javax.swing.JButton jButtonStartDijkstra;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JPanel jPanelForEverything;

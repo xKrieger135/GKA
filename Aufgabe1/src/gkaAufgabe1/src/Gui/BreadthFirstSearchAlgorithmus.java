@@ -18,69 +18,32 @@ public class BreadthFirstSearchAlgorithmus {
 	private Controller controller;
 	private MyParser myParser;
 
-	public int breadthFirstSearch(Graph<String, WeightedEdge> graph,String start, String end) {
-		Set<String> visitedNodes = new HashSet<>();
-		Set<String> set = new HashSet<>();
-		int result = analyseNodesQ(graph,start, end);
+	public int breadthFirstSearch(Graph<String, WeightedEdge> graph,
+			String start, String end) {
+		// Set<String> visitedNodes = new HashSet<>();
+		// Set<String> set = new HashSet<>();
+		int result = analyseNodesQ(graph, start, end);
 		return result;
 	}
 
-	public int analyseNodes(String actualNode, Set<String> visitedNodes,
-			Set<String> set, String end) {
-		System.out.println("analyseNodes (actualNode=" + actualNode + ")");
-		Graph<String, WeightedEdge> graph = myParser
-				.parseTextFromTextFileToGraph();
-		// Map<String, String> childs = new HashMap<>();
+	public int analyseNodesQ(Graph<String, WeightedEdge> graph, String start,
+			String end) {
 
-		// Queue<String> queue = new LinkedList<>();
-
-		set.add(actualNode);
-
-		Set<WeightedEdge> edges = graph.edgesOf(actualNode);
-		visitedNodes.add(actualNode);
-
-		for (WeightedEdge edge : edges) {
-			String neighbor = (String) edge.getTarget();
-			if (!neighbor.equals(actualNode)) {
-				System.out.println("\tactualNode= " + actualNode
-						+ " has neighbor= " + neighbor);
-
-				// String neighbor = graph.getEdgeTarget(edge);
-
-				System.out.println("Actual : " + actualNode);
-				System.out.println("Neighbor : " + neighbor);
-
-				if (!visitedNodes.contains(neighbor)) {
-					if (neighbor.equals(end)) {
-						set.add(neighbor);
-						return set.size();
-					} else {
-						set.add(neighbor);
-						visitedNodes.add(actualNode);
-						analyseNodes(neighbor, visitedNodes, set, end);
-					}
-				}
-			}
-		}
-		System.out.println("Oops");
-		return 0;
-	}
-
-	public int analyseNodesQ(Graph<String, WeightedEdge> graph,String start, String end) {
-
-//		graph = myParser
-//				.parseTextFromTextFileToGraph();
+		// graph = myParser
+		// .parseTextFromTextFileToGraph();
 		Map<String, List<String>> map = new HashMap<>();
 
 		printGraph(graph);
 
 		Queue<String> queue = new LinkedList<>();
 		queue.add(start);
-//		es wird der start in die map getan und mit "0" initialisiert liste hier, weil so später weg + Ziffer ausgegeben werden kann
+		// es wird der start in die map getan und mit "0" initialisiert liste
+		// hier, weil so später weg + Ziffer ausgegeben werden kann
 		map.put(start, Arrays.asList(start));
 
 		while (!queue.isEmpty()) {
-//			currentnode ist das oberste Element der queue und wird gespeichert
+			// currentnode ist das oberste Element der queue und wird
+			// gespeichert
 			String currentNode = queue.poll();
 
 			if (currentNode.equals(end)) {
@@ -88,16 +51,18 @@ public class BreadthFirstSearchAlgorithmus {
 				for (String node : map.get(currentNode)) {
 					System.out.println(node);
 				}
-//				hier wird der kürzeste Weg ausgegeben. - 1, weil dies bei Start -> start ist 1 element in der Liste jedoch ist der Weg 0
+				// hier wird der kürzeste Weg ausgegeben. - 1, weil dies bei
+				// Start -> start ist 1 element in der Liste jedoch ist der Weg
+				// 0
 				return map.get(currentNode).size() - 1;
 			}
-//			fuer jeden Zielknoten wird es ausgefuehrt
+			// fuer jeden Zielknoten wird es ausgefuehrt
 			for (String targetNode : getNeighbors(graph, currentNode)) {
 				if (!map.containsKey(targetNode)) {
-//					eine Liste mit den gespeicherten Werten des Weges.
+					// eine Liste mit den gespeicherten Werten des Weges.
 					List<String> list = new ArrayList<String>(
 							map.get(currentNode));
-//					 neuen wert hinzufuegen fuer den Weg 
+					// neuen wert hinzufuegen fuer den Weg
 					list.add(targetNode);
 					map.put(targetNode, list);
 					queue.add(targetNode);
@@ -108,22 +73,23 @@ public class BreadthFirstSearchAlgorithmus {
 		return 0;
 	}
 
-//	getNeihbors holt sich die kanten eines Knoten und fuegt jeweils den Endknoten hinzu Anfangsknoten nicht, da sonst gerichtete Graphen 
-//	nicht mehr funktionieren
-	
+	// getNeihbors holt sich die kanten eines Knoten und fuegt jeweils den
+	// Endknoten hinzu Anfangsknoten nicht, da sonst gerichtete Graphen
+	// nicht mehr funktionieren
+
 	private Collection<String> getNeighbors(Graph<String, WeightedEdge> graph,
 			String node) {
 		Set<WeightedEdge> edgesOf = graph.edgesOf(node);
 		Set<String> result = new HashSet<>();
 		for (WeightedEdge edge : edgesOf) {
-//			result.add(edge.getSource());
+			// result.add(edge.getSource());
 			result.add(edge.getTarget());
 		}
 		result.remove(node);
 		return result;
 	}
 
-//	Funktion zum Speichern der Datei 
+	// Funktion zum Speichern der Datei
 	private void printGraph(Graph<String, WeightedEdge> graph) {
 		String pfeil;
 		if (graph instanceof DirectedWeightedPseudograph) {

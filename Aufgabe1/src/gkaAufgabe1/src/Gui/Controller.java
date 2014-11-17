@@ -4,6 +4,7 @@ import org.jgrapht.Graph;
 
 public class Controller {
 	private BreadthFirstSearchAlgorithmus bfs = new BreadthFirstSearchAlgorithmus();
+	private Dijkstra dijkstra = new Dijkstra();
 
 	public Controller() {
 		setLookAndFeel(this);
@@ -56,6 +57,10 @@ public class Controller {
 
 	public int breadthFirstSearch(Graph<String, WeightedEdge> graph,String start, String end) {
 		return bfs.breadthFirstSearch(graph,start, end);
+	}
+	
+	public double returnDistance(Graph<String, WeightedEdge> graph, String source, String target) {
+		return dijkstra.returnDistance(graph, source, target);
 	}
 
 }

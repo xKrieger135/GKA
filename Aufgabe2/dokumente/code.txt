@@ -1,0 +1,65 @@
+	public int dijkstraAlgorithmus(Graph<String, WeightedEdge> graph,
+			String start, String end) {
+		// Set<String> visitedNodes = new HashSet<>();
+		// Set<String> set = new HashSet<>();
+		int result = analyseNodesQ(graph, start, end);
+		return result;
+	}
+
+	public int analyseNodesQ(Graph<String, WeightedEdge> graph, String start,
+			String end) {
+
+		// graph = myParser
+		// .parseTextFromTextFileToGraph();
+		Map<String, List<Integer>> map = new HashMap<>();
+		int counter = 0;
+		int erg = 0;
+		List<Integer> list;
+
+		Queue<String> queue = new LinkedList<>();
+		queue.add(start);
+		// es wird der start in die map getan und mit "0" initialisiert liste
+		// hier, weil so später weg + Ziffer ausgegeben werden kann
+		map.put(start, Arrays.asList());
+
+		while (!queue.isEmpty()) {
+			// currentnode ist das oberste Element der queue und wird
+			// gespeichert
+			String currentNode = queue.poll();
+
+			if (currentNode.equals(end)) {
+				System.out.println("Found shortest way:");
+//				for (String node : map.get(currentNode)) {
+//					System.out.println(node);
+//				}
+				// hier wird der kürzeste Weg ausgegeben. - 1, weil dies bei
+				// Start -> start ist 1 element in der Liste jedoch ist der Weg
+				// 0
+				return erg;
+			}
+			// fuer jeden Zielknoten wird es ausgefuehrt
+			for (String targetNode : getNeighbors(graph, currentNode)) {
+				if (!map.containsKey(targetNode)) {
+					// eine Liste mit den gespeicherten Werten des Weges.
+					 list = new ArrayList<Integer>(
+							counter);
+					// neuen wert hinzufuegen fuer den Weg
+					counter = (int) graph.getEdgeWeight(graph.getEdge(currentNode, targetNode));
+					list.add(counter);
+					map.put(targetNode, list);
+					
+					for (int i = 0; i < list.size() - 1; i++) {
+						int a = list.get(i);
+						System.out.println(a);
+						int b = list.get(i + 1);
+						int erg1 = a + b;
+						erg = erg + erg1;
+					}
+					
+					queue.add(targetNode);
+				}
+			}
+		}
+
+		return 0;
+	}
