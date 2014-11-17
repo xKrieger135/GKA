@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DirectedPseudograph;
@@ -79,18 +80,20 @@ public class Dijkstra {
 		}
 
 		while (!queue.isEmpty()) {
-
+			
+			
+			
+			String elem1 = queue.peek();
+			String elem2 = queue.peek();
 			String u = queue.poll();
 
 			for (String v : getNeighbors(graph, u)) {
 				double alt = table.get(u).getDistance()
 						+ graph.getEdgeWeight(graph.getEdge(u, v));
 				if (alt < table.get(v).getDistance()) {
-					// alt = table.get(v).getDistance();
 
 					table.get(v).setDistance(alt);
 					table.get(v).setPrevious(u);
-					// u = table.get(u).getPrevious();
 
 				}
 			}
@@ -101,7 +104,8 @@ public class Dijkstra {
 	public double returnDistance(Graph<String, WeightedEdge> graph,
 			String source, String target) {
 
-		Map<String, NodeValue> table = dijkstraAlgorithmus2(graph, source);
+		Map<String, NodeValue> table = dijkstraAlgorithmus(graph, source);
+//		 Queue<NodeValue2> table = dijkstraAlgorithmus2(graph, source);
 		List<String> hops = new ArrayList<>();
 		String u = target;
 		// while (table.get(u).getPrevious() != null) {
@@ -117,22 +121,10 @@ public class Dijkstra {
 
 	}
 
-	private Collection<String> getNeighbors(Graph<String, WeightedEdge> graph,
-			String node) {
-		Set<WeightedEdge> edgesOf = graph.edgesOf(node);
-		Set<String> result = new HashSet<>();
-		for (WeightedEdge edge : edgesOf) {
-			result.add(edge.getTarget());
-		}
-		result.remove(node);
-		return result;
-	}
-
 	// Nodevalue für variante mit der Map
 	private class NodeValue {
 		private String previous;
 		private double distance;
-		private String vertex;
 
 		public NodeValue(String previous, double distance) {
 			super();
@@ -211,44 +203,63 @@ public class Dijkstra {
 
 		@Override
 		public String toString() {
-			return "NodeValue [previous=" + previous + ", distance=" + distance
-					+ "]";
+			return "NodeValue2 [previous=" + previous + ", distance="
+					+ distance + ", vertex=" + vertex + "]";
 		}
 
 	}
 
-	public Map<String, NodeValue> dijkstraAlgorithmus2(
-			Graph<String, WeightedEdge> graph, String source) {
-		Queue<NodeValue2> queue = new LinkedList<>();
-		queue.add(new NodeValue2(source, source, 0d));
-		// initialisierung der restlichen Knoten in graph mit previous nicht
-		// definiert und distance unendlich
-		for (String vertex : graph.vertexSet()) {
-			if (!vertex.equals(source)) {
-				queue.add(new NodeValue2(null, vertex, Double.MAX_VALUE));
-			}
+//	public Queue<NodeValue2> dijkstraAlgorithmus2(
+//			Graph<String, WeightedEdge> graph, String source) {
+//		Queue<NodeValue2> queue = new LinkedList<>();
+//		queue.add(new NodeValue2(source, source, 0d));
+//		// initialisierung der restlichen Knoten in graph mit previous nicht
+//		// definiert und distance unendlich
+//		for (String vertex : graph.vertexSet()) {
+//			if (!vertex.equals(source)) {
+//				queue.add(new NodeValue2(vertex, null, Double.MAX_VALUE));
+//			}
+//		}
+//
+//		while (!queue.isEmpty()) {
+//
+//			NodeValue2 u = queue.poll();
+//			Collection<String> neighbor = getNeighbors(graph, u.getVertex());
+//			for (String v : neighbor) {
+//				double alt = u.getDistance()
+//						+ graph.getEdgeWeight(graph.getEdge(u.getVertex(), v));
+//				NodeValue2 tmp = queue.poll();
+//				if (alt < tmp.getDistance()) {
+//					tmp.setDistance(alt);
+//					tmp.setPrevious(u.getVertex());
+//					queue.add(tmp);
+//				}
+//			}
+//		}
+//		return queue;
+//	}
+
+	private Collection<String> getNeighbors(Graph<String, WeightedEdge> graph,
+			String node) {
+		Set<WeightedEdge> edgesOf = graph.edgesOf(node);
+		Set<String> result = new HashSet<>();
+		for (WeightedEdge edge : edgesOf) {
+			result.add(edge.getTarget());
 		}
-
-		while (!queue.isEmpty()) {
-
-			NodeValue2 u = queue.poll();
-
-			for (String v : getNeighbors(graph, u.getVertex())) {
-				double alt = u.getDistance()
-						+ graph.getEdgeWeight(graph.getEdge(u.getVertex(), v));
-				if (alt < table.get(v).getDistance()) {
-					// NodeValue tmp = queue.
-					// if (alt < ) {
-					// alt = table.get(v).getDistance();
-
-					// table.get(v).setDistance(alt);
-					// table.get(v).setPrevious(u);
-					// u = table.get(u).getPrevious();
-
-				}
-			}
-		}
-		return table;
+		result.remove(node);
+		return result;
 	}
+
+	// private Collection<String> getNeighbors(Graph<String, WeightedEdge>
+	// graph,
+	// String node) {
+	// Set<WeightedEdge> edgesOf = graph.edgesOf(node);
+	// Set<String> result = new HashSet<>();
+	// for (WeightedEdge edge : edgesOf) {
+	// result.add(edge.getTarget());
+	// }
+	// result.remove(node);
+	// return result;
+	// }
 
 }
