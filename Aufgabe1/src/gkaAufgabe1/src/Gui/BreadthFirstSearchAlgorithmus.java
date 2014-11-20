@@ -20,8 +20,6 @@ public class BreadthFirstSearchAlgorithmus {
 
 	public int breadthFirstSearch(Graph<String, WeightedEdge> graph,
 			String start, String end) {
-		// Set<String> visitedNodes = new HashSet<>();
-		// Set<String> set = new HashSet<>();
 		int result = analyseNodesQ(graph, start, end);
 		return result;
 	}
@@ -29,11 +27,9 @@ public class BreadthFirstSearchAlgorithmus {
 	public int analyseNodesQ(Graph<String, WeightedEdge> graph, String start,
 			String end) {
 
-		// graph = myParser
-		// .parseTextFromTextFileToGraph();
 		Map<String, List<String>> map = new HashMap<>();
 
-		printGraph(graph);
+		// printGraph(graph);
 
 		Queue<String> queue = new LinkedList<>();
 		queue.add(start);
@@ -82,8 +78,13 @@ public class BreadthFirstSearchAlgorithmus {
 		Set<WeightedEdge> edgesOf = graph.edgesOf(node);
 		Set<String> result = new HashSet<>();
 		for (WeightedEdge edge : edgesOf) {
-			// result.add(edge.getSource());
-			result.add(edge.getTarget());
+			if (graph instanceof DirectedWeightedPseudograph<?, ?>) {
+				result.add(edge.getTarget());
+			} else {
+				result.add(edge.getSource());
+				result.add(edge.getTarget());
+
+			}
 		}
 		result.remove(node);
 		return result;

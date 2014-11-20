@@ -69,6 +69,7 @@ public class Gui extends javax.swing.JFrame {
 		jButtonSetEnd = new javax.swing.JButton();
 		jButtonStartBFS = new javax.swing.JButton();
 		jButtonStartDijkstra = new javax.swing.JButton();
+		jButtonWriteBIGIntoFile = new javax.swing.JButton();
 		jPanelForGraph = new javax.swing.JPanel();
 		jTextFieldForBFSOutput = new javax.swing.JTextField();
 		jTextFieldSetStart = new javax.swing.JTextField();
@@ -100,25 +101,40 @@ public class Gui extends javax.swing.JFrame {
 		jButtonSetEnd.setBounds(1010, 260, 110, 40);
 
 		jButtonStartBFS.setText("StartBFS");
-//		jPanelForEverything.add(jButtonStartBFS);
-//		jButtonStartBFS.setBounds(1010, 460, 110, 40);
-		
+		jPanelForEverything.add(jButtonStartBFS);
+		jButtonStartBFS.setBounds(1010, 560, 110, 40);
+
 		jButtonStartDijkstra.setText("StartDijkstra");
 		jPanelForEverything.add(jButtonStartDijkstra);
 		jButtonStartDijkstra.setBounds(1010, 460, 110, 40);
+		
+		jButtonWriteBIGIntoFile.setText("Write BIG");
+		jPanelForEverything.add(jButtonWriteBIGIntoFile);
+		jButtonWriteBIGIntoFile.setBounds(1010, 660, 110, 40);
 
 		jButtonStartBFS.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButtonStartBFSActionPerformed(evt);
 			}
 		});
-		
-		jButtonStartDijkstra.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				controller.returnDistance(myParser.parseTextFromTextFileToGraph(), startVertex,
-						endVertex);
-			}
-		});
+
+		jButtonStartDijkstra
+				.addActionListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(java.awt.event.ActionEvent evt) {
+						controller.returnDistance(
+								myParser.parseTextFromTextFileToGraph(),
+								startVertex, endVertex);
+					}
+				});
+
+		jButtonWriteBIGIntoFile
+				.addActionListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(java.awt.event.ActionEvent evt) {
+//						controller.writeBigIntoFile();
+						controller.floydWarshall(myParser.parseTextFromTextFileToGraph(),
+								startVertex, endVertex);
+					}
+				});
 
 		javax.swing.GroupLayout jPanelForGraphLayout = new javax.swing.GroupLayout(
 				jPanelForGraph);
@@ -176,8 +192,6 @@ public class Gui extends javax.swing.JFrame {
 		// startVertex = jTextFieldSetStart.getText();
 		// endVertex = jTextFieldSetEndKnoten.getText();
 	}
-	
-
 
 	private void jTextFieldForBFSOutputActionPerformed(
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextFieldForBFSOutputActionPerformed
@@ -188,7 +202,7 @@ public class Gui extends javax.swing.JFrame {
 		startVertex = jTextFieldSetStart.getText();
 		jTextFieldSetStart.setText("");
 		System.out.println(startVertex);
-		myParser.writeGraphIntoFile();
+		// myParser.writeGraphIntoFile();
 	}// GEN-LAST:event_jButtonSetStartActionPerformed
 
 	private void jButtonSetEndActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonSetEndActionPerformed
@@ -212,6 +226,7 @@ public class Gui extends javax.swing.JFrame {
 	private javax.swing.JButton jButtonSetStart;
 	private javax.swing.JButton jButtonStartBFS;
 	private javax.swing.JButton jButtonStartDijkstra;
+	private javax.swing.JButton jButtonWriteBIGIntoFile;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JPanel jPanelForEverything;

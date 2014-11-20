@@ -3,23 +3,34 @@ package test;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.AbstractBaseGraph;
 import org.jgrapht.graph.DirectedPseudograph;
+import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import Gui.CreateBig;
 import Gui.Dijkstra;
+import Gui.MyParser;
 import Gui.WeightedEdge;
 
 public class TestDijkstra {
-	
-	 
 
-	Graph<String, WeightedEdge> graph1 = new DirectedPseudograph<>(WeightedEdge.class);
-	Graph<String, WeightedEdge> graph2 = new DirectedPseudograph<>(WeightedEdge.class);
-	private Dijkstra d = new Dijkstra();
+	Graph<String, WeightedEdge> graph1 = new DirectedWeightedPseudograph<>(
+			WeightedEdge.class);
+	Graph<String, WeightedEdge> graph2 = new DirectedWeightedPseudograph<>(
+			WeightedEdge.class);
+	Graph<String, WeightedEdge> graph3;
 	
+	
+	private Dijkstra d = new Dijkstra();
+	private CreateBig createbig = new CreateBig();
+
+
 	@Before
 	public void createGraph() {
+		
+		graph3 = createbig.createBig();
+
 		graph1.addVertex("A");
 		graph1.addVertex("B");
 		graph1.addVertex("C");
@@ -30,7 +41,7 @@ public class TestDijkstra {
 		graph1.addVertex("H");
 		graph1.addVertex("I");
 		graph1.addVertex("J");
-		
+
 		graph1.addEdge("A", "B");
 		graph1.addEdge("A", "C");
 		graph1.addEdge("B", "E");
@@ -47,52 +58,56 @@ public class TestDijkstra {
 		graph1.addEdge("H", "J");
 		graph1.addEdge("J", "D");
 		graph1.addEdge("J", "E");
-		
-		
+
 		graph2.addVertex("1");
 		graph2.addVertex("2");
 		graph2.addVertex("3");
 		graph2.addVertex("4");
 		graph2.addVertex("5");
 		graph2.addVertex("6");
-		
+
 		WeightedEdge e12 = graph2.addEdge("1", "2");
-		((AbstractBaseGraph<String, WeightedEdge>) graph2)
-		.setEdgeWeight(e12, 3d);
-		
+		((AbstractBaseGraph<String, WeightedEdge>) graph2).setEdgeWeight(e12,
+				3d);
+
 		WeightedEdge e13 = graph2.addEdge("1", "3");
-		((AbstractBaseGraph<String, WeightedEdge>) graph2)
-		.setEdgeWeight(e13, 1d);
-		
-		WeightedEdge e23 = graph2.addEdge("2", "3");
-		((AbstractBaseGraph<String, WeightedEdge>) graph2)
-		.setEdgeWeight(e23, 1d);
-		
+		((AbstractBaseGraph<String, WeightedEdge>) graph2).setEdgeWeight(e13,
+				1d);
+
+		WeightedEdge e23 = graph2.addEdge("3", "2");
+		((AbstractBaseGraph<String, WeightedEdge>) graph2).setEdgeWeight(e23,
+				1d);
+
 		WeightedEdge e24 = graph2.addEdge("2", "4");
-		((AbstractBaseGraph<String, WeightedEdge>) graph2)
-		.setEdgeWeight(e24, 4d);
-		
+		((AbstractBaseGraph<String, WeightedEdge>) graph2).setEdgeWeight(e24,
+				4d);
+
 		WeightedEdge e25 = graph2.addEdge("2", "5");
-		((AbstractBaseGraph<String, WeightedEdge>) graph2)
-		.setEdgeWeight(e25, 3d);
-		
+		((AbstractBaseGraph<String, WeightedEdge>) graph2).setEdgeWeight(e25,
+				3d);
+
 		WeightedEdge e45 = graph2.addEdge("4", "5");
-		((AbstractBaseGraph<String, WeightedEdge>) graph2)
-		.setEdgeWeight(e45, 1d);
-		
+		((AbstractBaseGraph<String, WeightedEdge>) graph2).setEdgeWeight(e45,
+				1d);
+
 		WeightedEdge e46 = graph2.addEdge("4", "6");
-		((AbstractBaseGraph<String, WeightedEdge>) graph2)
-		.setEdgeWeight(e46, 5d);
-		
+		((AbstractBaseGraph<String, WeightedEdge>) graph2).setEdgeWeight(e46,
+				5d);
+
 		WeightedEdge e56 = graph2.addEdge("5", "6");
-		((AbstractBaseGraph<String, WeightedEdge>) graph2)
-		.setEdgeWeight(e56, 2d);
+		((AbstractBaseGraph<String, WeightedEdge>) graph2).setEdgeWeight(e56,
+				2d);
 	}
 
 	@Test
 	public void test() {
-		Assert.assertEquals(2, d.returnDistance(graph2, "1", "2"), 0.0);
-		Assert.assertEquals(5, d.returnDistance(graph2, "1", "5"), 0.0);
+		Assert.assertEquals(3.0, d.returnDistance(graph2, "1", "2"), 0.0);
+		Assert.assertEquals(3.0, d.returnDistance(graph2, "2", "5"), 0.0);
+		Assert.assertEquals(2.0, d.returnDistance(graph2, "5", "6"), 0.0);
+		Assert.assertEquals(5.0, d.returnDistance(graph2, "4", "6"), 0.0);
+//		Assert.assertEquals(1.0, d.returnDistance(graph3, "a70", "a67"), 0.0);		
+		
+
 	}
 
 }

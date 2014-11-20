@@ -5,6 +5,8 @@ import org.jgrapht.Graph;
 public class Controller {
 	private BreadthFirstSearchAlgorithmus bfs = new BreadthFirstSearchAlgorithmus();
 	private Dijkstra dijkstra = new Dijkstra();
+	private CreateBig createBig = new CreateBig();
+	private FloydWarshall fw = new FloydWarshall();
 
 	public Controller() {
 		setLookAndFeel(this);
@@ -61,6 +63,14 @@ public class Controller {
 	
 	public double returnDistance(Graph<String, WeightedEdge> graph, String source, String target) {
 		return dijkstra.returnDistance(graph, source, target);
+	}
+	
+	public void writeBigIntoFile() {
+		createBig.writeBigIntoFile();
+	}
+	
+	public double floydWarshall(Graph<String, WeightedEdge> graph, String source, String target) {
+		return fw.floydWarshallAlgorithmus(graph, source, target);
 	}
 
 }
