@@ -19,7 +19,7 @@ public class FloydWarshall {
 			for (String v2 : graph.vertexSet()) {
 				if (graph.getAllEdges(v, v2).isEmpty()) {
 					//Keine Ecke vorhandne
-					x.put(v2, Double.MAX_VALUE);
+					x.put(v2, Double.POSITIVE_INFINITY);
 				} else if (v2 != v) {
 					//Setze entfernung
 					WeightedEdge edge = graph.getEdge(v, v2);

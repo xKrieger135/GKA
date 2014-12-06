@@ -130,9 +130,9 @@ public class Gui extends javax.swing.JFrame {
 		jButtonWriteBIGIntoFile
 				.addActionListener(new java.awt.event.ActionListener() {
 					public void actionPerformed(java.awt.event.ActionEvent evt) {
-//						controller.writeBigIntoFile();
-						controller.floydWarshall(myParser.parseTextFromTextFileToGraph(),
-								startVertex, endVertex);
+						controller.writeBigIntoFile();
+//						controller.floydWarshall(myParser.parseTextFromTextFileToGraph(),
+//								startVertex, endVertex);
 					}
 				});
 

@@ -10,49 +10,89 @@ import java.util.List;
 import java.util.Set;
 
 import org.jgrapht.Graph;
-import org.jgrapht.graph.DirectedPseudograph;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
 public class CreateBig {
+
 	Graph<String, WeightedEdge> BIG = new DirectedWeightedPseudograph<>(
 			WeightedEdge.class);
-	private MyParser myParser;
-	private String newVertex = "";
-	private String oldVertex = "";
+//	private MyParser myParser;
+//	private String newVertex = "";
+//	private String newVertex2 = "";
 	private List<String> vertexList = new ArrayList<>();
 
+	// public Graph<String, WeightedEdge> createBig() {
+	// // VertexFactory<String> vFactory = new ClassBasedVertexFactory<>(
+	// // String.class);
+	// for (int i = 0; i < 100; i++) {
+	//
+	// newVertex = "A" + i;
+	// newVertex2 = "A" + (i + 1);
+	// vertexList.add(newVertex);
+	// BIG.addVertex(newVertex);
+	// System.out.println(BIG.toString());
+	// }
+	//
+	// for (int i = 0; i < 99; i++) {
+	//
+	// BIG.addEdge(vertexList.get(i), vertexList.get(i + 1));
+	//
+	// System.out.println("BIGGEST BIG -------> " + BIG.toString());
+	// }
+	//
+	// for (int i = 0; i < 99; i++) {
+	//
+	// if (!(99 - 1 == i)) {
+	// BIG.addEdge(vertexList.get(i), vertexList.get(i + 2));
+	//
+	// }
+	//
+	// System.out.println("BIGGEST BIG -------> " + BIG.toString());
+	// }
+	//
+	// for (int i = 0; i < 99; i++) {
+	//
+	// // BIG.addEdge(vertexList.get(i), vertexList.get(i + 1));
+	// if (!(99 - 3 <= i)) {
+	// BIG.addEdge(vertexList.get(i), vertexList.get(i + 3));
+	//
+	// }
+	//
+	// System.out.println("BIGGEST BIG -------> " + BIG.toString());
+	// }
+	//
+	// return BIG;
+	// }
+
 	public Graph<String, WeightedEdge> createBig() {
-		for (int i = 0; i < 100; i++) {
-			oldVertex = "a" + i;
-			newVertex = "a" + (i + 1);
-			i++;
-			BIG.addVertex(newVertex);
-			BIG.addVertex(oldVertex);
-			System.out.println(oldVertex);
-			System.out.println(newVertex);
 
-			// for (int j = 0; j < 4000; j++) {
-			// BIG.addEdge(oldVertex, newVertex);
-			// }
+		double random3 = Math.random();
 
+		for (int i = 0; i < 99; i++) {
+			vertexList.add("" + i);
+			BIG.addVertex("" + i);
 		}
 
-		for (String vertex : BIG.vertexSet()) {
-			vertexList.add(vertex);
+		for (int i = 0; i < 6000; i++) {
+			int random1 = myRandom(0, 99);
+			int random2 = myRandom(0, 99);
 
-			for (int i = 0; i < vertexList.size() - 1; i++) {
+			BIG.addEdge(vertexList.get(random2), vertexList.get(random1));
 
-				BIG.addEdge(vertex, vertexList.get(i));
-			}
 		}
-		System.out.println("-----------------------------------------------------------" + BIG.vertexSet() + " ------------------------------" + BIG.edgeSet().size());
-
+		// System.out.println(BIG.toString());
+		// System.out.println(BIG.edgeSet().size());
 		return BIG;
+	}
+
+	public static void main(String[] args) {
+		CreateBig cb = new CreateBig();
+		cb.createBig();
 	}
 
 	public void writeBigIntoFile() {
 		Graph<String, WeightedEdge> graph = createBig();
-		// BufferedWriter writer = null;
+		BufferedWriter writer = null;
 		PrintWriter pWriter = null;
 
 		try {
@@ -96,6 +136,10 @@ public class CreateBig {
 			}
 		}
 
+	}
+
+	public int myRandom(int low, int high) {
+		return (int) (Math.random() * (high - low) + low);
 	}
 
 }
