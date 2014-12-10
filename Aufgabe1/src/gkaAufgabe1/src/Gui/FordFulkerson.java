@@ -40,8 +40,8 @@ public class FordFulkerson {
 		// Abfrage ob es immer noch einen Weg gibt
 		List<String> wegVonQuelleZuSenke = findeWegVonDerQuelleZurSenke(graph, quelle, senke);
 		while (wegVonQuelleZuSenke.contains(senke)) {
-			System.out.println("Found way");
 
+			//für spätere Abfrage mit Math.min auf unendlich setzen, da die anderen werte dann auf jeden Fall am Anfang kleiner sind
 			double minimalesFlussGewicht = Double.POSITIVE_INFINITY;
 			for (int i = 0; i < wegVonQuelleZuSenke.size() - 1; i++) {
 
@@ -55,11 +55,9 @@ public class FordFulkerson {
 
 			}
 			// Zeile 6
-			System.out.println("Processing found way");
 			for (int j = 0; j < wegVonQuelleZuSenke.size() - 1; j++) {
 				String sourceVertex = wegVonQuelleZuSenke.get(j);
 				String targetVertex = wegVonQuelleZuSenke.get(j + 1);
-				System.out.println("From " + sourceVertex + " to " + targetVertex);
 				// Zeile 7
 				double kantenFluss = fluesseDesNetzwerkes.get(sourceVertex).get(targetVertex);
 				fluesseDesNetzwerkes.get(sourceVertex).put(targetVertex, kantenFluss + minimalesFlussGewicht);
@@ -74,62 +72,74 @@ public class FordFulkerson {
 				highestFlow =  toTest;
 			}
 		}
-		 
-		Set<String> keySet = fluesseDesNetzwerkes.keySet();
-		for (String s : keySet) {
-			for (String t : fluesseDesNetzwerkes.get(s).keySet()) {
-				System.out.println("Flow from " + s + " to " +t + ": " + fluesseDesNetzwerkes.get(s).get(t));
-//				result = result + fluesseDesNetzwerkes.get(s).get(t);
-			}
-		}
-					
-		String neuerKnoten = quelle;
-		double newResult = 0;
-		double altesFlussGewicht = 0;
-		for (Double flussGewicht : fluesseDesNetzwerkes.get(neuerKnoten).values()) {			
-			if (flussGewicht > altesFlussGewicht) {
-				altesFlussGewicht = flussGewicht;
-				newResult = newResult + flussGewicht;
-			}
-		}
-		
-		List<String> neueListe = new ArrayList<>();
-		for (String vertex : graph.vertexSet()) {
-			neueListe.add(vertex);
-		}
-		
-		for (Double flussGewicht : fluesseDesNetzwerkes.get(neuerKnoten).values()) {
-			
-			for (String vertex : fluesseDesNetzwerkes.get(neueListe.get(i))) {
-				
-			}
-		}
-		
-		
-
-		System.out.println("Found highest flow: " + highestFlow);
+//		 
+//		Set<String> keySet = fluesseDesNetzwerkes.keySet();
+//		for (String s : keySet) {
+//			for (String t : fluesseDesNetzwerkes.get(s).keySet()) {
+//				System.out.println("Flow from " + s + " to " +t + ": " + fluesseDesNetzwerkes.get(s).get(t));
+////				result = result + fluesseDesNetzwerkes.get(s).get(t);
+//			}
+//		}
+//					
+//		String neuerKnoten = quelle;
+//		double newResult = 0;
+//		double altesFlussGewicht = 0;
+//		for (Double flussGewicht : fluesseDesNetzwerkes.get(neuerKnoten).values()) {			
+//			if (flussGewicht > altesFlussGewicht) {
+//				altesFlussGewicht = flussGewicht;
+//				newResult = newResult + flussGewicht;
+//			}
+//		}
+//		
+//		List<String> neueListe = new ArrayList<>();
+//		for (String vertex : graph.vertexSet()) {
+//			neueListe.add(vertex);
+//		}
+//		
+//		for (Double flussGewicht : fluesseDesNetzwerkes.get(neuerKnoten).values()) {
+//			
+//			for (String vertex : fluesseDesNetzwerkes.get(neueListe.get(i))) {
+//				
+//			}
+//		}
+//		
+//		
+//
+//		System.out.println("Found highest flow: " + highestFlow);
 
 		return highestFlow;
 	}
 
+	/**
+	 * Methode um einen Weg von der Quelle zur Senke zu finden
+	 * @param graph
+	 * @param quelle
+	 * @param senke
+	 * @return Es wird eine liste mit dem Weg von der Quelle zur Senke zurückgegeben.
+	 */
 	private List<String> findeWegVonDerQuelleZurSenke(Graph<String, WeightedEdge> graph, String quelle, String senke) {
+		// Ausgabeliste mit Quelle befüllen
 		List<String> wegVonQuelleZuSenke = new ArrayList<>();
 		wegVonQuelleZuSenke.add(quelle);
 		System.out.println("Trying to find way from " + quelle + " to " + senke);
 
 		String actualVertex = quelle;
 		boolean foundWay = false;
+		
+		// Hier eine Do-While Schleife, weil ein Weg gesucht werden soll
 		 do {
+			 // Für alle nachbarn des aktuellen knotens -> Am Anfang Quelle
 			for (String neighbor : kapazitaetenDesNetzwerkes.get(actualVertex).keySet()) {
 				double kapazitaet = kapazitaetenDesNetzwerkes.get(actualVertex).get(neighbor);
-
-				Double flow = fluesseDesNetzwerkes.get(actualVertex).get(neighbor);
-				System.out.println("Processing edge from " + actualVertex + " to " + neighbor + ". Flow: " + flow + ". Kapazität: " + kapazitaet);
+				double flow = fluesseDesNetzwerkes.get(actualVertex).get(neighbor);
+				
+				// wenn die Kapazität größer ist als der flusswert den nachbar in die liste tun 
+				// damit sich ein weg finden lässt muss der aktuellevertex auf den neuen gesetzt werden (nachbarn)
 				if (kapazitaet > flow) {
-					System.out.println("Free capacity on edge: " + (kapazitaet - flow));
 					wegVonQuelleZuSenke.add(neighbor);
 					actualVertex = neighbor;
 					foundWay = true;
+					// das break sorgt für den ausstieg aus der for schleife, sodass geschaut werden kann ob der aktuelle knoten der ziel knoten ist, denn die senke hat als nachfolger null.
 					break;
 				} else {
 					System.out.println("Full edge");
