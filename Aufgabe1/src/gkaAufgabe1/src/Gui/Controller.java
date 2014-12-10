@@ -7,6 +7,7 @@ public class Controller {
 	private Dijkstra dijkstra = new Dijkstra();
 	private CreateBig createBig = new CreateBig();
 	private FloydWarshall fw = new FloydWarshall();
+	private FordFulkerson ff = new FordFulkerson();
 
 	public Controller() {
 		setLookAndFeel(this);
@@ -71,6 +72,10 @@ public class Controller {
 	
 	public double floydWarshall(Graph<String, WeightedEdge> graph, String source, String target) {
 		return fw.floydWarshallAlgorithmus(graph, source, target);
+	}
+	
+	public double fordFulkerson(Graph<String, WeightedEdge> graph, String quelle, String senke) {
+		return ff.fordFulkersonAlgorithmus(graph, quelle, senke);
 	}
 
 }

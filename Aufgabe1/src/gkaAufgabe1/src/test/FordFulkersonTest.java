@@ -29,40 +29,15 @@ public class FordFulkersonTest {
 	@Before
 	public void createGraph() {
 		
-//		graph3 = createbig.createBig();
-//
-//		graph1.addVertex("A");
-//		graph1.addVertex("B");
-//		graph1.addVertex("C");
-//		graph1.addVertex("D");
-//
-//
-//		graph1.addEdge("A", "B");
-//		graph1.addEdge("A", "C");
-//		graph1.addEdge("B", "E");
-//		graph1.addEdge("B", "F");
-//		graph1.addEdge("C", "F");
-//		graph1.addEdge("E", "F");
-//		graph1.addEdge("E", "G");
-//		graph1.addEdge("F", "A");
-//		graph1.addEdge("F", "B");
-//		graph1.addEdge("F", "G");
-//		graph1.addEdge("G", "I");
-//		graph1.addEdge("I", "H");
-//		graph1.addEdge("H", "I");
-//		graph1.addEdge("H", "J");
-//		graph1.addEdge("J", "D");
-//		graph1.addEdge("J", "E");
-
 		graph2.addVertex("q");
 		graph2.addVertex("u");
 		graph2.addVertex("v");
 		graph2.addVertex("s");
 
-		addEdge("q", "u", 5d);
+		addEdge("q", "u", 4d);
 		addEdge("q", "v", 2d);
 		addEdge("u", "v", 3d);
-		addEdge("u", "s", 2d);
+		addEdge("u", "s", 1d);
 		addEdge("v", "s", 6d);
 		
 		
@@ -71,8 +46,7 @@ public class FordFulkersonTest {
 
 	@Test
 	public void testFordFulkerson() {
-//		Assert.assertArrayEquals(f.fordFulkersonAlgorithmus(graph2, "q", "s"), 2);
-		System.out.println(f.fordFulkersonAlgorithmus(graph2, "q", "s"));
+		Assert.assertEquals(f.fordFulkersonAlgorithmus(graph2, "q", "s"), 4, 0.0);
 	}
 	
 	private void addEdge(String s, String t, Double w) {

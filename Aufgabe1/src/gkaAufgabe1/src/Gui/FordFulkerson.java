@@ -1,5 +1,6 @@
 package Gui;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -67,20 +68,47 @@ public class FordFulkerson {
 		}
 
 	
-		Double highestFlow = Double.MIN_NORMAL;
+		Double highestFlow = 0d;
 		for (Double toTest : fluesseDesNetzwerkes.get(quelle).values()) {
 			if (toTest > highestFlow) {
-				highestFlow = toTest;
+				highestFlow =  toTest;
 			}
 		}
-		
-		for (String s : fluesseDesNetzwerkes.keySet()) {
+		 
+		Set<String> keySet = fluesseDesNetzwerkes.keySet();
+		for (String s : keySet) {
 			for (String t : fluesseDesNetzwerkes.get(s).keySet()) {
 				System.out.println("Flow from " + s + " to " +t + ": " + fluesseDesNetzwerkes.get(s).get(t));
+//				result = result + fluesseDesNetzwerkes.get(s).get(t);
+			}
+		}
+					
+		String neuerKnoten = quelle;
+		double newResult = 0;
+		double altesFlussGewicht = 0;
+		for (Double flussGewicht : fluesseDesNetzwerkes.get(neuerKnoten).values()) {			
+			if (flussGewicht > altesFlussGewicht) {
+				altesFlussGewicht = flussGewicht;
+				newResult = newResult + flussGewicht;
 			}
 		}
 		
+		List<String> neueListe = new ArrayList<>();
+		for (String vertex : graph.vertexSet()) {
+			neueListe.add(vertex);
+		}
+		
+		for (Double flussGewicht : fluesseDesNetzwerkes.get(neuerKnoten).values()) {
+			
+			for (String vertex : fluesseDesNetzwerkes.get(neueListe.get(i))) {
+				
+			}
+		}
+		
+		
+
 		System.out.println("Found highest flow: " + highestFlow);
+
 		return highestFlow;
 	}
 

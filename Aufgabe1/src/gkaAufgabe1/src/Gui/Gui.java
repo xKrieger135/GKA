@@ -64,137 +64,268 @@ public class Gui extends javax.swing.JFrame {
 	// desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		jPanelForEverything = new javax.swing.JPanel();
-		jButtonSetStart = new javax.swing.JButton();
-		jButtonSetEnd = new javax.swing.JButton();
-		jButtonStartBFS = new javax.swing.JButton();
-		jButtonStartDijkstra = new javax.swing.JButton();
-		jButtonWriteBIGIntoFile = new javax.swing.JButton();
-		jPanelForGraph = new javax.swing.JPanel();
-		jTextFieldForBFSOutput = new javax.swing.JTextField();
-		jTextFieldSetStart = new javax.swing.JTextField();
-		jLabel1 = new javax.swing.JLabel();
-		jTextFieldSetEndKnoten = new javax.swing.JTextField();
-		jLabel2 = new javax.swing.JLabel();
+//		jPanelForEverything = new javax.swing.JPanel();
+//		jButtonSetStart = new javax.swing.JButton();
+//		jButtonSetEnd = new javax.swing.JButton();
+//		jButtonStartBFS = new javax.swing.JButton();
+//		jButtonStartDijkstra = new javax.swing.JButton();
+//		jButtonWriteBIGIntoFile = new javax.swing.JButton();
+//		jPanelForGraph = new javax.swing.JPanel();
+//		jTextFieldSetStart = new javax.swing.JTextField();
+//		jLabel1 = new javax.swing.JLabel();
+//		jTextFieldSetEndKnoten = new javax.swing.JTextField();
+//		jLabel2 = new javax.swing.JLabel();
+//
+//		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+//		getContentPane().setLayout(null);
+//
+//		jPanelForEverything.setLayout(null);
+//
+//		jButtonSetStart.setText("SetStart");
+//		jButtonSetStart.addActionListener(new java.awt.event.ActionListener() {
+//			public void actionPerformed(java.awt.event.ActionEvent evt) {
+//				jButtonSetStartActionPerformed(evt);
+//			}
+//		});
+//		jPanelForEverything.add(jButtonSetStart);
+//		jButtonSetStart.setBounds(1010, 90, 110, 40);
+//
+//		jButtonSetEnd.setText("SetEnd");
+//		jButtonSetEnd.addActionListener(new java.awt.event.ActionListener() {
+//			public void actionPerformed(java.awt.event.ActionEvent evt) {
+//				jButtonSetEndActionPerformed(evt);
+//			}
+//		});
+//		jPanelForEverything.add(jButtonSetEnd);
+//		jButtonSetEnd.setBounds(1010, 260, 110, 40);
+//
+//		jButtonStartBFS.setText("StartBFS");
+//		jPanelForEverything.add(jButtonStartBFS);
+//		jButtonStartBFS.setBounds(1010, 560, 110, 40);
+//
+//		jButtonStartDijkstra.setText("StartDijkstra");
+//		jPanelForEverything.add(jButtonStartDijkstra);
+//		jButtonStartDijkstra.setBounds(1010, 460, 110, 40);
+//
+//		jButtonWriteBIGIntoFile.setText("Write BIG");
+//		jPanelForEverything.add(jButtonWriteBIGIntoFile);
+//		jButtonWriteBIGIntoFile.setBounds(1010, 660, 110, 40);
+//
+//		jButtonStartBFS.addActionListener(new java.awt.event.ActionListener() {
+//			public void actionPerformed(java.awt.event.ActionEvent evt) {
+//				jButtonStartBFSActionPerformed(evt);
+//			}
+//		});
+//
+//		jButtonStartDijkstra.addActionListener(new java.awt.event.ActionListener() {
+//			public void actionPerformed(java.awt.event.ActionEvent evt) {
+//				controller.returnDistance(myParser.parseTextFromTextFileToGraph(), startVertex, endVertex);
+//			}
+//		});
+//
+//		jButtonWriteBIGIntoFile.addActionListener(new java.awt.event.ActionListener() {
+//			public void actionPerformed(java.awt.event.ActionEvent evt) {
+//				controller.writeBigIntoFile();
+//				// controller.floydWarshall(myParser.parseTextFromTextFileToGraph(),
+//				// startVertex, endVertex);
+//			}
+//		});
+//
+//		javax.swing.GroupLayout jPanelForGraphLayout = new javax.swing.GroupLayout(jPanelForGraph);
+//		jPanelForGraph.setLayout(jPanelForGraphLayout);
+//		jPanelForGraphLayout.setHorizontalGroup(jPanelForGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 930, Short.MAX_VALUE));
+//		jPanelForGraphLayout.setVerticalGroup(jPanelForGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 600, Short.MAX_VALUE));
+//
+//		jPanelForEverything.add(jPanelForGraph);
+//		jPanelForGraph.setBounds(60, 20, 800, 600);
+//		jPanelForGraph.setBackground(DEFAULT_BG_COLOR);
+//
+//		jPanelForEverything.add(jTextFieldSetStart);
+//		jTextFieldSetStart.setBounds(1010, 180, 110, 30);
+//
+//		jLabel1.setText("SetStartKnotenEingabe :");
+//		jPanelForEverything.add(jLabel1);
+//		jLabel1.setBounds(1010, 150, 130, 14);
+//
+//		jTextFieldSetEndKnoten.addActionListener(new java.awt.event.ActionListener() {
+//			public void actionPerformed(java.awt.event.ActionEvent evt) {
+//				jTextFieldSetEndKnotenActionPerformed(evt);
+//			}
+//		});
+//		jPanelForEverything.add(jTextFieldSetEndKnoten);
+//		jTextFieldSetEndKnoten.setBounds(1010, 360, 110, 30);
+//
+//		jLabel2.setText("SetEndKnotenEingabe:");
+//		jPanelForEverything.add(jLabel2);
+//		jLabel2.setBounds(1014, 330, 130, 14);
+//
+//		getContentPane().add(jPanelForEverything);
+//		jPanelForEverything.setBounds(0, 0, 1200, 800);
+//
+//		pack();
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		getContentPane().setLayout(null);
-
-		jPanelForEverything.setLayout(null);
-
-		jButtonSetStart.setText("SetStart");
-		jButtonSetStart.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButtonSetStartActionPerformed(evt);
-			}
-		});
-		jPanelForEverything.add(jButtonSetStart);
-		jButtonSetStart.setBounds(1010, 90, 110, 40);
-
-		jButtonSetEnd.setText("SetEnd");
-		jButtonSetEnd.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButtonSetEndActionPerformed(evt);
-			}
-		});
-		jPanelForEverything.add(jButtonSetEnd);
-		jButtonSetEnd.setBounds(1010, 260, 110, 40);
-
-		jButtonStartBFS.setText("StartBFS");
-		jPanelForEverything.add(jButtonStartBFS);
-		jButtonStartBFS.setBounds(1010, 560, 110, 40);
-
-		jButtonStartDijkstra.setText("StartDijkstra");
-		jPanelForEverything.add(jButtonStartDijkstra);
-		jButtonStartDijkstra.setBounds(1010, 460, 110, 40);
+		 jPanelForEverything = new javax.swing.JPanel();
+		 jPanelForGraph = new javax.swing.JPanel();
+		 jButtonSetStart = new javax.swing.JButton();
+		 jButtonSetEnd = new javax.swing.JButton();
+		 jButtonStartDijkstra = new javax.swing.JButton();
+		 jButtonStartBFS = new javax.swing.JButton();
+		 jButtonFloydWarshall = new javax.swing.JButton();
+		 jButtonWriteBIGIntoFile = new javax.swing.JButton();
+		 jButtonFordFulkerson = new javax.swing.JButton();
+		 jButtonEdmondKarp = new javax.swing.JButton();
+		 jButton1 = new javax.swing.JButton();
+		 jButton2 = new javax.swing.JButton();
+		 jButton3 = new javax.swing.JButton();
+		 jButton4 = new javax.swing.JButton();
+		 jTextFieldSetStart = new javax.swing.JTextField();
+		 jTextFieldSetEndKnoten = new javax.swing.JTextField();
+		 jLabel1 = new javax.swing.JLabel();
+		 jLabel2 = new javax.swing.JLabel();
+		 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		 getContentPane().setLayout(null);
 		
-		jButtonWriteBIGIntoFile.setText("Write BIG");
-		jPanelForEverything.add(jButtonWriteBIGIntoFile);
-		jButtonWriteBIGIntoFile.setBounds(1010, 660, 110, 40);
+		 jPanelForEverything.setLayout(null);
+		
+		 javax.swing.GroupLayout jPanelForGraphLayout = new
+		 javax.swing.GroupLayout(jPanelForGraph);
+		 jPanelForGraph.setLayout(jPanelForGraphLayout);
+		 jPanelForGraphLayout.setHorizontalGroup(jPanelForGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
+		 720, Short.MAX_VALUE));
+		 jPanelForGraphLayout.setVerticalGroup(jPanelForGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
+		 480, Short.MAX_VALUE));
+		
+		 jPanelForEverything.add(jPanelForGraph);
+		 jPanelForGraph.setBounds(19, 19, 725, 725);
+		
+		 jButtonSetStart.setText("Start");
+		 jButtonSetStart.addActionListener(new java.awt.event.ActionListener()
+		 {
+		 public void actionPerformed(java.awt.event.ActionEvent evt) {
+		 jButtonSetStartActionPerformed(evt);
+		 }
+		 });
+		 jPanelForEverything.add(jButtonSetStart);
+		 jButtonSetStart.setBounds(760, 90, 73, 23);
+		
+		 jButtonSetEnd.setText("Ende");
+		 jButtonSetEnd.addActionListener(new java.awt.event.ActionListener() {
+		 public void actionPerformed(java.awt.event.ActionEvent evt) {
+		 jButtonSetEndActionPerformed(evt);
+		 }
+		 });
+		 jPanelForEverything.add(jButtonSetEnd);
+		 jButtonSetEnd.setBounds(880, 90, 70, 23);
+		
+		 jButtonStartDijkstra.setText("Dijkstra");
+		 jButtonStartDijkstra.addActionListener(new
+		 java.awt.event.ActionListener() {
+		 public void actionPerformed(java.awt.event.ActionEvent evt) {
+		 controller.returnDistance(myParser.parseTextFromTextFileToGraph(),
+		 startVertex, endVertex);
+		 }
+		 });
+		 jPanelForEverything.add(jButtonStartDijkstra);
+		 jButtonStartDijkstra.setBounds(760, 190, 69, 23);
+		
+		 jButtonStartBFS.setText("BFS");
+		 jButtonStartBFS.addActionListener(new java.awt.event.ActionListener()
+		 {
+		 public void actionPerformed(java.awt.event.ActionEvent evt) {
+		 jButtonStartBFSActionPerformed(evt);
+		 }
+		 });
+		 jPanelForEverything.add(jButtonStartBFS);
+		 jButtonStartBFS.setBounds(870, 190, 70, 23);
+		
+		 jButtonFloydWarshall.setText("Floyd");
+		 jButtonFloydWarshall.addActionListener(new
+		 java.awt.event.ActionListener() {
+		 public void actionPerformed(java.awt.event.ActionEvent evt) {
+		 controller.floydWarshall(myParser.parseTextFromTextFileToGraph(),
+		 startVertex, endVertex);
+		 }
+		 });
+		 jPanelForEverything.add(jButtonFloydWarshall);
+		 jButtonFloydWarshall.setBounds(760, 260, 70, 23);
+		
+		 jButtonWriteBIGIntoFile.setText("BIG");
+		 jButtonWriteBIGIntoFile.addActionListener(new
+		 java.awt.event.ActionListener() {
+		 public void actionPerformed(java.awt.event.ActionEvent evt) {
+		 controller.writeBigIntoFile();
+		
+		 }
+		 });
+		 jPanelForEverything.add(jButtonWriteBIGIntoFile);
+		 jButtonWriteBIGIntoFile.setBounds(870, 260, 70, 23);
+		
+		 jButtonFordFulkerson.setText("Ford");
+		 jButtonFordFulkerson.addActionListener(new
+		 java.awt.event.ActionListener() {
+		 public void actionPerformed(java.awt.event.ActionEvent evt) {
+			 controller.fordFulkerson(myParser.parseTextFromTextFileToGraph(),
+		 startVertex, endVertex);
+		
+		 }
+		 });
+		 jPanelForEverything.add(jButtonFordFulkerson);
+		 jButtonFordFulkerson.setBounds(760, 330, 70, 23);
+		
+		 jButtonEdmondKarp.setText("Edmond");
+		 jPanelForEverything.add(jButtonEdmondKarp);
+		 jButtonEdmondKarp.setBounds(870, 330, 71, 23);
+		
+		 jButton1.setText("jButton1");
+		 jPanelForEverything.add(jButton1);
+		 jButton1.setBounds(760, 400, 73, 23);
+		
+		 jButton2.setText("jButton2");
+		 jPanelForEverything.add(jButton2);
+		 jButton2.setBounds(870, 400, 73, 23);
+		
+		 jButton3.setText("jButton3");
+		 jPanelForEverything.add(jButton3);
+		 jButton3.setBounds(760, 470, 73, 23);
+		
+		 jButton4.setText("jButton4");
+		 jPanelForEverything.add(jButton4);
+		 jButton4.setBounds(870, 470, 73, 23);
+		
+		 jPanelForEverything.add(jTextFieldSetStart);
+		 jTextFieldSetStart.setBounds(760, 140, 70, 20);
+		
+		 jLabel1.setText("SetStartKnotenEingabe :");
+		 jPanelForEverything.add(jLabel1);
+		 jLabel1.setBounds(1010, 150, 130, 14);
+		
+		 jTextFieldSetEndKnoten.addActionListener(new
+		 java.awt.event.ActionListener() {
+		 public void actionPerformed(java.awt.event.ActionEvent evt) {
+		 jTextFieldSetEndKnotenActionPerformed(evt);
+		 }
+		 });
+		 jPanelForEverything.add(jTextFieldSetEndKnoten);
+		 jTextFieldSetEndKnoten.setBounds(880, 140, 70, 20);
+		
+		 jLabel2.setText("SetEndKnotenEingabe:");
+		 jPanelForEverything.add(jLabel2);
+		 jLabel2.setBounds(1014, 330, 130, 14);
+		
+		 getContentPane().add(jPanelForEverything);
+		 jPanelForEverything.setBounds(8, 8, 980, 640);
+		
+		 pack();
 
-		jButtonStartBFS.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButtonStartBFSActionPerformed(evt);
-			}
-		});
-
-		jButtonStartDijkstra
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						controller.returnDistance(
-								myParser.parseTextFromTextFileToGraph(),
-								startVertex, endVertex);
-					}
-				});
-
-		jButtonWriteBIGIntoFile
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						controller.writeBigIntoFile();
-//						controller.floydWarshall(myParser.parseTextFromTextFileToGraph(),
-//								startVertex, endVertex);
-					}
-				});
-
-		javax.swing.GroupLayout jPanelForGraphLayout = new javax.swing.GroupLayout(
-				jPanelForGraph);
-		jPanelForGraph.setLayout(jPanelForGraphLayout);
-		jPanelForGraphLayout.setHorizontalGroup(jPanelForGraphLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 930, Short.MAX_VALUE));
-		jPanelForGraphLayout.setVerticalGroup(jPanelForGraphLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 600, Short.MAX_VALUE));
-
-		jPanelForEverything.add(jPanelForGraph);
-		jPanelForGraph.setBounds(60, 20, 930, 600);
-		jPanelForGraph.setBackground(DEFAULT_BG_COLOR);
-
-		jTextFieldForBFSOutput
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						jTextFieldForBFSOutputActionPerformed(evt);
-					}
-				});
-		jPanelForEverything.add(jTextFieldForBFSOutput);
-		jTextFieldForBFSOutput.setBounds(60, 650, 930, 110);
-		jPanelForEverything.add(jTextFieldSetStart);
-		jTextFieldSetStart.setBounds(1010, 180, 110, 30);
-
-		jLabel1.setText("SetStartKnotenEingabe :");
-		jPanelForEverything.add(jLabel1);
-		jLabel1.setBounds(1010, 150, 130, 14);
-
-		jTextFieldSetEndKnoten
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						jTextFieldSetEndKnotenActionPerformed(evt);
-					}
-				});
-		jPanelForEverything.add(jTextFieldSetEndKnoten);
-		jTextFieldSetEndKnoten.setBounds(1010, 360, 110, 30);
-
-		jLabel2.setText("SetEndKnotenEingabe:");
-		jPanelForEverything.add(jLabel2);
-		jLabel2.setBounds(1014, 330, 130, 14);
-
-		getContentPane().add(jPanelForEverything);
-		jPanelForEverything.setBounds(0, 0, 1200, 800);
-
-		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonStartBFSActionPerformed(java.awt.event.ActionEvent evt) {
-		System.out
-				.println(controller.breadthFirstSearch(
-						myParser.parseTextFromTextFileToGraph(), startVertex,
-						endVertex));
+		System.out.println(controller.breadthFirstSearch(myParser.parseTextFromTextFileToGraph(), startVertex, endVertex));
 		// startVertex = jTextFieldSetStart.getText();
 		// endVertex = jTextFieldSetEndKnoten.getText();
 	}
 
-	private void jTextFieldForBFSOutputActionPerformed(
-			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextFieldForBFSOutputActionPerformed
+	private void jTextFieldForBFSOutputActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextFieldForBFSOutputActionPerformed
 
 	}// GEN-LAST:event_jTextFieldForBFSOutputActionPerformed
 
@@ -211,8 +342,7 @@ public class Gui extends javax.swing.JFrame {
 		System.out.println(endVertex);
 	}// GEN-LAST:event_jButtonSetEndActionPerformed
 
-	private void jTextFieldSetEndKnotenActionPerformed(
-			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextFieldSetEndKnotenActionPerformed
+	private void jTextFieldSetEndKnotenActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextFieldSetEndKnotenActionPerformed
 		// TODO add your handling code here:
 	}// GEN-LAST:event_jTextFieldSetEndKnotenActionPerformed
 
@@ -222,19 +352,38 @@ public class Gui extends javax.swing.JFrame {
 	 */
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton jButtonSetEnd;
-	private javax.swing.JButton jButtonSetStart;
-	private javax.swing.JButton jButtonStartBFS;
-	private javax.swing.JButton jButtonStartDijkstra;
-	private javax.swing.JButton jButtonWriteBIGIntoFile;
-	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel2;
-	private javax.swing.JPanel jPanelForEverything;
-	private javax.swing.JPanel jPanelForGraph;
-	private javax.swing.JTextField jTextFieldForBFSOutput;
-	private javax.swing.JTextField jTextFieldSetEndKnoten;
-	private javax.swing.JTextField jTextFieldSetStart;
-	private JFrame graph;
+//	private javax.swing.JButton jButtonSetEnd;
+//	private javax.swing.JButton jButtonSetStart;
+//	private javax.swing.JButton jButtonStartBFS;
+//	private javax.swing.JButton jButtonStartDijkstra;
+//	private javax.swing.JButton jButtonWriteBIGIntoFile;
+//	private javax.swing.JLabel jLabel1;
+//	private javax.swing.JLabel jLabel2;
+//	private javax.swing.JPanel jPanelForEverything;
+//	private javax.swing.JPanel jPanelForGraph;
+//	private javax.swing.JTextField jTextFieldForBFSOutput;
+//	private javax.swing.JTextField jTextFieldSetEndKnoten;
+//	private javax.swing.JTextField jTextFieldSetStart;
+
+	 private javax.swing.JButton jButton1;
+	 private javax.swing.JButton jButton2;
+	 private javax.swing.JButton jButton3;
+	 private javax.swing.JButton jButton4;
+	 private javax.swing.JButton jButtonEdmondKarp;
+	 private javax.swing.JButton jButtonFloydWarshall;
+	 private javax.swing.JButton jButtonFordFulkerson;
+	 private javax.swing.JButton jButtonSetEnd;
+	 private javax.swing.JButton jButtonSetStart;
+	 private javax.swing.JButton jButtonStartBFS;
+	 private javax.swing.JButton jButtonStartDijkstra;
+	 private javax.swing.JButton jButtonWriteBIGIntoFile;
+	 private javax.swing.JPanel jPanelForGraph;
+	 private javax.swing.JPanel jPanelForEverything;
+	 private javax.swing.JTextField jTextFieldSetEndKnoten;
+	 private javax.swing.JTextField jTextFieldSetStart;
+	 private javax.swing.JLabel jLabel1;
+	 private javax.swing.JLabel jLabel2;
+	 private JFrame graph;
 
 	// End of variables declaration//GEN-END:variables
 
@@ -244,8 +393,7 @@ public class Gui extends javax.swing.JFrame {
 
 		// Hier wird ein gerichteter graph erstellt
 		myParser.readGraphFromFile();
-		Graph<String, WeightedEdge> graph = myParser
-				.parseTextFromTextFileToGraph();
+		Graph<String, WeightedEdge> graph = myParser.parseTextFromTextFileToGraph();
 		System.out.println(graph.vertexSet());
 
 		// mit dem JgraphmodelAdapter werden die JGraphT Graphen dargestellt
@@ -256,9 +404,7 @@ public class Gui extends javax.swing.JFrame {
 		Object[] vertex = graph.vertexSet().toArray();
 		double pi2 = Math.PI * 2;
 		for (int i = 0; i < length; i++) {
-			positionVertexAt(vertex[i],
-					(int) (Math.sin(pi2 * (i / length)) * 250 + 260),
-					(int) (Math.cos(pi2 * (i / length)) * 250 + 260));
+			positionVertexAt(vertex[i], (int) (Math.sin(pi2 * (i / length)) * 250 + 260), (int) (Math.cos(pi2 * (i / length)) * 250 + 260));
 		}
 
 		jGraph = new JGraph(jGraphModelAdapter);
@@ -277,10 +423,7 @@ public class Gui extends javax.swing.JFrame {
 		Map attr = cell.getAttributes();
 		Rectangle2D nodeForm = GraphConstants.getBounds(attr);
 
-		GraphConstants.setBounds(
-				attr,
-				new Rectangle(x, y, (int) nodeForm.getWidth(), (int) nodeForm
-						.getHeight()));
+		GraphConstants.setBounds(attr, new Rectangle(x, y, (int) nodeForm.getWidth(), (int) nodeForm.getHeight()));
 
 		Map cellAttr = new HashMap();
 		cellAttr.put(cell, attr);
