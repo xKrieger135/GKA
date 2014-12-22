@@ -17,7 +17,7 @@ public class FordFulkerson {
 	Map<String, Map<String, Double>> fluesseDesNetzwerkes = new HashMap<String, Map<String, Double>>();
 
 	public double fordFulkersonAlgorithmus(Graph<String, WeightedEdge> graph, String quelle, String senke) {
-		
+
 		for (String v : graph.vertexSet()) {
 			// hinterer Teil der geschachtelten Map welcher die Kapazität
 			// enthalten soll oder den Teil für die Flusseinheit
