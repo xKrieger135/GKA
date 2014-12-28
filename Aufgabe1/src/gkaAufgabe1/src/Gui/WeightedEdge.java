@@ -10,7 +10,7 @@ public class WeightedEdge extends DefaultWeightedEdge {
 		super();
 	}
 	
-	public WeightedEdge(int weight) {
+	public WeightedEdge(double weight) {
 		
 	}
 

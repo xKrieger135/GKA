@@ -27,7 +27,7 @@ public class MyParser {
 
 	// Java REGEX zum auswerten, von Textzeilen, Texten
 	public static final Pattern JAVAREGEX = Pattern
-			.compile("(?<start>[a-zA-Z0-9]+)( ?(-(?<verbindung>[>-])) ?(?<ende>[a-zA-Z0-9]+) ?( ?: (?<gewicht>[0-9]+))?)?;.*");
+			.compile("(?<start>[a-zA-Z0-9]+)( ?(?<verbindung>-([>-])) ?(?<ende>[a-zA-Z0-9]+) ?( ?: (?<gewicht>[0-9]+))?)?;.*");
 	private static String matcherVariable = "";
 
 	// Hier werden Datein für Graphen eingelesen.
@@ -83,9 +83,15 @@ public class MyParser {
 					graph.addVertex(nodeEnd);
 
 					if (weight != null) {
-						WeightedEdge E = graph.addEdge(nodeStart, nodeEnd);
-						((AbstractBaseGraph<String, WeightedEdge>) graph)
-								.setEdgeWeight(E, Double.parseDouble(weight));
+						// bullshit den jan gemacht hatte
+//						WeightedEdge E = graph.addEdge(nodeStart, nodeEnd);
+						WeightedEdge e = new WeightedEdge();
+						e.setWeight(Double.parseDouble(weight));
+						
+						graph.addEdge(nodeStart, nodeEnd, e);
+						// konnte keine kante mehr hinzufügen was du gemacht jan 
+//						((AbstractBaseGraph<String, WeightedEdge>) graph)
+//								.setEdgeWeight(E, Double.parseDouble(weight));
 					} else {
 						graph.addEdge(nodeStart, nodeEnd);
 					}
