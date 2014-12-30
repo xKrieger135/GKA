@@ -440,34 +440,43 @@ public class FordFulk {
 
 				}
 
-			} // WHILE2 END
+			} // WHILE2 END path.getVertexes().add(current2.name);
 
 			System.out.println("WHILE 2 END");
 
 			System.out.println("++++Building Path++++");
 			MarkedVertex current2 = markierteKnoten.get(senke);
+			List<String> path = new ArrayList<String>();
 			System.out.println("TestCurrent = " + current2);
 			while (current2 != null) {
-
+				path.add(current2.name);
 				current2 = markierteKnoten.get(current2.vorgaenger);
+
 				System.out.println("Current2 = " + current2);
 			}
-//			Collections.reverse(path.getVertexes());
-//			System.out.println(path.getVertexes());k 
+			// Collections.reverse(path.getVertexes());
+			// System.out.println(path.getVertexes());k
 			// f um Inkrement erhhen bzw. erniedrigen
-			for (int i = 0; i < path.getVertexes().size() - 1; i++) {
+			for (int i = 0; i < path.size() - 1; i++) {
 				// Set mit allen Kanten von jeweils zwei Knoten aus dem Path
-				Set<WeightedEdge> mapOfEdges = graph.getAllEdges(path
-						.getVertexes().get(i), path.getVertexes().get(i + 1));
+				Set<WeightedEdge> mapOfEdges = graph.getAllEdges(path.get(i),
+						path.get(i + 1));
 				for (WeightedEdge edge : mapOfEdges) {
 					// Add Increment to current flow of the plus-directed edges
 					if (markierteKnoten.get(edge.getTarget()).direction == true) {
-						edge.setCurrentFlow(markierteKnoten.get(senke).currentInkrement);
+						// edge.setCurrentFlow(markierteKnoten.get(senke).currentInkrement);
+
+						fluesseDesNetzwerkes.get(edge.getSource()).put(
+								edge.getTarget(),
+								markierteKnoten.get(senke).currentInkrement);
 					}
 					// Decrease Increment from current flow of the
 					// minus-directed edges
 					else {
-						edge.setCurrentFlow(-(markierteKnoten.get(senke).currentInkrement));
+						// edge.setCurrentFlow(-(markierteKnoten.get(senke).currentInkrement));
+						fluesseDesNetzwerkes.get(edge.getSource()).put(
+								edge.getTarget(),
+								-markierteKnoten.get(senke).currentInkrement);
 					}
 
 				}
