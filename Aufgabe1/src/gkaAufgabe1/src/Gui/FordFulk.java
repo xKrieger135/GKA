@@ -375,8 +375,8 @@ public class FordFulk {
 										.println("ListeMitNichtInspiziertenKnoten : "
 												+ listeMitNichtInspiziertenKnoten);
 
-								fluesseDesNetzwerkes.get(vi)
-										.put(target, deltaJ);
+//								fluesseDesNetzwerkes.get(vi)
+//										.put(target, deltaJ);
 
 								System.out
 										.println("vi --> vj Wert des aktuellen Flusses: "
@@ -424,8 +424,8 @@ public class FordFulk {
 
 								listeMitNichtInspiziertenKnoten.add(source);
 
-								fluesseDesNetzwerkes.get(source).put(
-										eij.getTarget(), deltaJ);
+//								fluesseDesNetzwerkes.get(source).put(
+//										eij.getTarget(), deltaJ);
 								System.out
 										.println("FluesseDesNetzwerks Ausgabe  :  "
 												+ fluesseDesNetzwerkes.get(
@@ -459,8 +459,10 @@ public class FordFulk {
 			// f um Inkrement erhhen bzw. erniedrigen
 			for (int i = 0; i < path.size() - 1; i++) {
 				// Set mit allen Kanten von jeweils zwei Knoten aus dem Path
-				Set<WeightedEdge> mapOfEdges = graph.getAllEdges(path.get(i),
-						path.get(i + 1));
+				System.out.println("path i " + path.get(i));
+				System.out.println("path i + 1" + path.get(i + 1));
+				Set<WeightedEdge> mapOfEdges = graph.getAllEdges(path.get(i + 1),
+						path.get(i));
 				for (WeightedEdge edge : mapOfEdges) {
 					// Add Increment to current flow of the plus-directed edges
 					if (markierteKnoten.get(edge.getTarget()).direction == true) {
@@ -469,6 +471,9 @@ public class FordFulk {
 						fluesseDesNetzwerkes.get(edge.getSource()).put(
 								edge.getTarget(),
 								markierteKnoten.get(senke).currentInkrement);
+						System.out.println("Wertaenderung in fluesse des netzwerkes : " + fluesseDesNetzwerkes.get(edge.getSource()).put(
+								edge.getTarget(),
+								markierteKnoten.get(senke).currentInkrement));
 					}
 					// Decrease Increment from current flow of the
 					// minus-directed edges
@@ -488,6 +493,7 @@ public class FordFulk {
 
 		}
 
+		System.out.println("Fluesse Des Netzwerkes : " + fluesseDesNetzwerkes);
 		System.out.println("Ende der ersten While Schleife!");
 
 		// Muss noch korrigiert werden ist nur damit die Fehlermeldung weg ist
