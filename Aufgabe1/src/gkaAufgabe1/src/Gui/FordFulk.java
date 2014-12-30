@@ -249,8 +249,8 @@ public class FordFulk {
 
 	Map<String, Map<String, Double>> kapazitaetenDesNetzwerkes = new HashMap<>();
 	Map<String, Map<String, Double>> fluesseDesNetzwerkes = new HashMap<>();
-//	Map<String, ArrayList<Object>> markierteKnoten = new HashMap<>();
-//	Map<String, Map<Double, Boolean>> markierteKnoten2 = new HashMap<>();
+	// Map<String, ArrayList<Object>> markierteKnoten = new HashMap<>();
+	// Map<String, Map<Double, Boolean>> markierteKnoten2 = new HashMap<>();
 	Map<String, MarkedVertex> markierteKnoten = new HashMap<String, FordFulk.MarkedVertex>();
 	List<String> listeMitMarkiertenKnoten = new ArrayList<>();
 	List<String> markierteUndInspizierteKnoten = new ArrayList<>();
@@ -280,16 +280,16 @@ public class FordFulk {
 
 		MarkedVertex marked = new MarkedVertex();
 		marked.name = quelle;
-		//initializing with null (Quelle hat keinen Vorg)
+		// initializing with null (Quelle hat keinen Vorg)
 		marked.vorgaenger = null;
-		//initializing with infinity
+		// initializing with infinity
 		marked.currentInkrement = Double.POSITIVE_INFINITY;
-		//First Map Entry is: "Quelle" : "Quelle"
-		
+		// First Map Entry is: "Quelle" : "Quelle"
+
 		markierteKnoten.put(quelle, marked);
 
 		boolean senkeWurdeErreicht = true;
-		
+
 		// Solange s noch nicht markiert ist / erreicht
 		while (senkeWurdeErreicht == true) {
 			// Wir gehen immer den Weg vom Start zum Ende, dieser ist jedoch
@@ -297,12 +297,12 @@ public class FordFulk {
 			senkeWurdeErreicht = false;
 
 			listeMitMarkiertenKnoten.add(quelle);
-			
+
 			System.out
 					.println("Markierte Knoten - " + listeMitMarkiertenKnoten);
-			
+
 			listeMitNichtInspiziertenKnoten.add(quelle);
-			
+
 			System.out.println("Nicht Inspizierte Knoten"
 					+ listeMitNichtInspiziertenKnoten);
 
@@ -328,7 +328,7 @@ public class FordFulk {
 
 					// Fuer vorwaerts Kanten
 					if (!eij.getTarget().equals(vi)) {
-						
+
 						String target = eij.getTarget();
 						// maximale Kapazitaet
 						double kapazitaet = eij.getWeight();
@@ -342,12 +342,12 @@ public class FordFulk {
 							// nicht
 							if (!listeMitMarkiertenKnoten.contains(target)
 									&& senkeWurdeErreicht == false) {
-								
+
 								MarkedVertex newMarked = new MarkedVertex();
 								newMarked.name = target;
 								newMarked.direction = true;
 								newMarked.vorgaenger = vi;
-								
+
 								// vj markieren mit dem minimum von c - f und
 								// delta i
 								double deltaJ = Math.min(kapazitaet - fluss,
@@ -358,7 +358,6 @@ public class FordFulk {
 								// Inkrement muss neu gesetzt werden, sonst wird
 								// immer das inkrement von q benutzt was falsch
 								// waere.
-
 
 								markierteKnoten.put(target, newMarked);
 								System.out.println("MarkierteKnoten: "
@@ -376,7 +375,8 @@ public class FordFulk {
 										.println("ListeMitNichtInspiziertenKnoten : "
 												+ listeMitNichtInspiziertenKnoten);
 
-								fluesseDesNetzwerkes.get(vi).put(target, deltaJ);
+								fluesseDesNetzwerkes.get(vi)
+										.put(target, deltaJ);
 
 								System.out
 										.println("vi --> vj Wert des aktuellen Flusses: "
@@ -394,28 +394,29 @@ public class FordFulk {
 						String source = eij.getSource();
 						// maximale Kapazitaet
 
-						double fluss = fluesseDesNetzwerkes.get(source).get(eij.getTarget());
+						double fluss = fluesseDesNetzwerkes.get(source).get(
+								eij.getTarget());
 						System.out.println("Fluss fuer die Reverse Kante : "
 								+ fluss);
 
 						if (fluss > 0) {
 							if (!listeMitMarkiertenKnoten.contains(source)
 									&& senkeWurdeErreicht == false) {
-								
+
 								MarkedVertex newMarked = new MarkedVertex();
-								//His own name = name of source
+								// His own name = name of source
 								newMarked.name = source;
-								//Direction (false = minus)
+								// Direction (false = minus)
 								newMarked.direction = false;
-								//Vorgaenger is current
+								// Vorgaenger is current
 								newMarked.vorgaenger = vi;
 								// vj markieren mit dem minimum delta i
-								double deltaJ = Math.min(fluss, node.currentInkrement);
+								double deltaJ = Math.min(fluss,
+										node.currentInkrement);
 								newMarked.currentInkrement = deltaJ;
 								// Inkrement muss neu gesetzt werden, sonst wird
 								// immer das inkrement von q benutzt was falsch
 								// waere.
-
 
 								markierteKnoten.put(source, newMarked);
 
@@ -423,13 +424,14 @@ public class FordFulk {
 
 								listeMitNichtInspiziertenKnoten.add(source);
 
-								fluesseDesNetzwerkes.get(source).put(eij.getTarget(),
-										deltaJ);
+								fluesseDesNetzwerkes.get(source).put(
+										eij.getTarget(), deltaJ);
 								System.out
 										.println("FluesseDesNetzwerks Ausgabe  :  "
 												+ fluesseDesNetzwerkes.get(
-														source).put(eij.getTarget(),
-														deltaJ));
+														source)
+														.put(eij.getTarget(),
+																deltaJ));
 
 							}
 						}
@@ -442,7 +444,37 @@ public class FordFulk {
 
 			System.out.println("WHILE 2 END");
 
-			
+			System.out.println("++++Building Path++++");
+			MarkedVertex current2 = markierteKnoten.get(senke);
+			System.out.println("TestCurrent = " + current2);
+			while (current2 != null) {
+//				path.getVertexes().add(current2.name);
+				current2 = markierteKnoten.get(current2.vorgaenger);
+				System.out.println("Current2 = " + current2);
+			}
+//			Collections.reverse(path.getVertexes());
+//			System.out.println(path.getVertexes());
+//			// f um Inkrement erhhen bzw. erniedrigen
+//			for (int i = 0; i < path.getVertexes().size() - 1; i++) {
+//				// Set mit allen Kanten von jeweils zwei Knoten aus dem Path
+//				Set<WeightedNamedEdge> mapOfEdges = inGraph.getAllEdges(path
+//						.getVertexes().get(i), path.getVertexes().get(i + 1));
+//				for (WeightedNamedEdge edge : mapOfEdges) {
+//					System.out.println("Kante vor nderung: "
+//							+ edge.toString2());
+//					// Add Increment to current flow of the plus-directed edges
+//					if (mapOfmarkedVertices.get(edge.getTarget()).direction == true) {
+//						edge.setCurrentFlow(mapOfmarkedVertices.get(Senke).currentInkrement);
+//					}
+//					// Decrease Increment from current flow of the
+//					// minus-directed edges
+//					else {
+//						edge.setCurrentFlow(-(mapOfmarkedVertices.get(Senke).currentInkrement));
+//					}
+//
+//				}
+//			}
+
 			listeMitMarkiertenKnoten.clear();
 			listeMitNichtInspiziertenKnoten.clear();
 			// Vergroesserung der Flussstaerke
