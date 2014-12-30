@@ -42,7 +42,7 @@ public class FordFulk {
 		}
 
 		// q mit unendlich markieren
-		ArrayList<Object> A =new ArrayList();
+		ArrayList<Object> A = new ArrayList<>();
 		A.add(Double.POSITIVE_INFINITY);
 		A.add(true); // TODO
 		markierteKnoten.put(quelle, A);
@@ -112,7 +112,7 @@ public class FordFulk {
 								inkrement = deltaJ;
 
 								//markierteKnoten.put(vj, inkrement);
-								ArrayList<Object> B =new ArrayList();
+								ArrayList<Object> B =new ArrayList<>();
 								B.add(inkrement);
 								B.add(true); //TODO
 								
@@ -121,10 +121,15 @@ public class FordFulk {
 								System.out.println("MarkierteKnoten: " + markierteKnoten);
 								
 								listeMitMarkiertenKnoten.add(vj);
+								
 								System.out.println("ListeMitMarkiertenKnoten : " + listeMitMarkiertenKnoten);
+								
 								listeMitNichtInspiziertenKnoten.add(vj);
+								
 								System.out.println("ListeMitNichtInspiziertenKnoten : " + listeMitNichtInspiziertenKnoten);
+								
 								fluesseDesNetzwerkes.get(vi).put(vj, inkrement);
+								
 								System.out.println("vi --> vj Wert des aktuellen Flusses: " + fluesseDesNetzwerkes.get(vi).put(vj, inkrement));
 
 							}
@@ -133,7 +138,7 @@ public class FordFulk {
 								senkeWurdeErreicht = true;
 							}
 						}
-					}/* else {
+					} else {
 						// fuer rueckwaerts Kanten
 						String source = eij.getSource();
 						// maximale Kapazitaet
@@ -149,7 +154,16 @@ public class FordFulk {
 								// vj markieren mit dem minimum delta i
 								double deltaJ = Math.min(fluss, inkrement);
 								
-								markierteKnoten.put(source, inkrement);
+								// Inkrement muss neu gesetzt werden, sonst wird
+								// immer das inkrement von q benutzt was falsch
+								// waere.
+								inkrement = deltaJ;
+								
+								ArrayList<Object> B = new ArrayList<>();
+								B.add(inkrement);
+								B.add(false); //TODO
+								
+								markierteKnoten.put(source, B);
 								
 								listeMitMarkiertenKnoten.add(source);
 
@@ -161,7 +175,7 @@ public class FordFulk {
 							}
 						}
 
-					}*/
+					}
 
 				}
 
