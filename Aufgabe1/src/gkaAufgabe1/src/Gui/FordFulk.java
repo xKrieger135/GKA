@@ -16,6 +16,7 @@ public class FordFulk {
 	Map<String, Map<String, Double>> kapazitaetenDesNetzwerkes = new HashMap<>();
 	Map<String, Map<String, Double>> fluesseDesNetzwerkes = new HashMap<>();
 	Map<String, Double> markierteKnoten = new HashMap<>();
+	Map<String, Map<Double, Boolean>> markierteKnoten2 = new HashMap<>();
 	List<String> listeMitMarkiertenKnoten = new ArrayList<>();
 	List<String> markierteUndInspizierteKnoten = new ArrayList<>();
 	List<String> listeMitNichtInspiziertenKnoten = new ArrayList<>();
@@ -42,6 +43,9 @@ public class FordFulk {
 
 		// q mit unendlich markieren
 		markierteKnoten.put(quelle, Double.POSITIVE_INFINITY);
+		
+//		Map<Double, Boolean> inkrementUndRichtung = new HashMap<Double, Boolean>();
+//		markierteKnoten.put(quelle, inkrementUndRichtung);
 		boolean senkeWurdeErreicht = true;
 
 		// Solange s noch nicht markiert ist / erreicht
@@ -79,11 +83,13 @@ public class FordFulk {
 						// maximale Kapazitaet
 						double kapazitaet = eij.getWeight();
 						System.out.println("Kapazitaet : " + kapazitaet);
+						
 						// fluss wird hier geholt
 						// Den Fluss hier holen, da es sonst auftreten kann,
 						// dass er zu sich selbst einen Fluss nehmen will 
 						// (keine Ahnung wieso er sich selbst als Target sieht)
 						double fluss = fluesseDesNetzwerkes.get(vi).get(vj);
+						
 						System.out.println("Fluss : " + fluss);
 						if (kapazitaet > fluss) {
 							// Abfrage, ob die Senke schon erreicht wurde oder
@@ -106,7 +112,7 @@ public class FordFulk {
 								listeMitMarkiertenKnoten.add(vj);
 								System.out.println("ListeMitMarkiertenKnoten : " + listeMitMarkiertenKnoten);
 								listeMitNichtInspiziertenKnoten.add(vj);
-
+								System.out.println("ListeMitNichtInspiziertenKnoten : " + listeMitNichtInspiziertenKnoten);
 								fluesseDesNetzwerkes.get(vi).put(vj, inkrement);
 								System.out.println("vi --> vj Wert des aktuellen Flusses: " + fluesseDesNetzwerkes.get(vi).put(vj, inkrement));
 
@@ -148,14 +154,18 @@ public class FordFulk {
 
 				}
 
-			} //WHILE END
+			} //WHILE2 END
 			
+			System.out.println("WHILE 2 END");
+			
+			listeMitMarkiertenKnoten.clear();
+			listeMitNichtInspiziertenKnoten.clear();
 			// Vergroesserung der Flussstaerke
-			
+			 
 
 		}
 		
-		System.out.println("TEST");
+		System.out.println("Ende der ersten While Schleife!");
 
 		// Muss noch korrigiert werden ist nur damit die Fehlermeldung weg ist
 		// beim Funktionskopf
@@ -194,7 +204,6 @@ public class FordFulk {
 				+ ", listeMitNichtInspiziertenKnoten="
 				+ listeMitNichtInspiziertenKnoten + "]";
 	}
-	
 	
 
 }
