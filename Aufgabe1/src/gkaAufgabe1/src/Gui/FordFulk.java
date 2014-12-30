@@ -448,32 +448,30 @@ public class FordFulk {
 			MarkedVertex current2 = markierteKnoten.get(senke);
 			System.out.println("TestCurrent = " + current2);
 			while (current2 != null) {
-//				path.getVertexes().add(current2.name);
+
 				current2 = markierteKnoten.get(current2.vorgaenger);
 				System.out.println("Current2 = " + current2);
 			}
 //			Collections.reverse(path.getVertexes());
-//			System.out.println(path.getVertexes());
-//			// f um Inkrement erhhen bzw. erniedrigen
-//			for (int i = 0; i < path.getVertexes().size() - 1; i++) {
-//				// Set mit allen Kanten von jeweils zwei Knoten aus dem Path
-//				Set<WeightedNamedEdge> mapOfEdges = inGraph.getAllEdges(path
-//						.getVertexes().get(i), path.getVertexes().get(i + 1));
-//				for (WeightedNamedEdge edge : mapOfEdges) {
-//					System.out.println("Kante vor nderung: "
-//							+ edge.toString2());
-//					// Add Increment to current flow of the plus-directed edges
-//					if (mapOfmarkedVertices.get(edge.getTarget()).direction == true) {
-//						edge.setCurrentFlow(mapOfmarkedVertices.get(Senke).currentInkrement);
-//					}
-//					// Decrease Increment from current flow of the
-//					// minus-directed edges
-//					else {
-//						edge.setCurrentFlow(-(mapOfmarkedVertices.get(Senke).currentInkrement));
-//					}
-//
-//				}
-//			}
+//			System.out.println(path.getVertexes());k 
+			// f um Inkrement erhhen bzw. erniedrigen
+			for (int i = 0; i < path.getVertexes().size() - 1; i++) {
+				// Set mit allen Kanten von jeweils zwei Knoten aus dem Path
+				Set<WeightedEdge> mapOfEdges = graph.getAllEdges(path
+						.getVertexes().get(i), path.getVertexes().get(i + 1));
+				for (WeightedEdge edge : mapOfEdges) {
+					// Add Increment to current flow of the plus-directed edges
+					if (markierteKnoten.get(edge.getTarget()).direction == true) {
+						edge.setCurrentFlow(markierteKnoten.get(senke).currentInkrement);
+					}
+					// Decrease Increment from current flow of the
+					// minus-directed edges
+					else {
+						edge.setCurrentFlow(-(markierteKnoten.get(senke).currentInkrement));
+					}
+
+				}
+			}
 
 			listeMitMarkiertenKnoten.clear();
 			listeMitNichtInspiziertenKnoten.clear();
