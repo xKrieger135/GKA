@@ -15,7 +15,7 @@ public class FordFulk {
 
 	Map<String, Map<String, Double>> kapazitaetenDesNetzwerkes = new HashMap<>();
 	Map<String, Map<String, Double>> fluesseDesNetzwerkes = new HashMap<>();
-	Map<String, Double> markierteKnoten = new HashMap<>();
+	Map<String, ArrayList<Object>> markierteKnoten = new HashMap<>();
 	Map<String, Map<Double, Boolean>> markierteKnoten2 = new HashMap<>();
 	List<String> listeMitMarkiertenKnoten = new ArrayList<>();
 	List<String> markierteUndInspizierteKnoten = new ArrayList<>();
@@ -42,7 +42,11 @@ public class FordFulk {
 		}
 
 		// q mit unendlich markieren
-		markierteKnoten.put(quelle, Double.POSITIVE_INFINITY);
+		ArrayList<Object> A =new ArrayList();
+		A.add(Double.POSITIVE_INFINITY);
+		A.add(true); // TODO
+		markierteKnoten.put(quelle, A);
+		//markierteKnoten.put(quelle, Double.POSITIVE_INFINITY);
 		
 //		Map<Double, Boolean> inkrementUndRichtung = new HashMap<Double, Boolean>();
 //		markierteKnoten.put(quelle, inkrementUndRichtung);
@@ -69,7 +73,8 @@ public class FordFulk {
 				// Da der Knoten nun inspiziert wird muss er entfernt werden.
 				listeMitNichtInspiziertenKnoten.remove(vi);
 
-				double inkrement = markierteKnoten.get(vi);
+				double inkrement = (double) markierteKnoten.get(vi).get(0);
+				//double inkrement = markierteKnoten.get(vi);
 				System.out.println("Inkrement vor der For SChleife: " + inkrement);
 
 				for (WeightedEdge eij : graph.edgesOf(vi)) {
@@ -106,7 +111,13 @@ public class FordFulk {
 								// waere.
 								inkrement = deltaJ;
 
-								markierteKnoten.put(vj, inkrement);
+								//markierteKnoten.put(vj, inkrement);
+								ArrayList<Object> B =new ArrayList();
+								B.add(inkrement);
+								B.add(true); //TODO
+								
+								
+								markierteKnoten.put(vj, B);
 								System.out.println("MarkierteKnoten: " + markierteKnoten);
 								
 								listeMitMarkiertenKnoten.add(vj);
