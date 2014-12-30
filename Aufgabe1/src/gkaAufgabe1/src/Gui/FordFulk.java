@@ -55,41 +55,45 @@ public class FordFulk {
 			listeMitNichtInspiziertenKnoten.add(quelle);
 			System.out.println("Nicht Inspizierte Knoten" + listeMitNichtInspiziertenKnoten);
 
-			while (!listeMitNichtInspiziertenKnoten.isEmpty()) {
+			while (!listeMitNichtInspiziertenKnoten.isEmpty() && senkeWurdeErreicht == false) {
 				// Einen beliebigen Knoten der Markiert ist, jedoch nicht
 				// inspiziert wurde.
 				String vi = listeMitNichtInspiziertenKnoten.get(myRandom(0,
 						listeMitNichtInspiziertenKnoten.size() - 1));
+				System.out.println("Ausgabe von VI : " + vi);
 
 				// Da der Knoten nun inspiziert wird muss er entfernt werden.
 				listeMitNichtInspiziertenKnoten.remove(vi);
 
 				double inkrement = markierteKnoten.get(vi);
+				System.out.println("Inkrement vor der For SChleife: " + inkrement);
 
 				for (WeightedEdge eij : graph.edgesOf(vi)) {
 
 					// vi = source und vj = target
 					String vj = eij.getTarget();
-					System.out.println("Zielknoten des zu inspizierenden Knoten:" + vj);
+					System.out.println("Zielknoten vj" + vj);
 
 					// Fuer vorwaerts Kanten
 					if (!vj.equals(vi)) {
 						// maximale Kapazitaet
 						double kapazitaet = eij.getWeight();
+						System.out.println("Kapazitaet : " + kapazitaet);
 						// fluss wird hier geholt
 						// Den Fluss hier holen, da es sonst auftreten kann,
 						// dass er zu sich selbst einen Fluss nehmen will 
 						// (keine Ahnung wieso er sich selbst als Target sieht)
 						double fluss = fluesseDesNetzwerkes.get(vi).get(vj);
+						System.out.println("Fluss : " + fluss);
 						if (kapazitaet > fluss) {
 							// Abfrage, ob die Senke schon erreicht wurde oder
 							// nicht
-							if (!listeMitMarkiertenKnoten.contains(senke)) {
+							if (!listeMitMarkiertenKnoten.contains(senke) && senkeWurdeErreicht == false) {
 								// vj markieren mit dem minimum von c - f und
 								// delta i
 								double deltaJ = Math.min(kapazitaet - fluss,
 										inkrement);
-								System.out.println(deltaJ);
+								System.out.println("DeltaJ : " + deltaJ);
 
 								// Inkrement muss neu gesetzt werden, sonst wird
 								// immer das inkrement von q benutzt was falsch
@@ -97,9 +101,10 @@ public class FordFulk {
 								inkrement = deltaJ;
 
 								markierteKnoten.put(vj, inkrement);
+								System.out.println("MarkierteKnoten: " + markierteKnoten);
 								
 								listeMitMarkiertenKnoten.add(vj);
-
+								System.out.println("ListeMitMarkiertenKnoten : " + listeMitMarkiertenKnoten);
 								listeMitNichtInspiziertenKnoten.add(vj);
 
 								fluesseDesNetzwerkes.get(vi).put(vj, inkrement);
@@ -143,7 +148,10 @@ public class FordFulk {
 
 				}
 
-			}
+			} //WHILE END
+			
+			// Vergroesserung der Flussstaerke
+			
 
 		}
 		
