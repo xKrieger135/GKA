@@ -143,14 +143,12 @@ public class FordFulk {
 						String source = eij.getSource();
 						// maximale Kapazitaet
 						double kapazitaet = eij.getWeight();
-						// fluss wird hier geholt
-						// Den Fluss hier holen, da es sonst auftreten kann,
-						// dass er zu sich selbst einen Fluss nehmen will 
-						// (keine Ahnung wieso er sich selbst als Target sieht)
+
 						double fluss = fluesseDesNetzwerkes.get(source).get(vj);
 						System.out.println("Fluss fuer die Reverse Kante : " + fluss);
+						
 						if (fluss > 0) {
-							if (!listeMitMarkiertenKnoten.contains(source)) {
+							if (!listeMitMarkiertenKnoten.contains(source) && senkeWurdeErreicht == false) {
 								// vj markieren mit dem minimum delta i
 								double deltaJ = Math.min(fluss, inkrement);
 								
