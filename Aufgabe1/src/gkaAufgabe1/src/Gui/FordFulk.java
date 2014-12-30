@@ -54,7 +54,7 @@ public class FordFulk {
 			while (!listeMitNichtInspiziertenKnoten.isEmpty()) {
 				// Einen beliebigen Knoten der Markiert ist, jedoch nicht inspiziert wurde.
 				String vi = listeMitNichtInspiziertenKnoten.get(myRandom(0, listeMitNichtInspiziertenKnoten.size() - 1));
-				
+			
 				// Da der Knoten nun inspiziert wird muss er entfernt werden.
 				listeMitNichtInspiziertenKnoten.remove(vi);
 				
@@ -62,10 +62,35 @@ public class FordFulk {
 				
 				for (WeightedEdge eij : graph.edgesOf(vi)) {
 					
+					// maximale Kapazitaet
 					double kapazitaet = eij.getWeight();
-					double fluss = 
+					// vi = source und vj = target
+					String vj = eij.getTarget();
+					// fluss wird hier geholt
+					double fluss = fluesseDesNetzwerkes.get(vi).get(vj);
 					
-					if() {
+					// Fuer ausgehende Kanten
+					if(!vj.equals(vi)) {
+						
+						if(kapazitaet > fluss) {
+							// Abfrage, ob die Senke schon erreicht wurde oder nicht
+							if (!listeMitMarkiertenKnoten.contains(senke)) {
+								// vj markieren mit dem minimum von c - f und delta i
+								double deltaJ = Math.min(kapazitaet - fluss, deltaI);
+							} 
+							
+							if (vj.equals(senke)) {
+								senkeWurdeErreicht = true;
+							}
+						}
+					} else {
+						// fuer eingehende Kanten
+						if (fluss > 0) {
+							if (!listeMitMarkiertenKnoten.contains(quelle)) {
+								//vj markieren mit dem minimum delta i
+								double deltaJ = Math.min(f(eij), deltaI); 
+							}
+						}
 						
 					}
 					
