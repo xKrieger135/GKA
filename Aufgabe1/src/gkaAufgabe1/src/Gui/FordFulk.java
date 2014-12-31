@@ -236,6 +236,7 @@ package Gui;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -282,6 +283,7 @@ public class FordFulk {
 		marked.name = quelle;
 		// initializing with null (Quelle hat keinen Vorg)
 		marked.vorgaenger = null;
+		marked.direction = true;
 		// initializing with infinity
 		marked.currentInkrement = Double.POSITIVE_INFINITY;
 		// First Map Entry is: "Quelle" : "Quelle"
@@ -334,7 +336,8 @@ public class FordFulk {
 						double kapazitaet = eij.getWeight();
 						System.out.println("Kapazitaet : " + kapazitaet);
 
-						double fluss = fluesseDesNetzwerkes.get(vi).get(target);
+						double fluss = fluesseDesNetzwerkes
+								.get(eij.getSource()).get(target);
 
 						System.out.println("Fluss : " + fluss);
 						if (kapazitaet > fluss) {
@@ -375,13 +378,13 @@ public class FordFulk {
 										.println("ListeMitNichtInspiziertenKnoten : "
 												+ listeMitNichtInspiziertenKnoten);
 
-//								fluesseDesNetzwerkes.get(vi)
-//										.put(target, deltaJ);
+								// fluesseDesNetzwerkes.get(vi)
+								// .put(target, deltaJ);
 
-								System.out
-										.println("vi --> vj Wert des aktuellen Flusses: "
-												+ fluesseDesNetzwerkes.get(vi)
-														.put(target, deltaJ));
+								// System.out
+								// .println("vi --> vj Wert des aktuellen Flusses: "
+								// + fluesseDesNetzwerkes.get(vi)
+								// .put(target, deltaJ));
 
 							}
 
@@ -424,14 +427,14 @@ public class FordFulk {
 
 								listeMitNichtInspiziertenKnoten.add(source);
 
-//								fluesseDesNetzwerkes.get(source).put(
-//										eij.getTarget(), deltaJ);
-								System.out
-										.println("FluesseDesNetzwerks Ausgabe  :  "
-												+ fluesseDesNetzwerkes.get(
-														source)
-														.put(eij.getTarget(),
-																deltaJ));
+								// fluesseDesNetzwerkes.get(source).put(
+								// eij.getTarget(), deltaJ);
+								// System.out
+								// .println("FluesseDesNetzwerks Ausgabe  :  "
+								// + fluesseDesNetzwerkes.get(
+								// source)
+								// .put(eij.getTarget(),
+								// deltaJ));
 
 							}
 						}
@@ -447,33 +450,54 @@ public class FordFulk {
 			System.out.println("++++Building Path++++");
 			MarkedVertex current2 = markierteKnoten.get(senke);
 			List<String> path = new ArrayList<String>();
-			System.out.println("TestCurrent = " + current2);
 			while (current2 != null) {
 				path.add(current2.name);
 				current2 = markierteKnoten.get(current2.vorgaenger);
 
-				System.out.println("Current2 = " + current2);
 			}
 			// Collections.reverse(path.getVertexes());
 			// System.out.println(path.getVertexes());k
 			// f um Inkrement erhhen bzw. erniedrigen
+			// Collections.reverse(path);
 			for (int i = 0; i < path.size() - 1; i++) {
 				// Set mit allen Kanten von jeweils zwei Knoten aus dem Path
 				System.out.println("path i " + path.get(i));
 				System.out.println("path i + 1" + path.get(i + 1));
-				Set<WeightedEdge> mapOfEdges = graph.getAllEdges(path.get(i + 1),
-						path.get(i));
+				Set<WeightedEdge> mapOfEdges = graph.getAllEdges(
+						path.get(i + 1), path.get(i));
 				for (WeightedEdge edge : mapOfEdges) {
 					// Add Increment to current flow of the plus-directed edges
+					System.out.println("Kante Vor Aenderung : "
+							+ fluesseDesNetzwerkes.get(edge.getSource()).get(
+									edge.getTarget()));
 					if (markierteKnoten.get(edge.getTarget()).direction == true) {
 						// edge.setCurrentFlow(markierteKnoten.get(senke).currentInkrement);
 
-						fluesseDesNetzwerkes.get(edge.getSource()).put(
-								edge.getTarget(),
-								markierteKnoten.get(senke).currentInkrement);
-						System.out.println("Wertaenderung in fluesse des netzwerkes : " + fluesseDesNetzwerkes.get(edge.getSource()).put(
-								edge.getTarget(),
-								markierteKnoten.get(senke).currentInkrement));
+						if (kapazitaetenDesNetzwerkes.get(edge.getSource())
+								.get(edge.getTarget()) >= fluesseDesNetzwerkes
+								.get(edge.getSource()).get(edge.getTarget())
+								+ markierteKnoten.get(senke).currentInkrement) {
+
+							double A = fluesseDesNetzwerkes.get(
+									edge.getSource()).get(edge.getTarget());
+							double B = markierteKnoten.get(senke).currentInkrement;
+							double erg = A + B;
+							fluesseDesNetzwerkes.get(edge.getSource()).put(
+									edge.getTarget(), erg);
+						} /*
+						 * else {
+						 * fluesseDesNetzwerkes.get(edge.getSource()).put(
+						 * edge.getTarget(),
+						 * markierteKnoten.get(senke).currentInkrement); }
+						 */
+
+						System.out.println("Inkrement der Senke  : "
+								+ markierteKnoten.get(senke).currentInkrement);
+
+						System.out
+								.println("Wertaenderung in fluesse des netzwerkes : "
+										+ fluesseDesNetzwerkes.get(edge
+												.getSource()));
 					}
 					// Decrease Increment from current flow of the
 					// minus-directed edges
@@ -481,14 +505,27 @@ public class FordFulk {
 						// edge.setCurrentFlow(-(markierteKnoten.get(senke).currentInkrement));
 						fluesseDesNetzwerkes.get(edge.getSource()).put(
 								edge.getTarget(),
-								-markierteKnoten.get(senke).currentInkrement);
+								-(markierteKnoten.get(senke).currentInkrement));
 					}
+
+					System.out.println("Kante Nach Aenderung : "
+							+ fluesseDesNetzwerkes.get(edge.getSource()).get(
+									edge.getTarget()));
 
 				}
 			}
 
-			listeMitMarkiertenKnoten.clear();
-			listeMitNichtInspiziertenKnoten.clear();
+			path.clear();
+
+			while (!listeMitNichtInspiziertenKnoten.isEmpty()) {
+				listeMitNichtInspiziertenKnoten.clear();
+
+			}
+
+			while (!listeMitMarkiertenKnoten.isEmpty()) {
+
+				listeMitMarkiertenKnoten.clear();
+			}
 			// Vergroesserung der Flussstaerke
 
 		}
