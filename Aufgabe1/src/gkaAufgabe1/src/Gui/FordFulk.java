@@ -427,15 +427,6 @@ public class FordFulk {
 
 								listeMitNichtInspiziertenKnoten.add(source);
 
-								// fluesseDesNetzwerkes.get(source).put(
-								// eij.getTarget(), deltaJ);
-								// System.out
-								// .println("FluesseDesNetzwerks Ausgabe  :  "
-								// + fluesseDesNetzwerkes.get(
-								// source)
-								// .put(eij.getTarget(),
-								// deltaJ));
-
 							}
 						}
 
@@ -455,9 +446,6 @@ public class FordFulk {
 				current2 = markierteKnoten.get(current2.vorgaenger);
 
 			}
-			// Collections.reverse(path.getVertexes());
-			// System.out.println(path.getVertexes());k
-			// f um Inkrement erhhen bzw. erniedrigen
 			// Collections.reverse(path);
 			for (int i = 0; i < path.size() - 1; i++) {
 				// Set mit allen Kanten von jeweils zwei Knoten aus dem Path
@@ -519,7 +507,6 @@ public class FordFulk {
 
 			while (!listeMitNichtInspiziertenKnoten.isEmpty()) {
 				listeMitNichtInspiziertenKnoten.clear();
-
 			}
 
 			while (!listeMitMarkiertenKnoten.isEmpty()) {
@@ -527,6 +514,13 @@ public class FordFulk {
 				listeMitMarkiertenKnoten.clear();
 			}
 			// Vergroesserung der Flussstaerke
+
+			// SET VALUES to NULL for next round (except inStart)
+			for (Map.Entry<String, MarkedVertex> entry : markierteKnoten
+					.entrySet()) {
+				if (!entry.getKey().equals(quelle))
+					markierteKnoten.put(entry.getKey(), new MarkedVertex());
+			}
 
 		}
 
