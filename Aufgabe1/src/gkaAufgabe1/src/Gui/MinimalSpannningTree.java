@@ -44,6 +44,7 @@ public class MinimalSpannningTree {
 
 			boolean einWegWurdeGenutzt = false;
 			for (WeightedEdge edge : neuerGraph.edgesOf(currentVertex)) {
+				System.out.println("Edges OF CurrentVertex  " + currentVertex  + " : " + neuerGraph.edgesOf(currentVertex));
 				// Man startet bei einem Knoten und möchte eine tour gehen
 				// hierbei wird dann abgefragt ob die kante denn auch in dem
 				// minimalen spannbaum enthalten war
@@ -81,31 +82,32 @@ public class MinimalSpannningTree {
 					// remove edge from listofmultiplyvertices
 					listeMitAllenKantenDesMinimalenSpannbaumesVerdoppelt.remove(edge);
 				} 
-
-				// TODO Weitere if abfrage, die den fall abfaengt, wenn vom
-				// Knoten keine kanten zu dem
-				// Minimalen spannbaum gehoeren ( Sackgasse ) dann muss mann
-				// zurueck zum vorgaenger!
-				Set<WeightedEdge> setUmAufSackgasseZuPruefen = neuerGraph.edgesOf(currentVertex);
-				List<WeightedEdge> listeMitZuPruefendenKnoten = new ArrayList<>();
-				for (WeightedEdge weightedEdge : setUmAufSackgasseZuPruefen) {
-					if(kantengewichtungenDesMinimalenSpannbaumes.contains(weightedEdge)) {
-						listeMitZuPruefendenKnoten.add(weightedEdge);
+					
+					// TODO Weitere if abfrage, die den fall abfaengt, wenn vom
+					// Knoten keine kanten zu dem
+					// Minimalen spannbaum gehoeren ( Sackgasse ) dann muss mann
+					// zurueck zum vorgaenger!
+					Set<WeightedEdge> setUmAufSackgasseZuPruefen = neuerGraph.edgesOf(currentVertex);
+					List<WeightedEdge> listeMitZuPruefendenKnoten = new ArrayList<>();
+					for (WeightedEdge weightedEdge : setUmAufSackgasseZuPruefen) {
+						if(kantengewichtungenDesMinimalenSpannbaumes.contains(weightedEdge)) {
+							listeMitZuPruefendenKnoten.add(weightedEdge);
+						}
 					}
-				}
-//				TODO Abfrage richtig machen fuer die Tour
-				if (listeMitZuPruefendenKnoten.size() == 1 && currentVertex != startKnoten) {
-					listeMitBesuchtenKantenFuerTour.add(edge);
 
-					// set this boolean to safe, that only 1 way will be passed
-					einWegWurdeGenutzt = true;
-					// remove edge from listofmultiplyvertices
-					listeMitAllenKantenDesMinimalenSpannbaumesVerdoppelt.remove(edge);
-					// Tauschen der beiden knoten weil wir in einer sackgasse waren
-					// TODO richtig machen noch
-					vorgaenger = currentVertex;
-					currentVertex = vorgaenger;
-				}
+					if (listeMitZuPruefendenKnoten.size() == 1 && currentVertex != startKnoten) {
+						listeMitBesuchtenKantenFuerTour.add(edge);
+						
+						// set this boolean to safe, that only 1 way will be passed
+						einWegWurdeGenutzt = true;
+						// remove edge from listofmultiplyvertices
+						listeMitAllenKantenDesMinimalenSpannbaumesVerdoppelt.remove(edge);
+						// Tauschen der beiden knoten weil wir in einer sackgasse waren
+						currentVertex = vorgaenger;
+						vorgaenger = "";
+					}
+				
+
 			}
 		}
 
