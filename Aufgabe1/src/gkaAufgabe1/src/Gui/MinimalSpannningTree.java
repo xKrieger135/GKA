@@ -42,6 +42,7 @@ public class MinimalSpannningTree {
 		String vorgaenger = "";
 		while (!(listeMitBesuchtenKantenFuerTour.size() == kantengewichtungenDesMinimalenSpannbaumes.size() * 2)) {
 
+
 			boolean einWegWurdeGenutzt = false;
 			for (WeightedEdge edge : neuerGraph.edgesOf(currentVertex)) {
 				System.out.println("Edges OF CurrentVertex  " + currentVertex  + " : " + neuerGraph.edgesOf(currentVertex));
@@ -52,7 +53,7 @@ public class MinimalSpannningTree {
 				// über die verdopplung der kanten
 				// vollbracht wird und es eine rundreise gibt.
 
-				System.out.println("Target : " + edge.getTarget());
+
 				// Edge should be into the minimal spanning tree and target
 				// vertex can't be the vorgaenger
 				if (listeMitAllenKantenDesMinimalenSpannbaumesVerdoppelt.contains(edge) && !(edge.getTarget().equals(vorgaenger)) && !(edge.getSource().equals(vorgaenger))
@@ -60,8 +61,6 @@ public class MinimalSpannningTree {
 					// TODO Abfrage vllt so gestalten, dass wenn der knoten noch
 					// einen nachfolger hat soll man noch
 					// nicht zurueck zu dem vorgaengerknoten gehen
-					// TODO Pboblem noch, dass er beide wege direkt geht, was er
-					// aber eigentlich nicht machen soll.
 
 					// Vorgaenger bestimmen, um sicherzugehen, dass man nicht
 					// direkt zu dem vorgaengerknoten geht.
