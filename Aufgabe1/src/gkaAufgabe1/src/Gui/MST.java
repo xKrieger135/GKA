@@ -23,10 +23,11 @@ public class MST {
 	Map<String, Map<String, Double>> minimalSpanningTree = new HashMap<String, Map<String, Double>>();
 	Set<WeightedEdge> kantengewichtungenDesMinimalenSpannbaumes;
 
-	public double mstHeuristik(Graph<String, WeightedEdge> graph, String startKnoten) {
+	public double mstHeuristik(Graph<String, WeightedEdge> graph,
+			String startKnoten) {
 		// vllt als queue um eine reihenfolge herauszubekommen
-//		List<String> listeMitBesuchtenKnoten = new ArrayList<>();
-		Queue<String> listeMitBesuchtenKnoten = new LinkedList<>();
+		 List<String> listeMitBesuchtenKnoten = new ArrayList<>();
+		Queue<String> queueMitBesuchtenKnoten = new LinkedList<>();
 		List<WeightedEdge> listeMitBesuchtenKanten = new ArrayList<>();
 		List<WeightedEdge> listeMitKantenDesMSTVerdoppelt = new ArrayList<>();
 		double ergebnis = 0;
@@ -54,6 +55,7 @@ public class MST {
 
 		while (!(listeMitBesuchtenKnoten.size() == graph.vertexSet().size())) {
 			listeMitBesuchtenKnoten.add(current);
+			queueMitBesuchtenKnoten.add(current);
 			eineKanteWurdeUeberquert = false;
 
 			Set<WeightedEdge> edgesOf = eulerGraph.edgesOf(current);
@@ -76,51 +78,69 @@ public class MST {
 							vorgaenger = current;
 							current = source;
 							eineKanteWurdeUeberquert = true;
-							listeMitKantenDesMSTVerdoppelt.remove(edge);
+//							listeMitKantenDesMSTVerdoppelt.remove(edge);
 							listeMitBesuchtenKanten.add(edge);
 							break;
 						} else if (target != current) {
 							vorgaenger = current;
 							current = target;
 							eineKanteWurdeUeberquert = true;
-							listeMitKantenDesMSTVerdoppelt.remove(edge);
+//							listeMitKantenDesMSTVerdoppelt.remove(edge);
 							listeMitBesuchtenKanten.add(edge);
 							break;
 						} else {
-							System.out.println("Der Else Fall soll nichts machen.");
+							System.out
+									.println("Der Else Fall soll nichts machen.");
 						}
 					}
 				}
 				// wenn es einen gleichen knoten gibt der noch nicht besucht
 				// wurde zu den vorgaenger und current können
 				// dreiecksbeziehung hier
-				if (habenGleicheTargetKnotenDerNochNichtBesuchtWurde(eulerGraph, current, vorgaenger, listeMitBesuchtenKnoten) != null && (!listeMitBesuchtenKnoten.contains(target) || !listeMitBesuchtenKnoten.contains(source))) {
+				String habenGleichenTargetKnotenDerNochNichtBesuchtWurde = habenGleicheTargetKnotenDerNochNichtBesuchtWurde(eulerGraph, current, vorgaenger,listeMitBesuchtenKnoten);
+				if (habenGleichenTargetKnotenDerNochNichtBesuchtWurde != null && (!listeMitBesuchtenKnoten.contains(target) || !listeMitBesuchtenKnoten.contains(source))) {
 
 					vorgaenger = current;
-					current = benutzeAndereKanteWennVertexSchonBesuchtWurde(eulerGraph, current, vorgaenger, listeMitBesuchtenKnoten);
+					current = habenGleichenTargetKnotenDerNochNichtBesuchtWurde;
 					eineKanteWurdeUeberquert = true;
 					WeightedEdge neueEdge = eulerGraph.getEdge(vorgaenger, current);
 					listeMitBesuchtenKanten.add(neueEdge);
 					break;
 				}
-				
-				
-				
-//				List<String> listeMitNichtbesuchtenNachbarn = direkteverbindung(eulerGraph, current, listeMitBesuchtenKnoten);
-				Queue<String> listeMitNichtbesuchtenNachbarn = direkteverbindung(eulerGraph, current, listeMitBesuchtenKnoten);
-				if(listeMitNichtbesuchtenNachbarn.size() == 1) {
-//					String newCurrent = listeMitNichtbesuchtenNachbarn.get(0);
-					String newCurrent = listeMitNichtbesuchtenNachbarn.poll();
+
+				// List<String> listeMitNichtbesuchtenNachbarn =
+				// direkteverbindung(eulerGraph, current,
+				// listeMitBesuchtenKnoten);
+				List<String> listeMitNichtbesuchtenNachbarn = direkteverbindung(eulerGraph, current, listeMitBesuchtenKnoten);
+				if (listeMitNichtbesuchtenNachbarn.size() == 1) {
+					 String newCurrent = listeMitNichtbesuchtenNachbarn.get(0);
 					vorgaenger = current;
 					current = newCurrent;
 					eineKanteWurdeUeberquert = true;
 					break;
 				}
 				
-				if (listeMitBesuchtenKnoten.size() == eulerGraph.vertexSet().size()) {
-					
+//				if(listeMitBesuchtenKnoten.size() == eulerGraph.vertexSet().size()) {
+				if((edge.getSource() == startKnoten && edge.getTarget() == current) || (edge.getSource() == current && edge.getTarget() == startKnoten)) {
+					vorgaenger = current;
+					current = startKnoten;
+					break;
 				}
 
+			}
+		}
+		
+		queueMitBesuchtenKnoten.add(current);
+
+		if (queueMitBesuchtenKnoten.size() == eulerGraph.vertexSet().size() + 1) {
+
+			for (int i = 0; i < eulerGraph.vertexSet().size(); i++) {
+
+				String a = queueMitBesuchtenKnoten.poll();
+				System.out.println("a = " + a);
+				String b = queueMitBesuchtenKnoten.peek();
+				System.out.println("b = " + b);
+				ergebnis = ergebnis + graph.getEdge(a, b).getWeight();
 			}
 		}
 
@@ -130,14 +150,16 @@ public class MST {
 	// Berechnung des minimalen Spannbaumes
 	public double minimalSpanningTree(Graph<String, WeightedEdge> graph) {
 		// Berechnet den minimalen Spannbaum eines Graphen G = (V, E)
-		KruskalMinimumSpanningTree<String, WeightedEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<String, WeightedEdge>(graph);
+		KruskalMinimumSpanningTree<String, WeightedEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<String, WeightedEdge>(
+				graph);
 
 		// get length of minimal spanning tree
 		double laengeDesMinimalenSpannbaumes = kruskalMinimumSpanningTree.getSpanningTreeCost();
 		System.out.println("Laenge des minimalen Spannbaumes : " + laengeDesMinimalenSpannbaumes);
 
 		// get edges from minimal spanning tree
-		kantengewichtungenDesMinimalenSpannbaumes = kruskalMinimumSpanningTree.getEdgeSet();
+		kantengewichtungenDesMinimalenSpannbaumes = kruskalMinimumSpanningTree
+				.getEdgeSet();
 		System.out.println(kantengewichtungenDesMinimalenSpannbaumes);
 
 		for (WeightedEdge weightedEdge : kantengewichtungenDesMinimalenSpannbaumes) {
@@ -153,15 +175,15 @@ public class MST {
 			// will put it into the map for
 			// the minimal spanning tree
 			if (!minimalSpanningTree.containsKey(edgeSource)) {
-				minimalSpanningTree.put(edgeSource, leereMapFuerTargetUndKantengewichtung);
-				System.out.println("Minimaler Spannbaum : " + minimalSpanningTree);
+				minimalSpanningTree.put(edgeSource,	leereMapFuerTargetUndKantengewichtung);
+				System.out.println("Minimaler Spannbaum : "	+ minimalSpanningTree);
 
-				minimalSpanningTree.get(edgeSource).put(edgeTarget, weightedEdge.getWeight());
+				minimalSpanningTree.get(edgeSource).put(edgeTarget,	weightedEdge.getWeight());
 			} else {
 				// if our map contains this vertex we will put all other
 				// neighbors of that vertex into the map with
 				// this source vertex
-				minimalSpanningTree.get(edgeSource).put(edgeTarget, weightedEdge.getWeight());
+				minimalSpanningTree.get(edgeSource).put(edgeTarget,	weightedEdge.getWeight());
 			}
 
 		}
@@ -179,7 +201,7 @@ public class MST {
 
 	// hier wird der neue Currentvertex herausgeholt und es wird vermieden
 	// zweimal den gleichen knoten zu besuchen
-	private String benutzeAndereKanteWennVertexSchonBesuchtWurde(Graph<String, WeightedEdge> graph, String current, String vorgaenger, Queue<String> listeMitBesuchtenKnoten) {
+	private String benutzeAndereKanteWennVertexSchonBesuchtWurde(Graph<String, WeightedEdge> graph, String current,	String vorgaenger, List<String> listeMitBesuchtenKnoten) {
 		String zielknoten = habenGleicheTargetKnotenDerNochNichtBesuchtWurde(graph, current, vorgaenger, listeMitBesuchtenKnoten);
 		return zielknoten;
 	}
@@ -187,12 +209,14 @@ public class MST {
 	// Soll einen Knoten zurueckgeben, der von den beiden betroffenen Knoten
 	// erreicht werden kann.
 	// Dreiecksbeziehung ueber den spannbaum --> nicht besuchter knoten
-	private String habenGleicheTargetKnotenDerNochNichtBesuchtWurde(Graph<String, WeightedEdge> graph, String current, String vorgaenger, Queue<String> listeMitBesuchtenKnoten) {
+	private String habenGleicheTargetKnotenDerNochNichtBesuchtWurde(Graph<String, WeightedEdge> graph, String current,String vorgaenger, List<String> listeMitBesuchtenKnoten) {
 		Collection<String> nachbarnVonCurrent = getNeighbors(graph, current);
 		System.out.println("Nachbarn von Current : " + nachbarnVonCurrent);
 
-		Collection<String> nachbarnVonVorgaenger = getNeighbors(graph, vorgaenger);
-		System.out.println("Nachbarn von vorgaenger : " + nachbarnVonVorgaenger);
+		Collection<String> nachbarnVonVorgaenger = getNeighbors(graph,
+				vorgaenger);
+		System.out
+				.println("Nachbarn von vorgaenger : " + nachbarnVonVorgaenger);
 
 		Set<String> gleicheKnoten = new HashSet<>();
 		// alle nachbarn der beiden Knoten in den Set tun
@@ -214,19 +238,21 @@ public class MST {
 
 		return zielknoten;
 	}
-	
-	// Wenn es nur noch einen knoten gibt zu dem man kann direkte verbindung nutzen
-	private Queue<String> direkteverbindung(Graph<String, WeightedEdge> graph, String current, Queue<String> listeMitBesuchtenKnoten) {
-//		List<String> knotenMitDirekterverbindung = new ArrayList<>();
-		Queue<String> knotenMitDirekterverbindung = new LinkedList<>();
-		
-		Collection<String> nachbarKnotenVonCurrent = getNeighbors(graph, current);
+
+	// Wenn es nur noch einen knoten gibt zu dem man kann direkte verbindung
+	// nutzen
+	private List<String> direkteverbindung(Graph<String, WeightedEdge> graph,String current, List<String> listeMitBesuchtenKnoten) {
+		// List<String> knotenMitDirekterverbindung = new ArrayList<>();
+		List<String> knotenMitDirekterverbindung = new LinkedList<>();
+
+		Collection<String> nachbarKnotenVonCurrent = getNeighbors(graph,
+				current);
 		for (String string : nachbarKnotenVonCurrent) {
 			if (!listeMitBesuchtenKnoten.contains(string)) {
 				knotenMitDirekterverbindung.add(string);
 			}
 		}
-		
+
 		return knotenMitDirekterverbindung;
 	}
 
@@ -256,7 +282,8 @@ public class MST {
 			ArrayList<E> allEdges = new ArrayList<E>(graph.edgeSet());
 			Collections.sort(allEdges, new Comparator<E>() {
 				public int compare(E edge1, E edge2) {
-					return Double.valueOf(graph.getEdgeWeight(edge1)).compareTo(graph.getEdgeWeight(edge2));
+					return Double.valueOf(graph.getEdgeWeight(edge1))
+							.compareTo(graph.getEdgeWeight(edge2));
 				}
 			});
 
@@ -305,12 +332,13 @@ public class MST {
 
 		@Override
 		public String toString() {
-			return "MarkedVertex [name=" + current + ", gewicht=" + gewicht + ", vorgaenger=" + vorgaenger + "]";
+			return "MarkedVertex [name=" + current + ", gewicht=" + gewicht
+					+ ", vorgaenger=" + vorgaenger + "]";
 		}
 
 	}
 
-	private Collection<String> getNeighbors(Graph<String, WeightedEdge> graph, String node) {
+	private Collection<String> getNeighbors(Graph<String, WeightedEdge> graph,String node) {
 		try {
 			Set<WeightedEdge> edgesOf = graph.edgesOf(node);
 			Set<String> result = new HashSet<>();

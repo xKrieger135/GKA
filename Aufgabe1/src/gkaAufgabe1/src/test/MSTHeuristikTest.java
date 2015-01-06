@@ -20,6 +20,7 @@ public class MSTHeuristikTest {
 
 //	Graph<String, WeightedEdge> graph2 = new   DirectedWeightedPseudograph<>(WeightedEdge.class);
 	Graph<String, WeightedEdge> graph2 = new Pseudograph<>(WeightedEdge.class);
+	Graph<String, WeightedEdge> graph3 = new Pseudograph<>(WeightedEdge.class);
 //	MinimalSpannningTree MST = new MinimalSpannningTree();
 	MST MST = new MST();
 	
@@ -35,20 +36,37 @@ public class MSTHeuristikTest {
 		graph2.addVertex("v4");
 		graph2.addVertex("v5");
 		graph2.addVertex("v6");
-
-		addEdge("v0", "v1", 27d);
-		addEdge("v0", "v2", 14d);
-		addEdge("v0", "v5", 16d);
-		addEdge("v0", "v6", 33d);
-		addEdge("v1", "v4", 10d);
-		addEdge("v1", "v6", 4d);
-		addEdge("v2", "v3", 20d);
-		addEdge("v2", "v5", 6d);
-		addEdge("v2", "v6", 22d);
-		addEdge("v3", "v6", 30d);
-		addEdge("v3", "v4", 40d);
-		addEdge("v3", "v5", 23d);
-		addEdge("v4", "v6", 13d);
+		
+		graph3.addVertex("v");
+		graph3.addVertex("w");
+		graph3.addVertex("x");
+		graph3.addVertex("y");
+		graph3.addVertex("z");
+		
+		addEdge(graph3, "w", "v", 6d);
+		addEdge(graph3, "w", "x", 11d);
+		addEdge(graph3, "w", "y", 8d);
+		addEdge(graph3, "w", "z", 8d);
+		addEdge(graph3, "x", "v", 15d);
+		addEdge(graph3, "x", "y", 12d);
+		addEdge(graph3, "x", "z", 4d);
+		addEdge(graph3, "z", "v", 12d);
+		addEdge(graph3, "y", "v", 9d);
+		addEdge(graph3, "z", "y", 15d);
+		 
+		addEdge(graph2, "v0", "v1", 27d);
+		addEdge(graph2, "v0", "v2", 14d);
+		addEdge(graph2, "v0", "v5", 16d);
+		addEdge(graph2, "v0", "v6", 33d);
+		addEdge(graph2, "v1", "v4", 10d);
+		addEdge(graph2, "v1", "v6", 4d);
+		addEdge(graph2, "v2", "v3", 20d);
+		addEdge(graph2, "v2", "v5", 6d);
+		addEdge(graph2, "v2", "v6", 22d);
+		addEdge(graph2, "v3", "v6", 30d);
+		addEdge(graph2, "v3", "v4", 40d);
+		addEdge(graph2, "v3", "v5", 23d);
+		addEdge(graph2, "v4", "v6", 13d);
 
 	}
 
@@ -69,11 +87,12 @@ public class MSTHeuristikTest {
 	@Test
 	public void testMSTHeuristik() {
 		Assert.assertEquals(130, MST.mstHeuristik(graph2, "v5"), 0.0001);
+		Assert.assertEquals(52, MST.mstHeuristik(graph3, "v"), 0.0001);
 	}
 
-	private void addEdge(String s, String t, Double w) {
+	private void addEdge(Graph<String, WeightedEdge> graph, String s, String t, Double w) {
 		WeightedEdge e = new WeightedEdge();
 		e.setWeight(w);
-		graph2.addEdge(s, t, e);
+		graph.addEdge(s, t, e);
 	}
 }
