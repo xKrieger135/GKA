@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import Gui.Dijkstra;
 import Gui.FordFulk;
+import Gui.MST;
 import Gui.MinimalSpannningTree;
 import Gui.WeightedEdge;
 
@@ -19,7 +20,10 @@ public class MSTHeuristikTest {
 
 //	Graph<String, WeightedEdge> graph2 = new   DirectedWeightedPseudograph<>(WeightedEdge.class);
 	Graph<String, WeightedEdge> graph2 = new Pseudograph<>(WeightedEdge.class);
-	MinimalSpannningTree MST = new MinimalSpannningTree();
+//	MinimalSpannningTree MST = new MinimalSpannningTree();
+	MST MST = new MST();
+	
+	
 
 	@Before
 	public void createGraph() {
@@ -64,7 +68,7 @@ public class MSTHeuristikTest {
 	
 	@Test
 	public void testMSTHeuristik() {
-		Assert.assertEquals(1, MST.mstHeuristik(graph2, "v0"), 0.0001);
+		Assert.assertEquals(130, MST.mstHeuristik(graph2, "v5"), 0.0001);
 	}
 
 	private void addEdge(String s, String t, Double w) {
