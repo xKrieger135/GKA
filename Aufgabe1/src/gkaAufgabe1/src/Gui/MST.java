@@ -69,11 +69,13 @@ public class MST {
 				// Weg wieder zurueck geht.
 				boolean nichtDirektDieKanteZurueckGehen = (!(edge.getSource().equals(vorgaenger)) || !(edge.getTarget().equals(vorgaenger)));
 				// nicht zwei mal durch den gleich knoten laufen
+				System.out.println("==== : " + !listeMitBesuchtenKnoten.contains(source));
+				System.out.println("==== : " + !listeMitBesuchtenKnoten.contains(target));
 				if (!listeMitBesuchtenKnoten.contains(source) || !listeMitBesuchtenKnoten.contains(target)) {
 
 					// schauen ob die Kante im spannbaum liegt
 					// oder im Graphen und einfach aus dem Graphen entfernen
-					if (listeMitKantenDesMSTVerdoppelt.contains(edge) && nichtDirektDieKanteZurueckGehen && eineKanteWurdeUeberquert == false) {
+					if (kantengewichtungenDesMinimalenSpannbaumes.contains(edge) && nichtDirektDieKanteZurueckGehen && eineKanteWurdeUeberquert == false) {
 						if (source != current) {
 							vorgaenger = current;
 							current = source;
@@ -120,8 +122,8 @@ public class MST {
 					break;
 				}
 				
-//				if(listeMitBesuchtenKnoten.size() == eulerGraph.vertexSet().size()) {
-				if((edge.getSource() == startKnoten && edge.getTarget() == current) || (edge.getSource() == current && edge.getTarget() == startKnoten)) {
+				if(listeMitBesuchtenKnoten.size() == eulerGraph.vertexSet().size()) {
+//				if((edge.getSource() == startKnoten && edge.getTarget() == current) || (edge.getSource() == current && edge.getTarget() == startKnoten)) {
 					vorgaenger = current;
 					current = startKnoten;
 					break;
