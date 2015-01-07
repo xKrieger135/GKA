@@ -22,13 +22,13 @@ import org.jgrapht.graph.Pseudograph;
 public class MST {
 	Map<String, Map<String, Double>> minimalSpanningTree = new HashMap<String, Map<String, Double>>();
 	Set<WeightedEdge> kantengewichtungenDesMinimalenSpannbaumes;
+	List<WeightedEdge> listeMitBesuchtenKanten = new ArrayList<>();
 
 	public double mstHeuristik(Graph<String, WeightedEdge> graph,
 			String startKnoten) {
 		// vllt als queue um eine reihenfolge herauszubekommen
 		 List<String> listeMitBesuchtenKnoten = new ArrayList<>();
 		Queue<String> queueMitBesuchtenKnoten = new LinkedList<>();
-		List<WeightedEdge> listeMitBesuchtenKanten = new ArrayList<>();
 		List<WeightedEdge> listeMitKantenDesMSTVerdoppelt = new ArrayList<>();
 		double ergebnis = 0;
 
@@ -69,6 +69,8 @@ public class MST {
 			eineKanteWurdeUeberquert = false;
 
 			Set<WeightedEdge> edgesOf = eulerGraph.edgesOf(current);
+			// Fuer spaetere abfrage um sicherzugehen, dass erst die Kanten des MST durchlaufen werden
+			boolean thereAreOtherEdges = areThereOtherEdgesWhichAreInMST(edgesOf);
 			for (WeightedEdge edge : edgesOf) {
 				String source = edge.getSource();
 				System.out.println("Source = " + source);
@@ -110,7 +112,7 @@ public class MST {
 				// wurde zu den vorgaenger und current können
 				// dreiecksbeziehung hier
 				String habenGleichenTargetKnotenDerNochNichtBesuchtWurde = habenGleicheTargetKnotenDerNochNichtBesuchtWurde(eulerGraph, current, vorgaenger,listeMitBesuchtenKnoten);
-				if (habenGleichenTargetKnotenDerNochNichtBesuchtWurde != null && (!listeMitBesuchtenKnoten.contains(target) || !listeMitBesuchtenKnoten.contains(source))) {
+				if (habenGleichenTargetKnotenDerNochNichtBesuchtWurde != null && (!listeMitBesuchtenKnoten.contains(target) || !listeMitBesuchtenKnoten.contains(source)) && thereAreOtherEdges == false) {
 
 					vorgaenger = current;
 					current = habenGleichenTargetKnotenDerNochNichtBesuchtWurde;
@@ -128,6 +130,8 @@ public class MST {
 					 String newCurrent = listeMitNichtbesuchtenNachbarn.get(0);
 					vorgaenger = current;
 					current = newCurrent;
+					WeightedEdge neueEdge = eulerGraph.getEdge(vorgaenger, current);
+					listeMitBesuchtenKanten.add(neueEdge);
 					eineKanteWurdeUeberquert = true;
 					break;
 				}
@@ -136,6 +140,8 @@ public class MST {
 //				if((edge.getSource() == startKnoten && edge.getTarget() == current) || (edge.getSource() == current && edge.getTarget() == startKnoten)) {
 					vorgaenger = current;
 					current = startKnoten;
+					WeightedEdge neueEdge = eulerGraph.getEdge(vorgaenger, current);
+					listeMitBesuchtenKanten.add(neueEdge);
 					break;
 				}
 
@@ -242,6 +248,40 @@ public class MST {
 		String zielknoten = null;
 		// setze den neuen Knoten nur wenn er nicht in den bereits besuchten
 		// knoten vorhanden ist
+		
+		
+//		List<String> listeMitGleichenKnoten = new ArrayList<>();
+//		listeMitGleichenKnoten.addAll(gleicheKnoten);
+//
+//		// setze den neuen Knoten nur wenn er nicht in den bereits besuchten
+//		// knoten vorhanden ist
+//		
+//		// Neue Liste mit Knoten die noch nicht besucht wurden
+//		String knotenMitKleinsterGewichtung = null;
+//		List<String> listeMitKnotenDieNochNichtBesuchtWurden = new ArrayList<>();
+//		for (int i = 0; i < listeMitGleichenKnoten.size() - 1; i++) {
+//			if (!listeMitBesuchtenKnoten.contains(listeMitGleichenKnoten.get(i))) {
+//				listeMitKnotenDieNochNichtBesuchtWurden.add(listeMitGleichenKnoten.get(i));
+//				
+//			}
+//		}
+//		// Suche aus den nicht besuchten Knoten den mit der kleinsten entfernung heraus
+//			double altesMinimum = Double.POSITIVE_INFINITY; 
+//		for (int i = 0; i < listeMitKnotenDieNochNichtBesuchtWurden.size() - 1; i++) {
+//			double gewichtungVonKnotenI = graph.getEdge(current, listeMitGleichenKnoten.get(i)).getWeight();
+//			double gewichtungVonKnotenIPlusEins = graph.getEdge(current, listeMitGleichenKnoten.get(i + 1)).getWeight();
+//			double minimumGewichtungZutargetKnoten = Math.min(gewichtungVonKnotenI , gewichtungVonKnotenIPlusEins);	
+//			double neuesMinimum = Math.min(minimumGewichtungZutargetKnoten, altesMinimum);
+//			
+//			if (minimumGewichtungZutargetKnoten < neuesMinimum) {
+//				knotenMitKleinsterGewichtung = listeMitGleichenKnoten.get(i);
+//			} else {
+//				knotenMitKleinsterGewichtung = listeMitGleichenKnoten.get(i + 1);
+//			}
+//		}
+		
+		
+		
 		for (String knoten : gleicheKnoten) {
 			if (!listeMitBesuchtenKnoten.contains(knoten)) {
 				zielknoten = knoten;
@@ -266,6 +306,24 @@ public class MST {
 		}
 
 		return knotenMitDirekterverbindung;
+	}
+	
+//	---------------------------------------------------------------------------------------------------------------------------------------
+	private boolean areThereOtherEdgesWhichAreInMST(Set<WeightedEdge> edgesOfCurrentVertex) {
+		Set<WeightedEdge> setMitEdgesVomCurrentVertexUndDesMST = new HashSet();
+		setMitEdgesVomCurrentVertexUndDesMST.addAll(edgesOfCurrentVertex);
+		setMitEdgesVomCurrentVertexUndDesMST.addAll(kantengewichtungenDesMinimalenSpannbaumes);
+		setMitEdgesVomCurrentVertexUndDesMST.retainAll(edgesOfCurrentVertex);
+		setMitEdgesVomCurrentVertexUndDesMST.retainAll(kantengewichtungenDesMinimalenSpannbaumes);
+		
+		boolean thereAreOtherEdges = false;
+		for (WeightedEdge weightedEdge : setMitEdgesVomCurrentVertexUndDesMST) {
+			if (!setMitEdgesVomCurrentVertexUndDesMST.isEmpty() && !listeMitBesuchtenKanten.contains(weightedEdge)) {
+				thereAreOtherEdges = true;
+			} 
+		}
+		
+		return thereAreOtherEdges;
 	}
 
 	// Code Uebernahme fuer den Minimalenspannbaum

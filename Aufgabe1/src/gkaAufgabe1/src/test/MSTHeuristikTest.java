@@ -88,7 +88,14 @@ public class MSTHeuristikTest {
 	public void testMSTHeuristik() {
 		Assert.assertEquals(130, MST.mstHeuristik(graph2, "v5"), 0.0001);
 		Assert.assertEquals(39, MST.mstHeuristik(graph3, "x"), 0.0001);
-		Assert.assertEquals(56, MST.mstHeuristik(graph3, "v"), 0.0001);		
+		// TODO diese beiden Tests sind noch falsch
+		Assert.assertEquals(42, MST.mstHeuristik(graph3, "v"), 0.0001);		
+		Assert.assertEquals(56, MST.mstHeuristik(graph3, "z"), 0.0001);	
+		
+		Assert.assertEquals(48, MST.mstHeuristik(graph3, "y"), 0.0001);
+		// TODO diese beiden Tests sind noch falsch
+		Assert.assertEquals(56, MST.mstHeuristik(graph3, "w"), 0.0001);		
+		
 		for (int i = 0; i < 19; i++) {
 			System.out.println("------------------------------------------------------------------");
 			System.out.println("TEST : " + MST.mstHeuristik(graph3, "x"));
