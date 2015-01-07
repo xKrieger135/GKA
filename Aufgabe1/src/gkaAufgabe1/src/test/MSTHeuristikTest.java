@@ -87,7 +87,13 @@ public class MSTHeuristikTest {
 	@Test
 	public void testMSTHeuristik() {
 		Assert.assertEquals(130, MST.mstHeuristik(graph2, "v5"), 0.0001);
-		Assert.assertEquals(52, MST.mstHeuristik(graph3, "v"), 0.0001);
+		Assert.assertEquals(39, MST.mstHeuristik(graph3, "x"), 0.0001);
+		Assert.assertEquals(56, MST.mstHeuristik(graph3, "v"), 0.0001);		
+		for (int i = 0; i < 19; i++) {
+			System.out.println("------------------------------------------------------------------");
+			System.out.println("TEST : " + MST.mstHeuristik(graph3, "x"));
+			System.out.println("------------------------------------------------------------------");
+		}
 	}
 
 	private void addEdge(Graph<String, WeightedEdge> graph, String s, String t, Double w) {

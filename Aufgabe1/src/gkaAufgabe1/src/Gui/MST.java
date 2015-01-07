@@ -48,6 +48,16 @@ public class MST {
 			listeMitKantenDesMSTVerdoppelt.add(neuerSet.iterator().next());
 			neuerSet.remove(neuerSet.iterator().next());
 		}
+		
+		//-------------------------------------------------------------------------------------------
+		// Fuer testzwecke mit dem doppelten Minimalen Spannbaum
+		double erg = 0;
+		for (int i = 0; i < listeMitKantenDesMSTVerdoppelt.size(); i++) {
+			erg = erg + listeMitKantenDesMSTVerdoppelt.get(i).getWeight();
+			System.out.println("Ergebnis vorher = " + erg);
+		}
+		System.out.println("-----------------------------------------Ergebnis--------------------------------------" + erg);
+		//-------------------------------------------------------------------------------------------
 
 		String current = startKnoten;
 		String vorgaenger = null;
