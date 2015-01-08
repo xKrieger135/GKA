@@ -278,25 +278,7 @@ public class MST {
 			}
 			
 			
-//		for (int i = 0; i < listeMitKnotenDieNochNichtBesuchtWurden.size() - 1; i++) {
-//			double gewichtungVonKnotenI = graph.getEdge(current, listeMitGleichenKnoten.get(i)).getWeight();
-//			double gewichtungVonKnotenIPlusEins = graph.getEdge(current, listeMitGleichenKnoten.get(i + 1)).getWeight();
-//			double minimumGewichtungZutargetKnoten = Math.min(gewichtungVonKnotenI , gewichtungVonKnotenIPlusEins);	
-//			
-//			if (1 == 1) {
-//				knotenMitKleinsterGewichtung = listeMitGleichenKnoten.get(i);
-//			} else {
-//				knotenMitKleinsterGewichtung = listeMitGleichenKnoten.get(i + 1);
-//			}
-//		}
-//		
-		
-		
-//		for (String knoten : gleicheKnoten) {
-//			if (!listeMitBesuchtenKnoten.contains(knoten)) {
-//				zielknoten = knoten;
-//			}
-//		}
+
 
 		return zielknoten;
 	}
