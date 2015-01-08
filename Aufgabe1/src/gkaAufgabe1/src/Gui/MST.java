@@ -250,43 +250,53 @@ public class MST {
 		// knoten vorhanden ist
 		
 		
-//		List<String> listeMitGleichenKnoten = new ArrayList<>();
-//		listeMitGleichenKnoten.addAll(gleicheKnoten);
-//
-//		// setze den neuen Knoten nur wenn er nicht in den bereits besuchten
-//		// knoten vorhanden ist
-//		
-//		// Neue Liste mit Knoten die noch nicht besucht wurden
-//		String knotenMitKleinsterGewichtung = null;
-//		List<String> listeMitKnotenDieNochNichtBesuchtWurden = new ArrayList<>();
-//		for (int i = 0; i < listeMitGleichenKnoten.size() - 1; i++) {
-//			if (!listeMitBesuchtenKnoten.contains(listeMitGleichenKnoten.get(i))) {
-//				listeMitKnotenDieNochNichtBesuchtWurden.add(listeMitGleichenKnoten.get(i));
-//				
-//			}
-//		}
-//		// Suche aus den nicht besuchten Knoten den mit der kleinsten entfernung heraus
-//			double altesMinimum = Double.POSITIVE_INFINITY; 
+		List<String> listeMitGleichenKnoten = new ArrayList<>();
+		listeMitGleichenKnoten.addAll(gleicheKnoten);
+
+		// setze den neuen Knoten nur wenn er nicht in den bereits besuchten
+		// knoten vorhanden ist
+		
+		// Neue Liste mit Knoten die noch nicht besucht wurden
+		List<String> listeMitKnotenDieNochNichtBesuchtWurden = new ArrayList<>();
+		for (int i = 0; i < listeMitGleichenKnoten.size(); i++) {
+			if (!listeMitBesuchtenKnoten.contains(listeMitGleichenKnoten.get(i))) {
+				listeMitKnotenDieNochNichtBesuchtWurden.add(listeMitGleichenKnoten.get(i));
+				
+			}
+		}
+		// Suche aus den nicht besuchten Knoten den mit der kleinsten entfernung heraus
+			if (!listeMitKnotenDieNochNichtBesuchtWurden.isEmpty()) {
+				String actualVertex = listeMitKnotenDieNochNichtBesuchtWurden.get(0);
+				
+				for (int i = 1; i < listeMitKnotenDieNochNichtBesuchtWurden.size(); i++) {
+					if (graph.getEdge(current, actualVertex).getWeight() > graph.getEdge(current, listeMitKnotenDieNochNichtBesuchtWurden.get(i)).getWeight()) {
+						actualVertex = listeMitKnotenDieNochNichtBesuchtWurden.get(i);
+						zielknoten = actualVertex;
+					} 
+				}
+				zielknoten = actualVertex;
+			}
+			
+			
 //		for (int i = 0; i < listeMitKnotenDieNochNichtBesuchtWurden.size() - 1; i++) {
 //			double gewichtungVonKnotenI = graph.getEdge(current, listeMitGleichenKnoten.get(i)).getWeight();
 //			double gewichtungVonKnotenIPlusEins = graph.getEdge(current, listeMitGleichenKnoten.get(i + 1)).getWeight();
 //			double minimumGewichtungZutargetKnoten = Math.min(gewichtungVonKnotenI , gewichtungVonKnotenIPlusEins);	
-//			double neuesMinimum = Math.min(minimumGewichtungZutargetKnoten, altesMinimum);
 //			
-//			if (minimumGewichtungZutargetKnoten < neuesMinimum) {
+//			if (1 == 1) {
 //				knotenMitKleinsterGewichtung = listeMitGleichenKnoten.get(i);
 //			} else {
 //				knotenMitKleinsterGewichtung = listeMitGleichenKnoten.get(i + 1);
 //			}
 //		}
+//		
 		
 		
-		
-		for (String knoten : gleicheKnoten) {
-			if (!listeMitBesuchtenKnoten.contains(knoten)) {
-				zielknoten = knoten;
-			}
-		}
+//		for (String knoten : gleicheKnoten) {
+//			if (!listeMitBesuchtenKnoten.contains(knoten)) {
+//				zielknoten = knoten;
+//			}
+//		}
 
 		return zielknoten;
 	}

@@ -90,17 +90,12 @@ public class MSTHeuristikTest {
 		Assert.assertEquals(39, MST.mstHeuristik(graph3, "x"), 0.0001);
 		// TODO diese beiden Tests sind noch falsch
 		Assert.assertEquals(42, MST.mstHeuristik(graph3, "v"), 0.0001);		
-		Assert.assertEquals(56, MST.mstHeuristik(graph3, "z"), 0.0001);	
+		Assert.assertEquals(39, MST.mstHeuristik(graph3, "z"), 0.0001);	
 		
-		Assert.assertEquals(48, MST.mstHeuristik(graph3, "y"), 0.0001);
+		Assert.assertEquals(42, MST.mstHeuristik(graph3, "y"), 0.0001);
 		// TODO diese beiden Tests sind noch falsch
-		Assert.assertEquals(56, MST.mstHeuristik(graph3, "w"), 0.0001);		
+		Assert.assertEquals(39, MST.mstHeuristik(graph3, "w"), 0.0001);		
 		
-		for (int i = 0; i < 19; i++) {
-			System.out.println("------------------------------------------------------------------");
-			System.out.println("TEST : " + MST.mstHeuristik(graph3, "x"));
-			System.out.println("------------------------------------------------------------------");
-		}
 	}
 
 	private void addEdge(Graph<String, WeightedEdge> graph, String s, String t, Double w) {

@@ -21,52 +21,8 @@ public class CreateBig {
 //	private String newVertex2 = "";
 	private List<String> vertexList = new ArrayList<>();
 
-	// public Graph<String, WeightedEdge> createBig() {
-	// // VertexFactory<String> vFactory = new ClassBasedVertexFactory<>(
-	// // String.class);
-	// for (int i = 0; i < 100; i++) {
-	//
-	// newVertex = "A" + i;
-	// newVertex2 = "A" + (i + 1);
-	// vertexList.add(newVertex);
-	// BIG.addVertex(newVertex);
-	// System.out.println(BIG.toString());
-	// }
-	//
-	// for (int i = 0; i < 99; i++) {
-	//
-	// BIG.addEdge(vertexList.get(i), vertexList.get(i + 1));
-	//
-	// System.out.println("BIGGEST BIG -------> " + BIG.toString());
-	// }
-	//
-	// for (int i = 0; i < 99; i++) {
-	//
-	// if (!(99 - 1 == i)) {
-	// BIG.addEdge(vertexList.get(i), vertexList.get(i + 2));
-	//
-	// }
-	//
-	// System.out.println("BIGGEST BIG -------> " + BIG.toString());
-	// }
-	//
-	// for (int i = 0; i < 99; i++) {
-	//
-	// // BIG.addEdge(vertexList.get(i), vertexList.get(i + 1));
-	// if (!(99 - 3 <= i)) {
-	// BIG.addEdge(vertexList.get(i), vertexList.get(i + 3));
-	//
-	// }
-	//
-	// System.out.println("BIGGEST BIG -------> " + BIG.toString());
-	// }
-	//
-	// return BIG;
-	// }
-
 	public Graph<String, WeightedEdge> createBig() {
 
-		double random3 = Math.random();
 
 		for (int i = 0; i < 99; i++) {
 			vertexList.add("" + i);

@@ -1,0 +1,10 @@
+eulerGraph.addVertex("v1");
+eulerGraph.addVertex("v2");
+eulerGraph.addVertex("v3");
+eulerGraph.addVertex("v4");
+addEdge(eulerGraph, "v1", "v2", 4.0);
+addEdge(eulerGraph, "v1", "v3", 2.0);
+addEdge(eulerGraph, "v1", "v4", 2.0);
+addEdge(eulerGraph, "v2", "v3", 10.0);
+addEdge(eulerGraph, "v2", "v4", 2.0);
+addEdge(eulerGraph, "v3", "v4", 10.0);
