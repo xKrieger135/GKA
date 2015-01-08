@@ -21,7 +21,7 @@ public class CreateEulerGraph {
 	public Graph<String, WeightedEdge> createEulerGraph() {
 		List<String> listeMitKnoten = new ArrayList<>();
 
-		for (int i = 1; i < 5; i++) {
+		for (int i = 1; i < 12; i++) {
 			listeMitKnoten.add("v" + i);
 			eulerscherGraph.addVertex("v" + i);
 		}
@@ -39,23 +39,56 @@ public class CreateEulerGraph {
 		listeMitAnzahlDerkanten = additionEinesWertes(listeMitKnoten.size());
 		List<String> zwischenListe = new ArrayList<>();
 		zwischenListe.addAll(listeMitKnoten);
+		
+		String vorgaenger = null;
 		for (String vertex : listeMitKnoten) {
+			
 			for (int i = 0; i < listeMitKnoten.size(); i++) {
 				// Addition der Knoten um die kanten des gesamten Graphen heraus
 				// zu bekommen
 				int randomWeight = listeMitAnzahlDerkanten.get(myRandom(0, listeMitAnzahlDerkanten.size() - 1));
 				WeightedEdge weightedEdge = new WeightedEdge();
 				weightedEdge.setWeight(randomWeight);
-
+				
 				if (!listeMitKnoten.get(i).equals(vertex) && !eulerscherGraph.containsEdge(vertex, listeMitKnoten.get(i))) {
 					eulerscherGraph.addEdge(vertex, listeMitKnoten.get(i), weightedEdge);
 				}
-
+				
 				if (i == zwischenListe.size()) {
 					zwischenListe.remove(vertex);
 					listeMitAnzahlDerkanten.remove(randomWeight);
 				}
+				
+				if (vorgaenger != null && !listeMitKnoten.get(i).equals(vertex)) {
+					Collection<String> neighbors = getNeighbors(eulerscherGraph, vorgaenger);	
+					WeightedEdge direkteEdgeZuNeuemknoten = eulerscherGraph.getEdge(vorgaenger, listeMitKnoten.get(i));
+					if (eulerscherGraph.containsEdge(direkteEdgeZuNeuemknoten)) {
+						WeightedEdge vorgaengerZuVertexEdge = eulerscherGraph.getEdge(vorgaenger, vertex);
+						WeightedEdge neuHinzugefuegteEdge = eulerscherGraph.getEdge(vertex, listeMitKnoten.get(i));
+						double ergebnisDerVerbindungUeberZweiKnoten = vorgaengerZuVertexEdge.getWeight() + neuHinzugefuegteEdge.getWeight();
+//						if (ergebnisDerVerbindungUeberZweiKnoten < direkteEdgeZuNeuemknoten.getWeight()) {
+							// Hier wird die Gewichtung gerade gezogen
+							while (ergebnisDerVerbindungUeberZweiKnoten < direkteEdgeZuNeuemknoten.getWeight()) {
+								WeightedEdge neueEdge1 = new WeightedEdge();
+								neueEdge1.setWeight(neuHinzugefuegteEdge.getWeight() + 1);
+								eulerscherGraph.removeEdge(vertex, listeMitKnoten.get(i));
+								eulerscherGraph.addEdge(vertex, listeMitKnoten.get(i), neueEdge1);
+								
+								WeightedEdge neueEdge2 = new WeightedEdge();
+								neueEdge1.setWeight(vorgaengerZuVertexEdge.getWeight() + 1);
+								eulerscherGraph.removeEdge(vertex, vorgaenger);
+								eulerscherGraph.addEdge(vertex, vorgaenger, neueEdge2);
+								ergebnisDerVerbindungUeberZweiKnoten = ergebnisDerVerbindungUeberZweiKnoten + 2;
+								
+								
+							}
+//						}
+					}
+				}
+				
+
 			}
+			vorgaenger = vertex;
 		}
 
 		return eulerscherGraph;
@@ -93,7 +126,8 @@ public class CreateEulerGraph {
 
 		try {
 			pWriter = new PrintWriter(new BufferedWriter(new FileWriter(
-					"C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/Beispielgraphen/Neue_Graphen/graphEuler.gka")));
+//					"C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/Beispielgraphen/Neue_Graphen/graphEuler.gka")));
+		            "C:/Users/Paddy-Gaming/HAW/Semester3/GKA/graphEuler.gka")));
 			// writer = new BufferedWriter(new FileWriter("graphx.gka"));
 			String pfeil;
 			if (graph instanceof DirectedWeightedPseudograph) {
@@ -131,7 +165,8 @@ public class CreateEulerGraph {
 
 		try {
 			pWriter = new PrintWriter(new BufferedWriter(new FileWriter(
-					"C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/Beispielgraphen/Neue_Graphen/unitTestGeneration.txt")));
+//					"C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/Beispielgraphen/Neue_Graphen/unitTestGeneration.txt")));
+		"C:/Users/Paddy-Gaming/HAW/Semester3/GKA/unitTestGeneration.txt")));
 
 			for (String vertex : neuerEulerGraph.vertexSet()) {
 				pWriter.println("eulerGraph.addVertex" + "(\"" + vertex + "\");");
