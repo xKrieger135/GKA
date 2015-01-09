@@ -1,6 +1,7 @@
 package JD;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class NearestNeighbor {
 				// minTour = Math.min(minTour, getTour(Elem));
 			}
 		}
+		System.out.println(Arrays.toString(foundTour));
 		return minTour;
 	}
 
