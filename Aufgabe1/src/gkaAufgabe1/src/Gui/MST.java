@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class MST {
 	public double mstHeuristik(Graph<String, WeightedEdge> graph,
 			String startKnoten) {
 		// vllt als queue um eine reihenfolge herauszubekommen
-		 List<String> listeMitBesuchtenKnoten = new ArrayList<>();
+		List<String> listeMitBesuchtenKnoten = new ArrayList<>();
 		Queue<String> queueMitBesuchtenKnoten = new LinkedList<>();
 		List<WeightedEdge> listeMitKantenDesMSTVerdoppelt = new ArrayList<>();
 		double ergebnis = 0;
@@ -69,9 +70,20 @@ public class MST {
 			eineKanteWurdeUeberquert = false;
 
 			Set<WeightedEdge> edgesOf = eulerGraph.edgesOf(current);
+			Set<WeightedEdge> neuesEdgesof = new HashSet<>();
+			neuesEdgesof.addAll(edgesOf);
 			// Fuer spaetere abfrage um sicherzugehen, dass erst die Kanten des MST durchlaufen werden
-			boolean thereAreOtherEdges = areThereOtherEdgesWhichAreInMST(edgesOf, startKnoten);
-			for (WeightedEdge edge : edgesOf) {
+			Iterator<WeightedEdge> edgesOfIterator = neuesEdgesof.iterator();
+//			for (WeightedEdge edge : edgesOf) {
+				while (edgesOfIterator.hasNext()) {
+					WeightedEdge edge = (WeightedEdge) edgesOfIterator.next();
+//					boolean thereAreOtherEdges = areThereOtherEdgesWhichAreInMST(edgesOf, startKnoten);
+					boolean thereAreOtherEdges = areThereOtherEdgesWhichAreInMST(neuesEdgesof, startKnoten);
+					edgesOfIterator.remove();
+				
+				
+				
+//				boolean thereAreOtherEdges = areThereOtherEdgesWhichAreInMST(edgesOf, startKnoten);
 				String source = edge.getSource();
 				System.out.println("Source = " + source);
 				String target = edge.getTarget();
@@ -146,7 +158,7 @@ public class MST {
 					break;
 				}
 
-			}
+			}// FOR END
 		}
 		
 		queueMitBesuchtenKnoten.add(current);
