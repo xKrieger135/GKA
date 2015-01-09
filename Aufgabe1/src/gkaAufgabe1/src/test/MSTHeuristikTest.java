@@ -1,19 +1,12 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import org.jgrapht.Graph;
-import org.jgrapht.alg.interfaces.MinimumSpanningTree;
-import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.jgrapht.graph.Pseudograph;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import Gui.Dijkstra;
-import Gui.FordFulk;
 import Gui.MST;
-import Gui.MinimalSpannningTree;
 import Gui.WeightedEdge;
 
 public class MSTHeuristikTest {
