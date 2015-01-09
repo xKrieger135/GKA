@@ -22,7 +22,7 @@ public class CreateEulerGraph {
 	public Graph<String, WeightedEdge> createEulerGraph() {
 		List<String> listeMitKnoten = new ArrayList<>();
 
-		for (int i = 1; i < 50; i++) {
+		for (int i = 1; i < 9; i++) {
 			listeMitKnoten.add("v" + i);
 			eulerscherGraph.addVertex("v" + i);
 		}

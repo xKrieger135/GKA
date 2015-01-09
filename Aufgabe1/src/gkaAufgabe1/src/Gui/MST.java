@@ -30,7 +30,7 @@ public class MST {
 		// vllt als queue um eine reihenfolge herauszubekommen
 		List<String> listeMitBesuchtenKnoten = new ArrayList<>();
 		Queue<String> queueMitBesuchtenKnoten = new LinkedList<>();
-		List<WeightedEdge> listeMitKantenDesMSTVerdoppelt = new ArrayList<>();
+//		List<WeightedEdge> listeMitKantenDesMSTVerdoppelt = new ArrayList<>();
 		double ergebnis = 0;
 
 		// set minimal spanning tree and duplicate all edges of this minimal
@@ -44,21 +44,21 @@ public class MST {
 		Set<WeightedEdge> neuerSet = new HashSet<>();
 		neuerSet.addAll(kantengewichtungenDesMinimalenSpannbaumes);
 
-		while (!(listeMitKantenDesMSTVerdoppelt.size() == kantengewichtungenDesMinimalenSpannbaumes.size() * 2)) {
-			listeMitKantenDesMSTVerdoppelt.add(neuerSet.iterator().next());
-			listeMitKantenDesMSTVerdoppelt.add(neuerSet.iterator().next());
-			neuerSet.remove(neuerSet.iterator().next());
-		}
-		
-		//-------------------------------------------------------------------------------------------
-		// Fuer testzwecke mit dem doppelten Minimalen Spannbaum
-		double erg = 0;
-		for (int i = 0; i < listeMitKantenDesMSTVerdoppelt.size(); i++) {
-			erg = erg + listeMitKantenDesMSTVerdoppelt.get(i).getWeight();
-			System.out.println("Ergebnis vorher = " + erg);
-		}
-		System.out.println("-----------------------------------------Ergebnis--------------------------------------" + erg);
-		//-------------------------------------------------------------------------------------------
+//		while (!(listeMitKantenDesMSTVerdoppelt.size() == kantengewichtungenDesMinimalenSpannbaumes.size() * 2)) {
+//			listeMitKantenDesMSTVerdoppelt.add(neuerSet.iterator().next());
+//			listeMitKantenDesMSTVerdoppelt.add(neuerSet.iterator().next());
+//			neuerSet.remove(neuerSet.iterator().next());
+//		}
+//		
+//		//-------------------------------------------------------------------------------------------
+//		// Fuer testzwecke mit dem doppelten Minimalen Spannbaum
+//		double erg = 0;
+//		for (int i = 0; i < listeMitKantenDesMSTVerdoppelt.size(); i++) {
+//			erg = erg + listeMitKantenDesMSTVerdoppelt.get(i).getWeight();
+//			System.out.println("Ergebnis vorher = " + erg);
+//		}
+//		System.out.println("-----------------------------------------Ergebnis--------------------------------------" + erg);
+//		//-------------------------------------------------------------------------------------------
 
 		String current = startKnoten;
 		String vorgaenger = null;

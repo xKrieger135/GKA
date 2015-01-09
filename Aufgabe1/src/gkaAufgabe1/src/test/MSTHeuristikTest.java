@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Gui.MST;
+import Gui.RecursiveMST;
 import Gui.WeightedEdge;
 
 public class MSTHeuristikTest {
@@ -14,8 +15,10 @@ public class MSTHeuristikTest {
 //	Graph<String, WeightedEdge> graph2 = new   DirectedWeightedPseudograph<>(WeightedEdge.class);
 	Graph<String, WeightedEdge> graph2 = new Pseudograph<>(WeightedEdge.class);
 	Graph<String, WeightedEdge> graph3 = new Pseudograph<>(WeightedEdge.class);
+	Graph<String, WeightedEdge> eulerGraph = new Pseudograph<>(WeightedEdge.class);
 //	MinimalSpannningTree MST = new MinimalSpannningTree();
 	MST MST = new MST();
+	RecursiveMST rmst = new RecursiveMST();
 	
 	
 
@@ -60,6 +63,45 @@ public class MSTHeuristikTest {
 		addEdge(graph2, "v3", "v4", 40d);
 		addEdge(graph2, "v3", "v5", 23d);
 		addEdge(graph2, "v4", "v6", 13d);
+		
+		eulerGraph.addVertex("v1");
+		eulerGraph.addVertex("v2");
+		eulerGraph.addVertex("v3");
+		eulerGraph.addVertex("v4");
+		eulerGraph.addVertex("v5");
+		eulerGraph.addVertex("v6");
+		eulerGraph.addVertex("v7");
+		eulerGraph.addVertex("v8");
+		addEdge(eulerGraph, "v1", "v8", 34.0);
+		addEdge(eulerGraph, "v2", "v3", 16.0);
+		addEdge(eulerGraph, "v2", "v4", 22.0);
+		addEdge(eulerGraph, "v2", "v8", 35.0);
+		addEdge(eulerGraph, "v3", "v4", 30.0);
+		addEdge(eulerGraph, "v3", "v6", 31.0);
+		addEdge(eulerGraph, "v3", "v8", 30.0);
+		addEdge(eulerGraph, "v4", "v8", 36.0);
+		addEdge(eulerGraph, "v5", "v7", 36.0);
+		addEdge(eulerGraph, "v6", "v7", 28.0);
+		addEdge(eulerGraph, "v1", "v5", 32.0);
+		addEdge(eulerGraph, "v1", "v4", 25.0);
+		addEdge(eulerGraph, "v4", "v7", 25.0);
+		addEdge(eulerGraph, "v6", "v1", 26.0);
+		addEdge(eulerGraph, "v6", "v2", 23.0);
+		addEdge(eulerGraph, "v2", "v1", 11.0);
+		addEdge(eulerGraph, "v5", "v8", 19.0);
+		addEdge(eulerGraph, "v5", "v4", 18.0);
+		addEdge(eulerGraph, "v6", "v8", 12.0);
+		addEdge(eulerGraph, "v6", "v4", 25.0);
+		addEdge(eulerGraph, "v2", "v5", 22.0);
+		addEdge(eulerGraph, "v2", "v7", 10.0);
+		addEdge(eulerGraph, "v3", "v1", 11.0);
+		addEdge(eulerGraph, "v3", "v7", 19.0);
+		addEdge(eulerGraph, "v5", "v3", 16.0);
+		addEdge(eulerGraph, "v5", "v6", 13.0);
+		addEdge(eulerGraph, "v7", "v8", 25.0);
+		addEdge(eulerGraph, "v7", "v1", 10.0);
+
+
 
 	}
 
@@ -79,8 +121,12 @@ public class MSTHeuristikTest {
 	
 	@Test
 	public void testMSTHeuristik() {
-		Assert.assertEquals(130, MST.mstHeuristik(graph2, "v5"), 0.0001);
+//		Assert.assertEquals(127, rmst.recursiveMST(eulerGraph, "v5"), 0.0001);
+		Assert.assertEquals(126, MST.mstHeuristik(eulerGraph, "v5"), 0.0001);
+//		Assert.assertEquals(127, rmst.recursiveMST(graph2, "v5"), 0.0001);
+//		Assert.assertEquals(130, MST.mstHeuristik(graph2, "v5"), 0.0001);
 //		Assert.assertEquals(39, MST.mstHeuristik(graph3, "x"), 0.0001);
+//		Assert.assertEquals(39, rmst.recursiveMST(graph3, "x"), 0.0001);
 //		// TODO diese beiden Tests sind noch falsch
 //		Assert.assertEquals(39, MST.mstHeuristik(graph3, "v"), 0.0001);		
 //		Assert.assertEquals(45, MST.mstHeuristik(graph3, "z"), 0.0001);	
