@@ -27,46 +27,50 @@ public class GenerierterUnitTestFuerEulerGraphen {
 		eulerGraph.addVertex("v6");
 		eulerGraph.addVertex("v7");
 		eulerGraph.addVertex("v8");
-		addEdge(eulerGraph, "v1", "v2", 31.0);
-		addEdge(eulerGraph, "v1", "v4", 30.0);
-		addEdge(eulerGraph, "v1", "v5", 18.0);
-		addEdge(eulerGraph, "v1", "v6", 18.0);
-		addEdge(eulerGraph, "v1", "v7", 22.0);
-		addEdge(eulerGraph, "v1", "v8", 7.0);
-		addEdge(eulerGraph, "v2", "v4", 27.0);
-		addEdge(eulerGraph, "v2", "v5", 13.0);
-		addEdge(eulerGraph, "v2", "v6", 24.0);
-		addEdge(eulerGraph, "v2", "v7", 20.0);
-		addEdge(eulerGraph, "v2", "v8", 5.0);
-		addEdge(eulerGraph, "v3", "v4", 33.0);
-		addEdge(eulerGraph, "v3", "v5", 22.0);
-		addEdge(eulerGraph, "v3", "v6", 23.0);
-		addEdge(eulerGraph, "v3", "v7", 18.0);
-		addEdge(eulerGraph, "v3", "v8", 4.0);
-		addEdge(eulerGraph, "v4", "v6", 35.0);
-		addEdge(eulerGraph, "v4", "v7", 36.0);
+		eulerGraph.addVertex("v9");
+		addEdge(eulerGraph, "v1", "v2", 39.0);
+		addEdge(eulerGraph, "v1", "v6", 45.0);
+		addEdge(eulerGraph, "v1", "v7", 36.0);
+		addEdge(eulerGraph, "v2", "v3", 40.0);
+		addEdge(eulerGraph, "v2", "v5", 39.0);
+		addEdge(eulerGraph, "v2", "v7", 42.0);
+		addEdge(eulerGraph, "v3", "v5", 34.0);
+		addEdge(eulerGraph, "v3", "v9", 33.0);
+		addEdge(eulerGraph, "v4", "v5", 34.0);
 		addEdge(eulerGraph, "v4", "v8", 19.0);
-		addEdge(eulerGraph, "v5", "v6", 23.0);
-		addEdge(eulerGraph, "v5", "v8", 24.0);
-		addEdge(eulerGraph, "v6", "v7", 19.0);
-		addEdge(eulerGraph, "v6", "v8", 10.0);
-		addEdge(eulerGraph, "v7", "v8", 19.0);
-		addEdge(eulerGraph, "v3", "v1", 11.0);
-		addEdge(eulerGraph, "v3", "v2", 17.0);
-		addEdge(eulerGraph, "v5", "v7", 9.0);
-		addEdge(eulerGraph, "v5", "v4", 22.0);
-
-
-
-
-
-		
+		addEdge(eulerGraph, "v5", "v7", 29.0);
+		addEdge(eulerGraph, "v5", "v8", 25.0);
+		addEdge(eulerGraph, "v5", "v9", 29.0);
+		addEdge(eulerGraph, "v6", "v9", 33.0);
+		addEdge(eulerGraph, "v4", "v1", 33.0);
+		addEdge(eulerGraph, "v6", "v2", 32.0);
+		addEdge(eulerGraph, "v7", "v6", 19.0);
+		addEdge(eulerGraph, "v7", "v3", 21.0);
+		addEdge(eulerGraph, "v8", "v3", 18.0);
+		addEdge(eulerGraph, "v4", "v6", 15.0);
+		addEdge(eulerGraph, "v5", "v6", 27.0);
+		addEdge(eulerGraph, "v5", "v1", 18.0);
+		addEdge(eulerGraph, "v8", "v9", 22.0);
+		addEdge(eulerGraph, "v4", "v9", 19.0);
+		addEdge(eulerGraph, "v3", "v6", 11.0);
+		addEdge(eulerGraph, "v3", "v1", 25.0);
+		addEdge(eulerGraph, "v4", "v7", 18.0);
+		addEdge(eulerGraph, "v4", "v2", 22.0);
+		addEdge(eulerGraph, "v4", "v3", 16.0);
+		addEdge(eulerGraph, "v8", "v6", 12.0);
+		addEdge(eulerGraph, "v8", "v1", 26.0);
+		addEdge(eulerGraph, "v8", "v2", 24.0);
+		addEdge(eulerGraph, "v8", "v7", 17.0);
+		addEdge(eulerGraph, "v9", "v1", 23.0);
+		addEdge(eulerGraph, "v9", "v2", 17.0);
+		addEdge(eulerGraph, "v9", "v7", 18.0);
 	}
 	
 	@Test
 	public void testMSTHeuristik() {
-		Assert.assertEquals(21, MST.mstHeuristik(eulerGraph, "v4"), 0.0001);
-		Assert.assertEquals(21, MST.mstHeuristik(eulerGraph, "v2"), 0.0001);
+		Assert.assertEquals(32, MST.mstHeuristik(eulerGraph, "v7"), 0.0001);
+		Assert.assertEquals(32, MST.mstHeuristik(eulerGraph, "v2"), 0.0001);
+		Assert.assertEquals(32, MST.mstHeuristik(eulerGraph, "v6"), 0.0001);
 	
 		
 	}

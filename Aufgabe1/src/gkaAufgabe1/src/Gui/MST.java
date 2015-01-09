@@ -70,7 +70,7 @@ public class MST {
 
 			Set<WeightedEdge> edgesOf = eulerGraph.edgesOf(current);
 			// Fuer spaetere abfrage um sicherzugehen, dass erst die Kanten des MST durchlaufen werden
-			boolean thereAreOtherEdges = areThereOtherEdgesWhichAreInMST(edgesOf);
+			boolean thereAreOtherEdges = areThereOtherEdgesWhichAreInMST(edgesOf, startKnoten);
 			for (WeightedEdge edge : edgesOf) {
 				String source = edge.getSource();
 				System.out.println("Source = " + source);
@@ -112,7 +112,8 @@ public class MST {
 				// wurde zu den vorgaenger und current können
 				// dreiecksbeziehung hier
 				String habenGleichenTargetKnotenDerNochNichtBesuchtWurde = habenGleicheTargetKnotenDerNochNichtBesuchtWurde(eulerGraph, current, vorgaenger,listeMitBesuchtenKnoten);
-				if (habenGleichenTargetKnotenDerNochNichtBesuchtWurde != null && (!listeMitBesuchtenKnoten.contains(target) || !listeMitBesuchtenKnoten.contains(source)) && thereAreOtherEdges == false) {
+//				if (habenGleichenTargetKnotenDerNochNichtBesuchtWurde != null && (!listeMitBesuchtenKnoten.contains(target) || !listeMitBesuchtenKnoten.contains(source)) && thereAreOtherEdges == false) {
+					if (habenGleichenTargetKnotenDerNochNichtBesuchtWurde != null && thereAreOtherEdges == false) {
 
 					vorgaenger = current;
 					current = habenGleichenTargetKnotenDerNochNichtBesuchtWurde;
@@ -217,13 +218,6 @@ public class MST {
 		return graph;
 	}
 
-	// hier wird der neue Currentvertex herausgeholt und es wird vermieden
-	// zweimal den gleichen knoten zu besuchen
-	private String benutzeAndereKanteWennVertexSchonBesuchtWurde(Graph<String, WeightedEdge> graph, String current,	String vorgaenger, List<String> listeMitBesuchtenKnoten) {
-		String zielknoten = habenGleicheTargetKnotenDerNochNichtBesuchtWurde(graph, current, vorgaenger, listeMitBesuchtenKnoten);
-		return zielknoten;
-	}
-
 	// Soll einen Knoten zurueckgeben, der von den beiden betroffenen Knoten
 	// erreicht werden kann.
 	// Dreiecksbeziehung ueber den spannbaum --> nicht besuchter knoten
@@ -301,7 +295,7 @@ public class MST {
 	}
 	
 //	---------------------------------------------------------------------------------------------------------------------------------------
-	private boolean areThereOtherEdgesWhichAreInMST(Set<WeightedEdge> edgesOfCurrentVertex) {
+	private boolean areThereOtherEdgesWhichAreInMST(Set<WeightedEdge> edgesOfCurrentVertex, String startKnoten) {
 		Set<WeightedEdge> setMitEdgesVomCurrentVertexUndDesMST = new HashSet();
 		setMitEdgesVomCurrentVertexUndDesMST.addAll(edgesOfCurrentVertex);
 		setMitEdgesVomCurrentVertexUndDesMST.addAll(kantengewichtungenDesMinimalenSpannbaumes);
@@ -313,6 +307,12 @@ public class MST {
 			if (!setMitEdgesVomCurrentVertexUndDesMST.isEmpty() && !listeMitBesuchtenKanten.contains(weightedEdge)) {
 				thereAreOtherEdges = true;
 			} 
+			// den fall abfragen, falls der weg existiert, aber wirklich nur ein weg da ist und dieser zum start führt und noch nicht
+			// alle knoten besucht wurden 
+			WeightedEdge edgeZumStart = weightedEdge;
+			if (setMitEdgesVomCurrentVertexUndDesMST.size() == 1 && (edgeZumStart.getSource().equals(startKnoten) || edgeZumStart.getTarget().equals(startKnoten))) {
+				thereAreOtherEdges = false;
+			}
 		}
 		
 		return thereAreOtherEdges;

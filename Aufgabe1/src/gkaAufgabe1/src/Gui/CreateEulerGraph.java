@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class CreateEulerGraph {
 	public Graph<String, WeightedEdge> createEulerGraph() {
 		List<String> listeMitKnoten = new ArrayList<>();
 
-		for (int i = 1; i < 9; i++) {
+		for (int i = 1; i < 10; i++) {
 			listeMitKnoten.add("v" + i);
 			eulerscherGraph.addVertex("v" + i);
 		}
@@ -93,8 +94,52 @@ public class CreateEulerGraph {
 			}
 			vorgaenger = vertex;
 		}
+		Graph<String, WeightedEdge> neuerEulerGraph = ueberpruefeGraphAufDreiecksBeziehung(eulerscherGraph);
 
-		return eulerscherGraph;
+//		return eulerscherGraph;
+		return neuerEulerGraph;
+	}
+	
+	private Graph<String, WeightedEdge> ueberpruefeGraphAufDreiecksBeziehung(Graph<String, WeightedEdge> eulerGraph) {
+		
+		for (String currentVertex : eulerGraph.vertexSet()) {
+			Set<String> listeMitVertexen = eulerGraph.vertexSet();
+			//Dieses Set erstellen, weil das vorige unmodifiable ist und alle vertexe uebertragen
+			Set<String> listeOhneCurrent = new HashSet<>();
+			listeOhneCurrent.addAll(listeMitVertexen);
+			listeOhneCurrent.remove(currentVertex);
+			Iterator<String> listeOhneCurrentIterator = listeOhneCurrent.iterator();
+		while (listeOhneCurrentIterator.hasNext()) {
+			String zielVertex = listeOhneCurrentIterator.next();
+			
+			listeOhneCurrentIterator.remove();
+			for (String vorgaengerVertex : listeOhneCurrent) {
+				double gewichtVonCurrentZuZiel       = eulerGraph.getEdge(currentVertex, zielVertex).getWeight();
+				double gewichtVonCurrentZuVorgaenger = eulerGraph.getEdge(currentVertex, vorgaengerVertex).getWeight();
+				double gewichtVonVorgaengerZuZiel    = eulerGraph.getEdge(vorgaengerVertex, zielVertex).getWeight();
+				
+				double wegUeberVorgaengerNachCurrentZuZiel = gewichtVonCurrentZuVorgaenger + gewichtVonCurrentZuZiel;
+				while (wegUeberVorgaengerNachCurrentZuZiel < gewichtVonVorgaengerZuZiel) {
+					WeightedEdge neueEdge1 = new WeightedEdge();
+					neueEdge1.setWeight(gewichtVonCurrentZuVorgaenger + 1);
+					eulerGraph.removeEdge(currentVertex, vorgaengerVertex);
+					eulerGraph.addEdge(currentVertex, vorgaengerVertex, neueEdge1);
+					System.out.println("Neueedge 1 = " + neueEdge1.getWeight());
+					
+					WeightedEdge neueEdge2 = new WeightedEdge();
+					neueEdge2.setWeight(gewichtVonCurrentZuZiel + 1);
+					eulerGraph.removeEdge(currentVertex, zielVertex);
+					eulerGraph.addEdge(currentVertex, zielVertex, neueEdge2);
+					System.out.println("NeueEdge 2 = " + neueEdge2.getWeight());
+					wegUeberVorgaengerNachCurrentZuZiel += 2;
+				}
+			}
+		}
+//			for (String zielVertex : listeOhneCurrent) {
+//			}
+		}
+		
+		return eulerGraph;
 	}
 
 
@@ -120,8 +165,8 @@ public class CreateEulerGraph {
 
 		try {
 			pWriter = new PrintWriter(new BufferedWriter(new FileWriter(
-//					"C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/Beispielgraphen/Neue_Graphen/graphEuler.gka")));
-		            "C:/Users/Paddy-Gaming/HAW/Semester3/GKA/graphEuler.gka")));
+					"C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/Beispielgraphen/Neue_Graphen/graphEuler.gka")));
+//		            "C:/Users/Paddy-Gaming/HAW/Semester3/GKA/graphEuler.gka")));
 			// writer = new BufferedWriter(new FileWriter("graphx.gka"));
 			String pfeil;
 			if (graph instanceof DirectedWeightedPseudograph) {
@@ -159,8 +204,8 @@ public class CreateEulerGraph {
 
 		try {
 			pWriter = new PrintWriter(new BufferedWriter(new FileWriter(
-//					"C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/Beispielgraphen/Neue_Graphen/unitTestGeneration.txt")));
-		"C:/Users/Paddy-Gaming/HAW/Semester3/GKA/unitTestGeneration.txt")));
+					"C:/Users/patrick_steinhauer/HAW/Semester3/GKA/Praktikum/Aufgabe 1/GKA/Aufgabe1/Beispielgraphen/Neue_Graphen/unitTestGeneration.txt")));
+//		"C:/Users/Paddy-Gaming/HAW/Semester3/GKA/unitTestGeneration.txt")));
 
 			for (String vertex : neuerEulerGraph.vertexSet()) {
 				pWriter.println("eulerGraph.addVertex" + "(\"" + vertex + "\");");
@@ -216,5 +261,7 @@ public class CreateEulerGraph {
 			return new ArrayList<String>();
 		}
 	}
+	
+	
 
 }
