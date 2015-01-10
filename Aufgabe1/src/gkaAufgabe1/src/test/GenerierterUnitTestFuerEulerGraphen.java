@@ -1266,7 +1266,7 @@ public class GenerierterUnitTestFuerEulerGraphen {
 //		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v30") < MST.minimalSpanningTree(eulerGraph) * 2);
 //		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v20") < MST.minimalSpanningTree(eulerGraph) * 2);
 //		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v29") < MST.minimalSpanningTree(eulerGraph) * 2);
-		Assert.assertEquals(9669.0, rmst.recursiveMST(eulerGraph, "v2"), 0.00001);
+		Assert.assertEquals(9669.0, rmst.recursiveMST(eulerGraph, "v32"), 0.00001);
 		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v2")  < rmst.minimalSpanningTree(eulerGraph) * 2);
 		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v39") < rmst.minimalSpanningTree(eulerGraph) * 2);
 		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v19") < rmst.minimalSpanningTree(eulerGraph) * 2);

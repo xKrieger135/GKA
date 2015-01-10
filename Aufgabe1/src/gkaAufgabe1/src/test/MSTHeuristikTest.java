@@ -72,34 +72,35 @@ public class MSTHeuristikTest {
 		eulerGraph.addVertex("v6");
 		eulerGraph.addVertex("v7");
 		eulerGraph.addVertex("v8");
-		addEdge(eulerGraph, "v1", "v8", 34.0);
-		addEdge(eulerGraph, "v2", "v3", 16.0);
-		addEdge(eulerGraph, "v2", "v4", 22.0);
-		addEdge(eulerGraph, "v2", "v8", 35.0);
-		addEdge(eulerGraph, "v3", "v4", 30.0);
-		addEdge(eulerGraph, "v3", "v6", 31.0);
-		addEdge(eulerGraph, "v3", "v8", 30.0);
-		addEdge(eulerGraph, "v4", "v8", 36.0);
-		addEdge(eulerGraph, "v5", "v7", 36.0);
-		addEdge(eulerGraph, "v6", "v7", 28.0);
-		addEdge(eulerGraph, "v1", "v5", 32.0);
-		addEdge(eulerGraph, "v1", "v4", 25.0);
-		addEdge(eulerGraph, "v4", "v7", 25.0);
-		addEdge(eulerGraph, "v6", "v1", 26.0);
-		addEdge(eulerGraph, "v6", "v2", 23.0);
-		addEdge(eulerGraph, "v2", "v1", 11.0);
-		addEdge(eulerGraph, "v5", "v8", 19.0);
-		addEdge(eulerGraph, "v5", "v4", 18.0);
-		addEdge(eulerGraph, "v6", "v8", 12.0);
-		addEdge(eulerGraph, "v6", "v4", 25.0);
-		addEdge(eulerGraph, "v2", "v5", 22.0);
-		addEdge(eulerGraph, "v2", "v7", 10.0);
-		addEdge(eulerGraph, "v3", "v1", 11.0);
+		addEdge(eulerGraph, "v1", "v5", 24.0);
+		addEdge(eulerGraph, "v1", "v7", 31.0);
+		addEdge(eulerGraph, "v1", "v8", 22.0);
+		addEdge(eulerGraph, "v3", "v4", 32.0);
 		addEdge(eulerGraph, "v3", "v7", 19.0);
-		addEdge(eulerGraph, "v5", "v3", 16.0);
-		addEdge(eulerGraph, "v5", "v6", 13.0);
-		addEdge(eulerGraph, "v7", "v8", 25.0);
-		addEdge(eulerGraph, "v7", "v1", 10.0);
+		addEdge(eulerGraph, "v3", "v8", 26.0);
+		addEdge(eulerGraph, "v4", "v6", 34.0);
+		addEdge(eulerGraph, "v5", "v7", 20.0);
+		addEdge(eulerGraph, "v5", "v8", 20.0);
+		addEdge(eulerGraph, "v7", "v6", 16.0);
+		addEdge(eulerGraph, "v7", "v8", 16.0);
+		addEdge(eulerGraph, "v2", "v6", 21.0);
+		addEdge(eulerGraph, "v4", "v7", 22.0);
+		addEdge(eulerGraph, "v5", "v2", 13.0);
+		addEdge(eulerGraph, "v6", "v3", 21.0);
+		addEdge(eulerGraph, "v2", "v7", 10.0);
+		addEdge(eulerGraph, "v2", "v1", 22.0);
+		addEdge(eulerGraph, "v1", "v3", 21.0);
+		addEdge(eulerGraph, "v1", "v4", 12.0);
+		addEdge(eulerGraph, "v1", "v6", 22.0);
+		addEdge(eulerGraph, "v2", "v8", 11.0);
+		addEdge(eulerGraph, "v2", "v4", 17.0);
+		addEdge(eulerGraph, "v2", "v3", 13.0);
+		addEdge(eulerGraph, "v5", "v6", 15.0);
+		addEdge(eulerGraph, "v5", "v4", 18.0);
+		addEdge(eulerGraph, "v5", "v3", 13.0);
+		addEdge(eulerGraph, "v8", "v4", 16.0);
+		addEdge(eulerGraph, "v8", "v6", 11.0);
+
 
 
 
@@ -122,8 +123,8 @@ public class MSTHeuristikTest {
 	@Test
 	public void testMSTHeuristik() {
 //		Assert.assertEquals(127, rmst.recursiveMST(eulerGraph, "v5"), 0.0001);
-		Assert.assertEquals(126, MST.mstHeuristik(eulerGraph, "v5"), 0.0001);
-//		Assert.assertEquals(127, rmst.recursiveMST(graph2, "v5"), 0.0001);
+//		Assert.assertEquals(126, MST.mstHeuristik(eulerGraph, "v6"), 0.0001);
+		Assert.assertEquals(127, rmst.recursiveMST(graph2, "v5"), 0.0001);
 //		Assert.assertEquals(130, MST.mstHeuristik(graph2, "v5"), 0.0001);
 //		Assert.assertEquals(39, MST.mstHeuristik(graph3, "x"), 0.0001);
 //		Assert.assertEquals(39, rmst.recursiveMST(graph3, "x"), 0.0001);

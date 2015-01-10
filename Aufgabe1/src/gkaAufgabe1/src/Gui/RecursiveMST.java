@@ -47,15 +47,17 @@ public class RecursiveMST {
 					listeMitBesuchtenKnoten.add(startKnoten);
 					queueMitBesuchtenKnoten.add(startKnoten);
 				}
-				// queueMitBesuchtenKnoten.add(startKnoten);
 
-				// List<WeightedEdge> listeMitKantenDesKnoten = new
-				// ArrayList<>();
-				// listeMitKantenDesKnoten.addAll(setMitKantenDesKnoten);
-
-				for (String knoten : getNeighbors(eulerGraph, startKnoten)) {
+// ----------------------------------------------------------------Variante mit vertexes ------------------------------------------------------------
+//				Set<WeightedEdge> edgesOf = graph.edgesOf(startKnoten);
+//				List<Double> listeMitKantenGewichten = new ArrayList<Double>();
+//				for (WeightedEdge edge : edgesOf) {
+//					listeMitKantenGewichten.add(edge.getWeight());
+//				}
+//				double minEdge = Collections.min(listeMitKantenGewichten);
+				
+				for (String knoten : getNeighbors(graph, startKnoten)) {
 					boolean istDieAktuelleKantengewichtungImSpannbaumEnthalten = kantengewichtungenDesMinimalenSpannbaumes.contains(graph.getEdge(startKnoten, knoten));
-					Set<WeightedEdge> alleEdgesVomKnoten = graph.edgesOf(knoten);
 					if (!listeMitBesuchtenKnoten.contains(knoten) && istDieAktuelleKantengewichtungImSpannbaumEnthalten
 							&& !listeMitBesuchtenKanten.contains(graph.getEdge(startKnoten, knoten))) {
 
@@ -68,7 +70,6 @@ public class RecursiveMST {
 					} else if (!listeMitBesuchtenKnoten.contains(knoten) && counter != 0) {
 						listeMitBesuchtenKnoten.add(knoten);
 						queueMitBesuchtenKnoten.add(knoten);
-						// listeMitBesuchtenKnoten.add(knoten);
 						listeMitBesuchtenKanten.add(graph.getEdge(startKnoten, knoten));
 						counter++;
 						recursiveMST(graph, knoten);
@@ -79,6 +80,7 @@ public class RecursiveMST {
 
 					}
 				}
+// --------------------------------------------------------------------------------------------------------------------------------------------------				
 
 			}
 		}
@@ -242,7 +244,6 @@ public class RecursiveMST {
 				} else {
 					result.add(edge.getSource());
 					result.add(edge.getTarget());
-
 				}
 			}
 			result.remove(node);
