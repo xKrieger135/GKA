@@ -20,7 +20,7 @@ import JD.NearestNeighbor;
 public class NKAtest {
 
 //	Graph<String, WeightedEdge> graph2 = new   DirectedWeightedPseudograph<>(WeightedEdge.class);
-	Graph<String, WeightedEdge> graph2 = new Pseudograph<>(WeightedEdge.class);
+	Graph<String, WeightedEdge> eulerGraph = new Pseudograph<>(WeightedEdge.class);
 	NearestNeighbor MST = new NearestNeighbor();
 
 	@Before
@@ -50,27 +50,47 @@ public class NKAtest {
 //	}
 	public void createGraph() {
 
-		graph2.addVertex("v");
-		graph2.addVertex("w");
-		graph2.addVertex("x");
-		graph2.addVertex("y");
-		graph2.addVertex("z");
-
-		addEdge(graph2, "v", "w", 6d);
-		addEdge(graph2, "v", "x", 15d);
-		addEdge(graph2, "v", "y", 9d);
-		addEdge(graph2, "v", "z", 12d);
-		addEdge(graph2, "w", "x", 11d);
-		addEdge(graph2, "w", "y", 8d);
-		addEdge(graph2, "w", "z", 8d);
-		addEdge(graph2, "x", "y", 12d);
-		addEdge(graph2, "x", "z", 4d);
-		addEdge(graph2, "y", "z", 15d);
+		 eulerGraph.addVertex("v1");
+		  eulerGraph.addVertex("v2");
+		  eulerGraph.addVertex("v3");
+		  eulerGraph.addVertex("v4");
+		  eulerGraph.addVertex("v5");
+		  eulerGraph.addVertex("v6");
+		  eulerGraph.addVertex("v7");
+		  eulerGraph.addVertex("v8");
+		  addEdge(eulerGraph, "v1", "v2", 31.0);
+		  addEdge(eulerGraph, "v1", "v4", 30.0);
+		  addEdge(eulerGraph, "v1", "v5", 18.0);
+		  addEdge(eulerGraph, "v1", "v6", 18.0);
+		  addEdge(eulerGraph, "v1", "v7", 22.0);
+		  addEdge(eulerGraph, "v1", "v8", 7.0);
+		  addEdge(eulerGraph, "v2", "v4", 27.0);
+		  addEdge(eulerGraph, "v2", "v5", 13.0);
+		  addEdge(eulerGraph, "v2", "v6", 24.0);
+		  addEdge(eulerGraph, "v2", "v7", 20.0);
+		  addEdge(eulerGraph, "v2", "v8", 5.0);
+		  addEdge(eulerGraph, "v3", "v4", 33.0);
+		  addEdge(eulerGraph, "v3", "v5", 22.0);
+		  addEdge(eulerGraph, "v3", "v6", 23.0);
+		  addEdge(eulerGraph, "v3", "v7", 18.0);
+		  addEdge(eulerGraph, "v3", "v8", 4.0);
+		  addEdge(eulerGraph, "v4", "v6", 35.0);
+		  addEdge(eulerGraph, "v4", "v7", 36.0);
+		  addEdge(eulerGraph, "v4", "v8", 19.0);
+		  addEdge(eulerGraph, "v5", "v6", 23.0);
+		  addEdge(eulerGraph, "v5", "v8", 24.0);
+		  addEdge(eulerGraph, "v6", "v7", 19.0);
+		  addEdge(eulerGraph, "v6", "v8", 10.0);
+		  addEdge(eulerGraph, "v7", "v8", 19.0);
+		  addEdge(eulerGraph, "v3", "v1", 11.0);
+		  addEdge(eulerGraph, "v3", "v2", 17.0);
+		  addEdge(eulerGraph, "v5", "v7", 9.0);
+		  addEdge(eulerGraph, "v5", "v4", 22.0);
 
 	}
 	@Test
 	public void testMinimalSpanningTree() {
-		System.out.println(""+MST.NearestNeighbor(graph2));
+		System.out.println(""+MST.NearestNeighbor(eulerGraph));
 		//Assert.assertEquals(76.0, MST.NearestNeighbor(graph2), 54d);
 	}
 	
