@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class CreateEulerGraph {
 	public Graph<String, WeightedEdge> createEulerGraph() {
 		List<String> listeMitKnoten = new ArrayList<>();
 
-		for (int i = 1; i < 12; i++) {
+		for (int i = 1; i < 9; i++) {
 			listeMitKnoten.add("v" + i);
 			eulerscherGraph.addVertex("v" + i);
 		}
@@ -47,6 +48,7 @@ public class CreateEulerGraph {
 				// Addition der Knoten um die kanten des gesamten Graphen heraus
 				// zu bekommen
 				int randomWeight = listeMitAnzahlDerkanten.get(myRandom(0, listeMitAnzahlDerkanten.size() - 1));
+				System.out.println("RandomWeight = " + randomWeight);
 				WeightedEdge weightedEdge = new WeightedEdge();
 				weightedEdge.setWeight(randomWeight);
 				
@@ -73,12 +75,14 @@ public class CreateEulerGraph {
 								neueEdge1.setWeight(neuHinzugefuegteEdge.getWeight() + 1);
 								eulerscherGraph.removeEdge(vertex, listeMitKnoten.get(i));
 								eulerscherGraph.addEdge(vertex, listeMitKnoten.get(i), neueEdge1);
+								System.out.println("Neueedge 1 = " + neueEdge1.getWeight());
 								
 								WeightedEdge neueEdge2 = new WeightedEdge();
-								neueEdge1.setWeight(vorgaengerZuVertexEdge.getWeight() + 1);
+								neueEdge2.setWeight(vorgaengerZuVertexEdge.getWeight() + 1);
 								eulerscherGraph.removeEdge(vertex, vorgaenger);
 								eulerscherGraph.addEdge(vertex, vorgaenger, neueEdge2);
 								ergebnisDerVerbindungUeberZweiKnoten = ergebnisDerVerbindungUeberZweiKnoten + 2;
+								System.out.println("NeueEdge 2 = " + neueEdge2.getWeight());
 								
 								
 							}
@@ -90,19 +94,54 @@ public class CreateEulerGraph {
 			}
 			vorgaenger = vertex;
 		}
+		Graph<String, WeightedEdge> neuerEulerGraph = ueberpruefeGraphAufDreiecksBeziehung(eulerscherGraph);
 
-		return eulerscherGraph;
+//		return eulerscherGraph;
+		return neuerEulerGraph;
 	}
-// TODO Versuchen die dreiecksbeziehung hinzubekommen
-	private Graph<String, WeightedEdge> dreiecksBeziehungEinhalten(Graph<String, WeightedEdge> eulerscherGraph) {
-		Set<String> knoten = eulerscherGraph.vertexSet();
-		for (String vertex : knoten) {
-			Collection<String> neighbors = getNeighbors(eulerscherGraph, vertex);
-
+	
+	private Graph<String, WeightedEdge> ueberpruefeGraphAufDreiecksBeziehung(Graph<String, WeightedEdge> eulerGraph) {
+		
+		for (String currentVertex : eulerGraph.vertexSet()) {
+			Set<String> listeMitVertexen = eulerGraph.vertexSet();
+			//Dieses Set erstellen, weil das vorige unmodifiable ist und alle vertexe uebertragen
+			Set<String> listeOhneCurrent = new HashSet<>();
+			listeOhneCurrent.addAll(listeMitVertexen);
+			listeOhneCurrent.remove(currentVertex);
+			Iterator<String> listeOhneCurrentIterator = listeOhneCurrent.iterator();
+		while (listeOhneCurrentIterator.hasNext()) {
+			String zielVertex = listeOhneCurrentIterator.next();
+			
+			listeOhneCurrentIterator.remove();
+			for (String vorgaengerVertex : listeOhneCurrent) {
+				double gewichtVonCurrentZuZiel       = eulerGraph.getEdge(currentVertex, zielVertex).getWeight();
+				double gewichtVonCurrentZuVorgaenger = eulerGraph.getEdge(currentVertex, vorgaengerVertex).getWeight();
+				double gewichtVonVorgaengerZuZiel    = eulerGraph.getEdge(vorgaengerVertex, zielVertex).getWeight();
+				
+				double wegUeberVorgaengerNachCurrentZuZiel = gewichtVonCurrentZuVorgaenger + gewichtVonCurrentZuZiel;
+				while (wegUeberVorgaengerNachCurrentZuZiel < gewichtVonVorgaengerZuZiel) {
+					WeightedEdge neueEdge1 = new WeightedEdge();
+					neueEdge1.setWeight(gewichtVonCurrentZuVorgaenger + 1);
+					eulerGraph.removeEdge(currentVertex, vorgaengerVertex);
+					eulerGraph.addEdge(currentVertex, vorgaengerVertex, neueEdge1);
+					System.out.println("Neueedge 1 = " + neueEdge1.getWeight());
+					
+					WeightedEdge neueEdge2 = new WeightedEdge();
+					neueEdge2.setWeight(gewichtVonCurrentZuZiel + 1);
+					eulerGraph.removeEdge(currentVertex, zielVertex);
+					eulerGraph.addEdge(currentVertex, zielVertex, neueEdge2);
+					System.out.println("NeueEdge 2 = " + neueEdge2.getWeight());
+					wegUeberVorgaengerNachCurrentZuZiel += 2;
+				}
+			}
+		}
+//			for (String zielVertex : listeOhneCurrent) {
+//			}
 		}
 		
-		return eulerscherGraph;
+		return eulerGraph;
 	}
+
 
 	public int myRandom(int low, int high) {
 		return (int) (Math.random() * (high - low) + low);
@@ -222,5 +261,7 @@ public class CreateEulerGraph {
 			return new ArrayList<String>();
 		}
 	}
+	
+	
 
 }

@@ -1,119 +1,108 @@
 package Gui;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import org.jgrapht.Graph;
 import org.jgrapht.alg.util.UnionFind;
+import org.jgrapht.graph.DirectedWeightedPseudograph;
 
-public class MinimalSpannningTree {
+public class RecursiveMST {
 	Map<String, Map<String, Double>> minimalSpanningTree = new HashMap<String, Map<String, Double>>();
 	Set<WeightedEdge> kantengewichtungenDesMinimalenSpannbaumes;
+//	List<WeightedEdge> listeMitBesuchtenKanten = new ArrayList<>();
+//	List<String> listeMitBesuchtenKnoten = new ArrayList<>();
+//	Queue<String> queueMitBesuchtenKnoten = new LinkedList<>();
+	List<WeightedEdge> listeMitBesuchtenKanten = new ArrayList<>();
+	List<String> listeMitBesuchtenKnoten = new ArrayList<>();
+	Queue<String> queueMitBesuchtenKnoten = new LinkedList<>();
+	private int counter = 0;		
+	private double ergebnis = 0;
+	private boolean initialize = false;
 
-	public double mstHeuristik(Graph<String, WeightedEdge> graph, String startKnoten) {
-		List<String> listeMitBesuchtenKnotenFuerTour = new ArrayList<>();
-		List<WeightedEdge> listeMitBesuchtenKantenFuerTour = new ArrayList<>();
-		List<WeightedEdge> listeMitAllenKantenDesMinimalenSpannbaumesVerdoppelt = new ArrayList<>();
+	public double recursiveMST(Graph<String, WeightedEdge> graph, String startKnoten) {
 
-		// set minimal spanning tree and duplicate all edges of this minimal
-		// spanning tree
 		minimalSpanningTree(graph);
-		Graph<String, WeightedEdge> neuerGraph = duplicateEdgesForEulerTour(graph);
+		Graph<String, WeightedEdge> eulerGraph = duplicateEdgesForEulerTour(graph);
 
-		// Here starts initialization
-		// create new set, because we don't want to change elements in
-		// kantengewichtungenDesMinimalenSpannbaumes
-		Set<WeightedEdge> neuerSet = new HashSet<>();
-		neuerSet.addAll(kantengewichtungenDesMinimalenSpannbaumes);
+		Set<WeightedEdge> setMitKantenDesKnoten = eulerGraph.edgesOf(startKnoten);
+		if (setMitKantenDesKnoten.isEmpty()) {
+			System.out.println("Keine Möglichkeit weiter zu kommen.");
+		} else {
 
-		while (!(listeMitAllenKantenDesMinimalenSpannbaumesVerdoppelt.size() == kantengewichtungenDesMinimalenSpannbaumes.size() * 2)) {
-			listeMitAllenKantenDesMinimalenSpannbaumesVerdoppelt.add(neuerSet.iterator().next());
-			listeMitAllenKantenDesMinimalenSpannbaumesVerdoppelt.add(neuerSet.iterator().next());
-			neuerSet.remove(neuerSet.iterator().next());
-		}
+			// while (listeMitBesuchtenKnoten.size() !=
+			// eulerGraph.vertexSet().size()) {
+			if (listeMitBesuchtenKnoten.size() != eulerGraph.vertexSet().size() + 1) {
+				if (!listeMitBesuchtenKnoten.contains(startKnoten)) {
 
-		String currentVertex = startKnoten;
-		String vorgaenger = "";
-		while (!(listeMitBesuchtenKantenFuerTour.size() == kantengewichtungenDesMinimalenSpannbaumes.size() * 2)) {
+					listeMitBesuchtenKnoten.add(startKnoten);
+					queueMitBesuchtenKnoten.add(startKnoten);
+				}
 
-
-			boolean einWegWurdeGenutzt = false;
-			for (WeightedEdge edge : neuerGraph.edgesOf(currentVertex)) {
-				System.out.println("Edges OF CurrentVertex  " + currentVertex  + " : " + neuerGraph.edgesOf(currentVertex));
-				// Man startet bei einem Knoten und möchte eine tour gehen
-				// hierbei wird dann abgefragt ob die kante denn auch in dem
-				// minimalen spannbaum enthalten war
-				// denn so kann erst einmal sichergestellt werden dass die tour
-				// über die verdopplung der kanten
-				// vollbracht wird und es eine rundreise gibt.
-
-
-				// Edge should be into the minimal spanning tree and target
-				// vertex can't be the vorgaenger
-				if (listeMitAllenKantenDesMinimalenSpannbaumesVerdoppelt.contains(edge) && !(edge.getTarget().equals(vorgaenger)) && !(edge.getSource().equals(vorgaenger))
-						&& einWegWurdeGenutzt == false) {
-					// TODO Abfrage vllt so gestalten, dass wenn der knoten noch
-					// einen nachfolger hat soll man noch
-					// nicht zurueck zu dem vorgaengerknoten gehen
-
-					// Vorgaenger bestimmen, um sicherzugehen, dass man nicht
-					// direkt zu dem vorgaengerknoten geht.
-					vorgaenger = currentVertex;
-					// damit der algorithmus weiter seine tour sucht den current
-					// auf den target vertex setzen.
-					currentVertex = edge.getTarget();
-
-					// gefundene Kante in eine Liste tun fuer das ergebnis
-					// spaeter bzw zum aendern wegen der
-					// dreiecksgleichung -> vielleicht noch irgendwie ordnen, so
-					// dass man kontrollieren
-					// kann, wie der weg passiert wurde
-					listeMitBesuchtenKantenFuerTour.add(edge);
-
-					// set this boolean to safe, that only 1 way will be passed
-					einWegWurdeGenutzt = true;
-					// remove edge from listofmultiplyvertices
-					listeMitAllenKantenDesMinimalenSpannbaumesVerdoppelt.remove(edge);
-				} 
-					
-					// TODO Weitere if abfrage, die den fall abfaengt, wenn vom
-					// Knoten keine kanten zu dem
-					// Minimalen spannbaum gehoeren ( Sackgasse ) dann muss mann
-					// zurueck zum vorgaenger!
-					Set<WeightedEdge> setUmAufSackgasseZuPruefen = neuerGraph.edgesOf(currentVertex);
-					List<WeightedEdge> listeMitZuPruefendenKnoten = new ArrayList<>();
-					for (WeightedEdge weightedEdge : setUmAufSackgasseZuPruefen) {
-						if(kantengewichtungenDesMinimalenSpannbaumes.contains(weightedEdge)) {
-							listeMitZuPruefendenKnoten.add(weightedEdge);
-						}
-					}
-
-					if (listeMitZuPruefendenKnoten.size() == 1 && currentVertex != startKnoten) {
-						listeMitBesuchtenKantenFuerTour.add(edge);
-						
-						// set this boolean to safe, that only 1 way will be passed
-						einWegWurdeGenutzt = true;
-						// remove edge from listofmultiplyvertices
-						listeMitAllenKantenDesMinimalenSpannbaumesVerdoppelt.remove(edge);
-						// Tauschen der beiden knoten weil wir in einer sackgasse waren
-						currentVertex = vorgaenger;
-						vorgaenger = "";
-					}
+// ----------------------------------------------------------------Variante mit vertexes ------------------------------------------------------------
+//				Set<WeightedEdge> edgesOf = graph.edgesOf(startKnoten);
+//				List<Double> listeMitKantenGewichten = new ArrayList<Double>();
+//				for (WeightedEdge edge : edgesOf) {
+//					listeMitKantenGewichten.add(edge.getWeight());
+//				}
+//				double minEdge = Collections.min(listeMitKantenGewichten);
 				
+				for (String knoten : getNeighbors(graph, startKnoten)) {
+					boolean istDieAktuelleKantengewichtungImSpannbaumEnthalten = kantengewichtungenDesMinimalenSpannbaumes.contains(graph.getEdge(startKnoten, knoten));
+					if (!listeMitBesuchtenKnoten.contains(knoten) && istDieAktuelleKantengewichtungImSpannbaumEnthalten
+							&& !listeMitBesuchtenKanten.contains(graph.getEdge(startKnoten, knoten))) {
+
+						listeMitBesuchtenKnoten.add(knoten);
+						queueMitBesuchtenKnoten.add(knoten);
+						listeMitBesuchtenKanten.add(graph.getEdge(startKnoten, knoten));
+						counter++;
+						recursiveMST(graph, knoten);
+
+					} else if (!listeMitBesuchtenKnoten.contains(knoten) && counter != 0) {
+						listeMitBesuchtenKnoten.add(knoten);
+						queueMitBesuchtenKnoten.add(knoten);
+						listeMitBesuchtenKanten.add(graph.getEdge(startKnoten, knoten));
+						counter++;
+						recursiveMST(graph, knoten);
+					} else if (listeMitBesuchtenKnoten.size() == graph.vertexSet().size()) {
+						startKnoten = queueMitBesuchtenKnoten.peek();
+					} else {
+						System.out.println("Else soll nichts tun!");
+
+					}
+				}
+// --------------------------------------------------------------------------------------------------------------------------------------------------				
 
 			}
 		}
 
-		return 0;
+		queueMitBesuchtenKnoten.add(startKnoten);
+		System.out.println("Wie viele Elemente sind hier drin ? " + queueMitBesuchtenKnoten.size());
+
+		if (queueMitBesuchtenKnoten.size() == eulerGraph.vertexSet().size() + 1) {
+
+			for (int i = 0; i < eulerGraph.vertexSet().size(); i++) {
+
+				String a = queueMitBesuchtenKnoten.poll();
+				System.out.println("a = " + a);
+				String b = queueMitBesuchtenKnoten.peek();
+				System.out.println("b = " + b);
+				ergebnis = ergebnis + graph.getEdge(a, b).getWeight();
+			}
+		}
+
+		return ergebnis;
 	}
 
-	// Berechnung des minimalen Spannbaumes
 	public double minimalSpanningTree(Graph<String, WeightedEdge> graph) {
 		// Berechnet den minimalen Spannbaum eines Graphen G = (V, E)
 		KruskalMinimumSpanningTree<String, WeightedEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<String, WeightedEdge>(graph);
@@ -158,11 +147,12 @@ public class MinimalSpannningTree {
 	// Schritt um die Kanten des minimalen Spannbaumes zu verdoppeln
 	public Graph<String, WeightedEdge> duplicateEdgesForEulerTour(Graph<String, WeightedEdge> graph) {
 		for (WeightedEdge edge : kantengewichtungenDesMinimalenSpannbaumes) {
-			// graph.addEdge(edge.getSource(), edge.getTarget(), edge);
 			graph.addEdge(edge.getSource(), edge.getTarget()).setWeight(edge.getWeight());
 		}
 		return graph;
 	}
+
+	// ------------------------------------------------------------------------------------------------------------------------------------------
 
 	// Code Uebernahme fuer den Minimalenspannbaum
 	// https://code.google.com/p/osgified/source/browse/org.osgified.org.jgrapht/src/main/java/org/jgrapht/alg/KruskalMinimumSpanningTree.java?r=8de44c01acf0bd50a3fa4b1cb882024a4354ec08
@@ -232,6 +222,39 @@ public class MinimalSpannningTree {
 		}
 	}
 
-	// End KruskalMinimumSpanningTree.java
+	public static class MarkedVertex {
+		public String current;
+		public double gewicht;
+		public String vorgaenger;
+
+		@Override
+		public String toString() {
+			return "MarkedVertex [name=" + current + ", gewicht=" + gewicht + ", vorgaenger=" + vorgaenger + "]";
+		}
+
+	}
+
+	private Collection<String> getNeighbors(Graph<String, WeightedEdge> graph, String node) {
+		try {
+			Set<WeightedEdge> edgesOf = graph.edgesOf(node);
+			Set<String> result = new HashSet<>();
+			for (WeightedEdge edge : edgesOf) {
+				if (graph instanceof DirectedWeightedPseudograph<?, ?>) {
+					result.add(edge.getTarget());
+				} else {
+					result.add(edge.getSource());
+					result.add(edge.getTarget());
+				}
+			}
+			result.remove(node);
+			return result;
+		} catch (Exception e) {
+			return new ArrayList<String>();
+		}
+	}
+
+	public int myRandom(int low, int high) {
+		return (int) (Math.random() * (high - low) + low);
+	}
 
 }
