@@ -28,7 +28,6 @@ public class NearestNeighbor {
 				new String[graph.vertexSet().size() + 1]);
 		Liste[Liste.length - 1] = Liste[0];
 		ArrayList<String[]> PermuteList = permutations(Liste);
-		System.out.println("Hi");
 		double minTour = Double.POSITIVE_INFINITY;
 		for (String[] Elem : PermuteList) {
 			if (isPossible(Elem)) {

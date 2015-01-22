@@ -1,6 +1,9 @@
 package test;
 
+import static org.junit.Assert.*;
+
 import org.jgrapht.Graph;
+import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.jgrapht.graph.Pseudograph;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,9 +13,10 @@ import JD.NearestNeighbor;
 
 public class NKAtest {
 
-//	Graph<String, WeightedEdge> graph2 = new   DirectedWeightedPseudograph<>(WeightedEdge.class);
+	Graph<String, WeightedEdge> graph2 = new   DirectedWeightedPseudograph<>(WeightedEdge.class);
 	Graph<String, WeightedEdge> eulerGraph = new Pseudograph<>(WeightedEdge.class);
-	NearestNeighbor MST = new NearestNeighbor();
+	NearestNeighbor nka = new NearestNeighbor();
+//	NKA MST = new NKA();
 
 	@Before
 //	public void createGraph2() {
@@ -81,23 +85,12 @@ public class NKAtest {
 	}
 	@Test
 	public void testMinimalSpanningTree() {
-		System.out.println(""+MST.NearestNeighbor(eulerGraph));
-		//Assert.assertEquals(76.0, MST.NearestNeighbor(graph2), 54d);
+//		System.out.println(""+MST.NearestNeighbor(eulerGraph));
+//		System.out.println(""+MST.NKA(eulerGraph, "v4"));
+		assertEquals(115D, nka.NearestNeighbor(eulerGraph), 0.0001d);
+
 	}
-	
-//	@Test
-//	public void testDuplicatedEdgesForMinimalSpanningTree() {
-//		//MST.minimalSpanningTree(graph2);
-////		MST.duplicateEdgesForEulerTour(graph2);
-//		Assert.assertEquals(4, MST.duplicateEdgesForEulerTour(graph2).edgesOf("v4").size());
-//		System.out.println("Aktueller Graph2 : " + graph2);
-//	}
-	
-//	@Test
-//	public void testMSTHeuristik() {
-//		Assert.assertEquals(1, MST.mstHeuristik(graph2, "v0"), 0.0001);
-//	}
-//
+
 	private void addEdge(Graph<String, WeightedEdge> grph, String s, String t, Double w) {
 		WeightedEdge e = new WeightedEdge();
 		e.setWeight(w);

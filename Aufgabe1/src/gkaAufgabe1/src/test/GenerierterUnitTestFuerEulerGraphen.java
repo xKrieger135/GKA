@@ -1252,28 +1252,28 @@ public class GenerierterUnitTestFuerEulerGraphen {
 	
 	@Test
 	public void testMSTHeuristik() {
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v1") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v18") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v4") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v5") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v7") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v8") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v9") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v11") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v12") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v13") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v14") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v30") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v20") < MST.minimalSpanningTree(eulerGraph) * 2);
-//		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v29") < MST.minimalSpanningTree(eulerGraph) * 2);
-		Assert.assertEquals(9669.0, rmst.recursiveMST(eulerGraph, "v32"), 0.00001);
-		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v2")  < rmst.minimalSpanningTree(eulerGraph) * 2);
-		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v39") < rmst.minimalSpanningTree(eulerGraph) * 2);
-		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v19") < rmst.minimalSpanningTree(eulerGraph) * 2);
-		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v9")  < rmst.minimalSpanningTree(eulerGraph) * 2);
-		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v1")  < rmst.minimalSpanningTree(eulerGraph) * 2);
-		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v3")  < rmst.minimalSpanningTree(eulerGraph) * 2);
-		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v6")  < rmst.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v1") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v18") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v4") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v5") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v7") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v8") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v9") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v11") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v12") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v13") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v14") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v30") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v20") < MST.minimalSpanningTree(eulerGraph) * 2);
+		Assert.assertTrue(MST.mstHeuristik(eulerGraph, "v29") < MST.minimalSpanningTree(eulerGraph) * 2);
+//		Assert.assertEquals(9669.0, rmst.recursiveMST(eulerGraph, "v32"), 0.00001);
+//		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v2")  < rmst.minimalSpanningTree(eulerGraph) * 2);
+//		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v39") < rmst.minimalSpanningTree(eulerGraph) * 2);
+//		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v19") < rmst.minimalSpanningTree(eulerGraph) * 2);
+//		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v9")  < rmst.minimalSpanningTree(eulerGraph) * 2);
+//		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v1")  < rmst.minimalSpanningTree(eulerGraph) * 2);
+//		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v3")  < rmst.minimalSpanningTree(eulerGraph) * 2);
+//		Assert.assertTrue(rmst.recursiveMST(eulerGraph, "v6")  < rmst.minimalSpanningTree(eulerGraph) * 2);
 	}
 	
 	private void addEdge(Graph<String, WeightedEdge> graph, String s, String t, Double w) {
